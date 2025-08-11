@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const GOALS  = ["Fat Loss", "Lean Mass", "Recomp", "Endurance"];
+const GOALS  = ["Fat Loss", "Lean Mass", "Mass Gain"];
 const LEVELS = ["Beginner", "Intermediate", "Advanced"];
 const DAYS   = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
