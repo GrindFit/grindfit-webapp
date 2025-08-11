@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[radial-gradient(1200px_600px_at_70%_-10%,rgba(255,115,0,0.35),transparent),linear-gradient(180deg,#0b0b0b, #0b0b0b)] text-white">
+    <div className="min-h-screen hero-section text-white">
       <nav className="max-w-6xl mx-auto p-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img src="/assets/logo.png" className="w-9 h-9 rounded-md ring-1 ring-white/10" />
