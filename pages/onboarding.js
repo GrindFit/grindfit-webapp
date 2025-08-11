@@ -1,161 +1,225 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
-const GOALS  = ["Fat Loss", "Lean Mass", "Mass Gain"];
-const LEVELS = ["Beginner", "Intermediate", "Advanced"];
-const DAYS   = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+/** small helpers */
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri"];
 
-// Build a simple 30-day plan based on chosen training days
-function buildThirtyDayPlan(profile) {
-  const start = new Date();
-  const plan = [];
+/** build a simple, clean training week */
+function buildWeek({ goal, level, gender, days }) {
+  const baseCue =
+    "Warm-up (5–7m): breath + mobility. Use controlled tempo. Log the top set. Cooldown (5m).";
+  const liftsByGoal = {
+    "Fat Loss": [
+      { name: "Full-Body Circuit A", notes: "EMOM 10–12m + incline walk 10m" },
+      { name: "Upper Push / Pull", notes: "Supersets 3×8–12 + finish 8m cardio" },
+      { name: "Lower Strength", notes: "Goblet/Front squats focus, 3×6–8" },
+      { name: "Full-Body Circuit B", notes: "12–15m mixed carries / swings" },
+      { name: "Upper Volume", notes: "machines/dumbbells 3×12–15" },
+    ],
+    "Lean Mass": [
+      { name: "Upper — Press focus", notes: "Top set + back-off, 3×6–8" },
+      { name: "Lower — Hinge focus", notes: "RDL / hip hinge, 3×6–8" },
+      { name: "Upper — Pull focus", notes: "Row + pull progressions, 3×8–10" },
+      { name: "Lower — Squat focus", notes: "Front / back variations, 3×5–8" },
+      { name: "Full-Body Hypertrophy", notes: "machines/dumbbells 3×10–14" },
+    ],
+    "Mass Gain": [
+      { name: "Push — Heavy", notes: "Press + accessories, 4×5–8" },
+      { name: "Pull — Heavy", notes: "Row / Pulldown + accessories, 4×5–8" },
+      { name: "Legs — Heavy", notes: "Squat pattern + posterior, 4×5–8" },
+      { name: "Push — Volume", notes: "3×10–12 + isolation finishers" },
+      { name: "Pull/Legs — Volume", notes: "3×10–12 mixed hypertrophy" },
+    ],
+  };
 
-  for (let i = 0; i < 30; i++) {
-    const d = new Date(start);
-    d.setDate(d.getDate() + i);
+  const chosen = liftsByGoal[goal] ?? liftsByGoal["Lean Mass"];
 
-    // convert JS day (0=Sun..6=Sat) to our DAYS array (Mon..Sun)
-    const jsDay = d.getDay();                     // 0..6 (Sun..Sat)
-    const dayName = DAYS[(jsDay + 6) % 7];        // Mon-first
-    const isTraining = profile.days.includes(dayName);
-
-    plan.push({
-      date: d.toISOString().slice(0, 10),
-      workout: isTraining
-        ? {
-            name: `${profile.goal} • ${profile.level}`,
-            blocks:
-              profile.level === "Advanced"
-                ? 5
-                : profile.level === "Intermediate"
-                ? 4
-                : 3,
-            day: dayName,
-          }
-        : null,
-      meals: [],
-      notes: "",
-      complete: false,
-    });
-  }
+  // shape to save
+  const plan = days.map((d, i) => ({
+    day: d,
+    title: chosen[i % chosen.length].name,
+    cues: [
+      baseCue,
+      `Level: ${level}`,
+      `Gender track: ${gender}`,
+      chosen[i % chosen.length].notes,
+    ],
+    complete: false,
+  }));
 
   return plan;
 }
 
 export default function Onboarding() {
-  const [name,  setName]  = useState("");
-  const [goal,  setGoal]  = useState("");
-  const [level, setLevel] = useState("");
-  const [days,  setDays]  = useState([]);
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [goal, setGoal] = useState("Lean Mass");
+  const [level, setLevel] = useState("Beginner");
+  const [gender, setGender] = useState("Male");
+  const [selectedDays, setSelectedDays] = useState(DAYS); // Mon–Fri default
 
-  const toggleDay = (d) =>
-    setDays((prev) => (prev.includes(d) ? prev.filter((x) => x !== d) : [...prev, d]));
+  const canGenerate =
+    name.trim().length > 0 &&
+    goal &&
+    level &&
+    gender &&
+    selectedDays.length > 0;
 
-  const disabled = !name || !goal || !level || days.length === 0;
+  const toggleDay = (d) => {
+    setSelectedDays((prev) =>
+      prev.includes(d) ? prev.filter((x) => x !== d) : [...prev, d]
+    );
+  };
+
+  const orderedDays = useMemo(
+    () => DAYS.filter((d) => selectedDays.includes(d)),
+    [selectedDays]
+  );
+
+  const handleGenerate = () => {
+    if (!canGenerate) return;
+    const profile = {
+      name: name.trim(),
+      goal,
+      level,
+      gender,
+      days: orderedDays,
+      createdAt: new Date().toISOString(),
+    };
+
+    const plan = buildWeek(profile);
+
+    // save locally for the /app page
+    localStorage.setItem("grindfit_profile", JSON.stringify(profile));
+    localStorage.setItem("grindfit_plan", JSON.stringify(plan));
+
+    router.push("/app");
+  };
+
+  // if user already has plan, skip onboarding
+  useEffect(() => {
+    const p = localStorage.getItem("grindfit_plan");
+    if (p) router.replace("/app");
+  }, [router]);
 
   return (
-    <main className="min-h-screen text-white
-      bg-[radial-gradient(1200px_600px_at_0%_0%,#281a17_0%,transparent_40%),linear-gradient(180deg,#0b0b0b,#0b0b0b)]">
-      <div className="max-w-5xl mx-auto px-6 py-16">
-        <h1 className="text-2xl font-semibold mb-8">Let’s build your plan</h1>
+    <>
+      <Head>
+        <title>Onboarding — GrindFit</title>
+      </Head>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Left column */}
-          <div className="space-y-6">
-            <label className="block">
-              <div className="mb-2 text-sm opacity-80">Your Name</div>
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="e.g., Alex"
-                className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-4 py-3 outline-none"
-              />
-            </label>
+      <header className="container" style={{ paddingTop: 20 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <span className="logo"><span className="logo-mark" /><span className="logo-type">GRINDFIT</span></span>
+          <a href="/" className="btn btn-ghost">Back</a>
+        </div>
+      </header>
 
-            <label className="block">
-              <div className="mb-2 text-sm opacity-80">Goal</div>
-              <select
-                className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-4 py-3 outline-none"
-                value={goal}
-                onChange={(e) => setGoal(e.target.value)}
-              >
-                <option value="">Select...</option>
-                {GOALS.map((g) => (
-                  <option key={g} value={g}>
-                    {g}
-                  </option>
-                ))}
-              </select>
-            </label>
+      <main className="section" style={{ paddingTop: 32 }}>
+        <div className="container" style={{ maxWidth: 900 }}>
+          <h1 style={{ fontWeight: 800, margin: "0 0 8px", fontSize: "clamp(24px,3vw,34px)" }}>
+            Let’s build your plan
+          </h1>
+          <p className="muted" style={{ marginBottom: 18 }}>
+            Pick your goal, level, and gender. Choose your training days (Mon–Fri is the default).
+          </p>
 
-            <label className="block">
-              <div className="mb-2 text-sm opacity-80">Level</div>
-              <select
-                className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-4 py-3 outline-none"
-                value={level}
-                onChange={(e) => setLevel(e.target.value)}
-              >
-                <option value="">Select...</option>
-                {LEVELS.map((g) => (
-                  <option key={g} value={g}>
-                    {g}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
+          <div className="card" style={{ padding: 16 }}>
+            <div style={{ display: "grid", gap: 14, gridTemplateColumns: "1fr 1fr", alignItems: "end" }}>
+              <div style={{ gridColumn: "1 / -1" }}>
+                <label className="kicker">Your Name</label>
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="e.g., Alex"
+                  style={inputStyle}
+                />
+              </div>
 
-          {/* Right column */}
-          <div className="space-y-6">
-            <div>
-              <div className="mb-2 text-sm opacity-80">Training Days</div>
-              <div className="flex gap-2 flex-wrap">
-                {DAYS.map((d) => (
-                  <button
-                    key={d}
-                    type="button"
-                    onClick={() => toggleDay(d)}
-                    className={`px-3 py-2 rounded-md border transition
-                    ${
-                      days.includes(d)
-                        ? "bg-orange-600/20 border-orange-500"
-                        : "bg-neutral-900 border-neutral-700"
-                    }`}
-                  >
-                    {d}
-                  </button>
-                ))}
+              <div>
+                <label className="kicker">Goal</label>
+                <select value={goal} onChange={(e) => setGoal(e.target.value)} style={inputStyle}>
+                  <option>Fat Loss</option>
+                  <option>Lean Mass</option>
+                  <option>Mass Gain</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="kicker">Level</label>
+                <select value={level} onChange={(e) => setLevel(e.target.value)} style={inputStyle}>
+                  <option>Beginner</option>
+                  <option>Intermediate</option>
+                  <option>Advanced</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="kicker">Gender</label>
+                <select value={gender} onChange={(e) => setGender(e.target.value)} style={inputStyle}>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="kicker">Training Days</label>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {DAYS.map((d) => (
+                    <button
+                      key={d}
+                      type="button"
+                      onClick={() => toggleDay(d)}
+                      className="btn"
+                      style={{
+                        borderColor: selectedDays.includes(d)
+                          ? "rgba(255,122,26,.45)"
+                          : "var(--brand-line)",
+                        background: selectedDays.includes(d)
+                          ? "linear-gradient(180deg, var(--amber-2), var(--amber-1))"
+                          : "linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))",
+                        color: selectedDays.includes(d) ? "#0b0b10" : "var(--brand-ink)",
+                        padding: ".6rem .8rem",
+                      }}
+                    >
+                      {d}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <button
-              disabled={disabled}
-              onClick={() => {
-                const profile = {
-                  name,
-                  goal,
-                  level,
-                  days,
-                  createdAt: new Date().toISOString(),
-                };
-
-                const plan = buildThirtyDayPlan(profile);
-
-                localStorage.setItem(
-                  "grindfit_profile",
-                  JSON.stringify(profile)
-                );
-                localStorage.setItem("grindfit_plan", JSON.stringify(plan));
-
-                window.location.href = "/app";
-              }}
-              className={`px-5 py-3 rounded-md bg-gradient-to-r from-orange-500 to-red-600
-              ${disabled ? "opacity-40 pointer-events-none" : ""}`}
-            >
-              Generate 30-Day Plan
-            </button>
+            <div style={{ marginTop: 16 }}>
+              <button
+                className="btn btn-amber"
+                onClick={handleGenerate}
+                disabled={!canGenerate}
+                style={{ opacity: canGenerate ? 1 : 0.6 }}
+              >
+                Generate 1-Week Plan
+              </button>
+            </div>
           </div>
+
+          <p className="muted" style={{ marginTop: 14 }}>
+            You’ll get a Mon–Fri week. Mark each day complete inside the app. We’ll expand this into
+            a full 4-week block next, using the same clean design.
+          </p>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
+
+const inputStyle = {
+  width: "100%",
+  height: 42,
+  borderRadius: 10,
+  border: "1px solid var(--brand-line)",
+  background:
+    "linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015))",
+  color: "var(--brand-ink)",
+  padding: "0 .8rem",
+  outline: "none",
+};
