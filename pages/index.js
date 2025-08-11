@@ -1,1 +1,43 @@
-export default function Home(){return(<main className='max-w-6xl mx-auto p-6'><header className='flex items-center justify-between'><div className='flex items-center gap-3'><img src='/assets/logo.png' className='w-10 h-10 rounded-lg ring-1 ring-white/10'/><div className='text-2xl font-extrabold tracking-tight bg-gradient-to-b from-orange-400 via-orange-500 to-red-600 bg-clip-text text-transparent'>GRINDFIT</div></div><a href='/app' className='text-sm px-4 py-2 rounded-xl bg-white text-black font-semibold'>Open App</a></header><section className='grid md:grid-cols-2 gap-8 items-center mt-12'><div><h1 className='text-5xl md:text-6xl font-black leading-tight'>Train Hard. <span className='text-white/70'>Think Sharp.</span><br/>Live <span className='bg-gradient-to-r from-orange-400 to-red-600 bg-clip-text text-transparent'>Unstoppable</span>.</h1><p className='text-white/70 mt-4 text-lg'>The elite, psychology-driven fitness system that upgrades your body, mind, and lifestyle. Built to win.</p><div className='mt-6 flex gap-3'><a href='/app' className='px-5 py-3 rounded-xl bg-gradient-to-r from-orange-400 to-red-600 text-black font-bold'>Start Your Transformation</a><a href='#features' className='px-5 py-3 rounded-xl bg-white/10 border border-white/10'>See Features</a></div></div><div className='rounded-3xl border border-white/10 bg-neutral-900/50 p-4'><video autoPlay loop muted playsInline className='rounded-2xl w-full'><source src='https://videos.pexels.com/video-files/4752857/4752857-hd_1280_720_25fps.mp4' type='video/mp4'/></video></div></section></main>)}
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-[radial-gradient(1200px_600px_at_70%_-10%,rgba(255,115,0,0.35),transparent),linear-gradient(180deg,#0b0b0b, #0b0b0b)] text-white">
+      <nav className="max-w-6xl mx-auto p-6 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <img src="/assets/logo.png" className="w-9 h-9 rounded-md ring-1 ring-white/10" />
+          <span className="font-extrabold tracking-tight text-lg">GRINDFIT</span>
+        </div>
+        {/* no "Open App" button — this is the app */}
+      </nav>
+
+      <section className="max-w-6xl mx-auto px-6 py-10 md:py-16">
+        <h1 className="text-5xl md:text-6xl font-black leading-tight">
+          Train Hard. Think<br/>Sharp.<br/>
+          Live <span className="bg-gradient-to-b from-orange-400 via-orange-500 to-red-600 text-transparent bg-clip-text">Unstoppable.</span>
+        </h1>
+        <p className="text-white/70 max-w-2xl mt-4">
+          Psychology-driven fitness that upgrades body, mind, and lifestyle.
+        </p>
+
+        <div className="mt-8 flex gap-3">
+          <a href="/onboarding" className="px-5 py-3 rounded-xl bg-gradient-to-r from-orange-400 to-red-600 text-black font-semibold">
+            Start Your Transformation
+          </a>
+          <a href="#features" className="px-5 py-3 rounded-xl bg-white/10 border border-white/10">See Features</a>
+        </div>
+      </section>
+
+      <section id="features" className="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-4 pb-20">
+        {[
+          ["Hyper-Personal","Adaptive plans based on readiness and schedule."],
+          ["Mindset-First","Micro-wins, focus cues, and streaks that last."],
+          ["Lifestyle Upgrade","Nutrition, recovery, finance & legal basics."]
+        ].map(([t,s])=>(
+          <div key={t} className="rounded-2xl bg-white/5 border border-white/10 p-5">
+            <div className="font-semibold">{t}</div>
+            <div className="text-white/70 text-sm mt-1">{s}</div>
+          </div>
+        ))}
+      </section>
+    </main>
+  );
+}
