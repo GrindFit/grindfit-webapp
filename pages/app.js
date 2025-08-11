@@ -18,29 +18,59 @@ function readinessCalc(sleep, stress, soreness, steps) {
 
 export default function App() {
   const [workouts, setWorkouts] = useState([]);
-  const [meals, setMeals] = useState([]);
-  const [sleep, setSleep] = useState(7);
-  const [stress, setStress] = useState(3);
-  const [soreness, setSoreness] = useState(2);
-  const [steps, setSteps] = useState(8000);
-  const [streak, setStreak] = useState(1);
+  // Read data created by /onboarding
+const profileFromLS = readJSON("grindfit_profile", null);
+const planFromLS    = readJSON("grindfit_plan", []);
 
+// If no data, send the user to onboarding. If data exists, hydrate state.
+useEffect(() => {
+  if (!profileFromLS || planFromLS.length === 0) {
+    window.location.href = "/onboarding";
+    return;
+  }
+  // Your UI renders workouts from this state, so hydrate it
+  setWorkouts(planFromLS);
+}, []);
+const [meals, setMeals] = useState([]);
+const [sleep, setSleep] = useState(null);
+const [stress, setStress] = useState(null);
+const [soreness, setSoreness] = useState(null);
+const [steps, setSteps] = useState(null);
+const [streak, setStreak] = useState(null);
   const readiness = readinessCalc(sleep, stress, soreness, steps);
   const today = workouts[0];
+useEffect(() => {
+  // If we don't have what we need, send the user to onboarding
+  if (!profileFromLS || planFromLS.length === 0) {
+    window.location.href = "/onboarding";
+    return;
+  }
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const w = await fetch("/assets/data/workouts.json").then(r => r.json());
-        const m = await fetch("/assets/data/meals.json").then(r => r.json());
-        setWorkouts(w);
-        setMeals(m);
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    load();
-  }, []);
+  // Use the plan created during onboarding
+  setWorkouts(planFromLS);
+
+  // Hydrate the rest from the saved profile
+  setSleep(profileFromLS.sleep ?? null);
+  setStress(profileFromLS.stress ?? null);
+  setSoreness(profileFromLS.soreness ?? null);
+  setSteps(profileFromLS.steps ?? null);
+  setStreak(profileFromLS.streak ?? null);
+  setMeals(profileFromLS.meals ?? []);
+}, []);
+
+  useEffect(async function load() {
+  // If we already have a plan from LS, skip fetching demo data
+  if (planFromLS && planFromLS.length > 0) return;
+
+  try {
+    const w = await fetch("/assets/data/workouts.json").then(r => r.json());
+    const m = await fetch("/assets/data/meals.json").then(r => r.json());
+    setWorkouts(w);
+    setMeals(m);
+  } catch (e) {
+    console.error(e);
+  }
+}, []);
 
   return (
     <main className="max-w-6xl mx-auto p-6 space-y-6">
