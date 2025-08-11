@@ -5,8 +5,8 @@ export default function Home() {
     <div className="space-y-4">
       <span className="px-3 py-1 rounded-md ring-1 ring-white/10">GRNDFIT</span>
       <h1>New App Button — this is the hero ✨</h1>
-    </div>
-  </div>
+    </main>
+  </main>
 
       <section className="max-w-6xl mx-auto px-6 py-10 md:py-16">
         <h1 className="text-5xl md:text-6xl font-black leading-tight">
