@@ -1,13 +1,12 @@
 export default function Home() {
   return (
-    <div className="min-h-screen hero-section text-white">
-      <nav className="max-w-6xl mx-auto p-6 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <img src="/assets/logo.png" className="w-9 h-9 rounded-md ring-1 ring-white/10" />
-          <span className="font-extrabold tracking-tight text-lg">GRINDFIT</span>
-        </div>
-        {/* no "Open App" button — this is the app */}
-      </nav>
+    <main className="min-h-screen hero-section text-white">
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="space-y-4">
+      <span className="px-3 py-1 rounded-md ring-1 ring-white/10">GRNDFIT</span>
+      <h1>New App Button — this is the hero ✨</h1>
+    </div>
+  </div>
 
       <section className="max-w-6xl mx-auto px-6 py-10 md:py-16">
         <h1 className="text-5xl md:text-6xl font-black leading-tight">
