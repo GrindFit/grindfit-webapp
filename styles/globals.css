@@ -1,28 +1,45 @@
-@tailwind base;@tailwind components;@tailwind utilities;body{@apply bg-neutral-950 text-white;}
-/* Dark selects across browsers */
+/* ---------- Base tweaks (keep page dark) ---------- */
+html, body {
+  background: #0b0b0b;
+  color: #fff;
+}
+
+/* ---------- Dark selects across browsers ---------- */
 select,
 select:focus {
-  background-color: #111827; /* gray-900 */
+  background-color: #121527;   /* deep dark */
   color: #fff;
-  border-color: #374151;     /* gray-700 */
+  border-color: #374151;        /* gray-700 */
 }
 
 option {
-  background-color: #111827; /* ensures dropdown panel is dark */
+  background-color: #121527;   /* dropdown panel stays dark */
   color: #fff;
 }
-/* --- Hero background (burnt orange glow) --- */
+
+/* ---------- Hero background (premium burnt orange glow) ---------- */
+/* Add className "hero-section" on your top wrapper (see step 2). */
 .hero-section {
-  /* orange glow from top-left + dark fade */
+  /* a soft, richer orange glow from top-left that fades into deep dark */
   background:
     radial-gradient(60% 80% at 10% 0%,
-      rgba(255, 110, 20, 0.35) 0%,
-      rgba(255, 110, 20, 0.12) 30%,
-      rgba(0,0,0,0) 65%
+      rgba(255, 120, 32, 0.28) 0%,
+      rgba(255, 110, 24, 0.18) 28%,
+      rgba(0, 0, 0, 0) 60%
     ),
-    linear-gradient(180deg, #0d0d0d 0%, #140d06 45%, #1a0d00 70%, #0d0d0d 100%);
+    linear-gradient(
+      180deg,
+      #0b0b0b 0%,
+      #101012 35%,
+      #0f0d0d 60%,
+      #0a0a0a 100%
+    );
   background-size: cover;
   background-position: center;
-  min-height: 100vh;      /* full height hero */
 }
 
+/* Optional: make sure full-viewport heroes look right on short pages */
+.hero-section,
+.min-h-screen {
+  min-height: 100vh;
+}
