@@ -11,3 +11,18 @@ option {
   background-color: #111827; /* ensures dropdown panel is dark */
   color: #fff;
 }
+/* --- Hero background (burnt orange glow) --- */
+.hero-section {
+  /* orange glow from top-left + dark fade */
+  background:
+    radial-gradient(60% 80% at 10% 0%,
+      rgba(255, 110, 20, 0.35) 0%,
+      rgba(255, 110, 20, 0.12) 30%,
+      rgba(0,0,0,0) 65%
+    ),
+    linear-gradient(180deg, #0d0d0d 0%, #140d06 45%, #1a0d00 70%, #0d0d0d 100%);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;      /* full height hero */
+}
+
