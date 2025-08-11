@@ -1,1 +1,13 @@
 @tailwind base;@tailwind components;@tailwind utilities;body{@apply bg-neutral-950 text-white;}
+/* Dark selects across browsers */
+select,
+select:focus {
+  background-color: #111827; /* gray-900 */
+  color: #fff;
+  border-color: #374151;     /* gray-700 */
+}
+
+option {
+  background-color: #111827; /* ensures dropdown panel is dark */
+  color: #fff;
+}
