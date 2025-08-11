@@ -1,4 +1,13 @@
 import { useEffect, useState } from "react";
+// --- localStorage helpers ---
+function readJSON(key, fallback = null) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+}
 
 function readinessCalc(sleep, stress, soreness, steps) {
   const s = Math.min(Number(sleep || 7), 8) * 10;
