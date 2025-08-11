@@ -1,5 +1,41 @@
 import { useState } from "react";
+// create a simple 30-day scaffold we can upgrade later
+function buildThirtyDayPlan({ goal, level, days }) {
+  const today = new Date();
+  const plan = [];
 
+  for (let i = 0; i < 30; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
+
+    plan.push({
+      day: i + 1,
+      date: date.toISOString().slice(0, 10),
+      // keep these empty/neutral for now — we’ll calculate later
+      readiness: 0,
+      sleep: null,
+      stress: null,
+      // super simple picker (we’ll replace w/ real programming later)
+      workout: {
+        title: `${goal} • ${level} • Day ${i + 1}`,
+        blocks: [
+          { name: "A", type: "strength", sets: 3, reps: 8 },
+          { name: "B", type: "accessory", sets: 3, reps: 12 },
+          { name: "C", type: "conditioning", minutes: 12 },
+        ],
+        trainingDay: days[i % days.length] || null,
+      },
+      nutrition: {
+        target: goal, // fat loss / lean mass / etc — placeholder
+        meals: [],
+      },
+      notes: "",
+      complete: false,
+    });
+  }
+
+  return plan;
+}
 const DEFAULT_DAYS = ["Mon","Tue","Thu","Sat"];
 
 export default function Onboarding() {
@@ -93,11 +129,27 @@ export default function Onboarding() {
 
         <button
           disabled={!name || !goal || !level || days.length===0}
-          onClick={generatePlan}
+          
           className="px-5 py-3 rounded-xl bg-gradient-to-r from-orange-400 to-red-600 text-black font-semibold disabled:opacity-40">
-          Generate 30-Day Plan
+      
         </button>
       </div>
     </main>
   );
 }
+onClick={() => {
+  const profile = {
+    name,
+    goal,
+    level,
+    days: selectedDays, // replace with whatever variable stores the chosen days
+    createdAt: new Date().toISOString(),
+  };
+
+  const plan = buildThirtyDayPlan(profile);
+
+  localStorage.setItem("grindfit_profile", JSON.stringify(profile));
+  localStorage.setItem("grindfit_plan", JSON.stringify(plan));
+
+  window.location.href = "/app";
+}}
