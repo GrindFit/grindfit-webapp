@@ -1,0 +1,35 @@
+[
+  {
+    "meal_id": "m1",
+    "goal": "Fat Loss",
+    "level": "Intermediate",
+    "gender": "Male",
+    "title": "High‑Protein Scramble",
+    "protein": 40,
+    "carbs": 35,
+    "fat": 14,
+    "calories": 420
+  },
+  {
+    "meal_id": "m2",
+    "goal": "Lean Mass",
+    "level": "Intermediate",
+    "gender": "Male",
+    "title": "Greek Chicken Bowl",
+    "protein": 48,
+    "carbs": 55,
+    "fat": 18,
+    "calories": 560
+  },
+  {
+    "meal_id": "m3",
+    "goal": "Recomp",
+    "level": "Intermediate",
+    "gender": "Male",
+    "title": "Beef + Rice + Greens",
+    "protein": 45,
+    "carbs": 70,
+    "fat": 18,
+    "calories": 650
+  }
+]

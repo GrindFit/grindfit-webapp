@@ -1,0 +1,28 @@
+[
+  {
+    "workout_id": "w1",
+    "week": 1,
+    "day": 1,
+    "level": "Intermediate",
+    "title": "EMOM Engine — Double KB Complex",
+    "block": [
+      "10' EMOM — 2 Cleans + 1 Front Squat + 1 Push Press (2x20kg)",
+      "Rest 2'",
+      "10' EMOM — 10 Hardstyle Swings (28kg)"
+    ],
+    "video": ""
+  },
+  {
+    "workout_id": "w2",
+    "week": 1,
+    "day": 2,
+    "level": "Intermediate",
+    "title": "Hypertrophy — Upper Push",
+    "block": [
+      "A1) DB Incline Press 4x8 @ RPE7",
+      "A2) Band Face Pull 4x15",
+      "B) Landmine Press 3x10 ea"
+    ],
+    "video": ""
+  }
+]
