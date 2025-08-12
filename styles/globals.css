@@ -1,164 +1,107 @@
-/* ================================
-   GrindFit — Global Styles (clean)
-   ================================ */
+/* ===== GrindFit Global Styles (clean paste) ===== */
 
-/* ---- Brand tokens ---- */
+/* --- Tokens --- */
 :root{
-  /* Orange gradient you liked (hero buttons/wordmark/pills) */
-  --brand-start:#ff8a3a;   /* warm orange */
-  --brand-mid:#ff6f1f;     /* punch */
-  --brand-end:#ff4b00;     /* deep ember */
+  --bg: #0b0d10;
+  --bg-elev: #12161b;
+  --card: #151a21;
+  --text: #e9eef5;
+  --muted: #9aa4b2;
+  --ring: rgba(255,120,0,.35);
 
-  /* Neutrals */
-  --bg:#0e1116;
-  --surface:rgba(255,255,255,0.035);
-  --surface-2:rgba(255,255,255,0.05);
-  --line-soft:rgba(255,255,255,0.08);
-  --line:rgba(255,255,255,0.12);
-  --txt:#e7edf6;
-  --txt-dim:#b6c0cf;
-
-  /* Radiance overlay for cards/sections */
-  --glow: radial-gradient(1200px 420px at 10% 120%, rgba(255,125,40,.14), transparent 60%);
+  /* GrindFit signature gradient (matches your screenshot) */
+  --brand-start: #ff8b3d;   /* warm orange */
+  --brand-mid:   #ff6a00;   /* core brand */
+  --brand-end:   #ff3d00;   /* deep ember */
 }
 
-/* ---- Base ---- */
-*{ box-sizing:border-box; }
+/* --- Base / Reset --- */
+*{ box-sizing: border-box; }
 html,body{ height:100%; }
-html, body{
-  background: var(--bg);
-  color: var(--txt);
+html{ scroll-behavior:smooth; }
+body{
   margin:0;
+  background: radial-gradient(1200px 800px at 80% -10%, rgba(255,120,0,.18) 0, transparent 60%),
+              radial-gradient(800px 600px at -10% 0%, rgba(255,90,0,.14) 0, transparent 55%),
+              var(--bg);
+  color:var(--text);
+  font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  line-height:1.5;
+  letter-spacing:.01em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji";
-  letter-spacing: 0.01em;
 }
 
-/* Subtle page vignette like your screenshot */
-body::before{
-  content:"";
-  position:fixed; inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(1200px 520px at 20% -10%, rgba(255,120,32,.18), transparent 60%),
-    radial-gradient(1200px 520px at 90% -20%, rgba(255,95,0,.12), transparent 60%);
-  z-index:-1;
+/* crisp rendering */
+html, body{
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Links */
-a{ color:inherit; text-decoration:none; }
-a:hover{ opacity:.92; }
+/* --- Layout helpers --- */
+.gf-container{ max-width:1120px; margin-inline:auto; padding-inline:24px; }
+.section{ padding:72px 0; }
+.section--tight{ padding:40px 0; }
+.stack-24{ display:grid; gap:24px; }
+.stack-32{ display:grid; gap:32px; }
 
-/* Containers & section rhythm */
-.gf-container{ max-width:1120px; margin-inline:auto; padding-inline:clamp(16px,4vw,32px); }
-section{ padding-block: 72px 40px; }
-section + section{ margin-top: 8px; }
-
-/* Headings */
-h1,h2,h3{ margin:0 0 12px; line-height:1.1; }
-p{ margin:8px 0 0; color:var(--txt-dim); }
-
-/* Cards */
-.card{
-  background: var(--glow), var(--surface);
-  border:1px solid var(--line-soft);
-  border-radius: 16px;
-  padding:18px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+/* --- Typography --- */
+h1{
+  margin:0 0 16px 0;
+  font-weight: 900;
+  letter-spacing: -.02em;
+  line-height: 1.05;
+  font-size: clamp(42px, 5.2vw, 64px);
 }
+h2{
+  margin:0 0 12px 0;
+  font-weight:800;
+  letter-spacing:-.01em;
+  font-size: clamp(24px, 2.4vw, 28px);
+}
+.lead{ color:var(--muted); max-width:64ch; }
 
-/* Media placeholders (we’ll drop real video/img later) */
-.media-grid{
-  display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:1rem;
-}
-.media-slot{
-  background: var(--glow), var(--surface);
-  border:1px solid var(--line-soft);
-  border-radius:16px;
-  padding:20px;
-  color:var(--txt-dim);
-  text-align:center;
-}
-
-/* Pills (Nutrition) */
-.pill{
-  display:inline-flex; align-items:center; height:34px;
-  padding:0 14px; border-radius:999px; font-weight:700;
-  background: rgba(255,255,255,0.03);
-  border:1px solid var(--line-soft);
-  color:#e9f0fb; transition: all .18s ease;
-}
-.pill + .pill{ margin-left:8px; }
-.pill:hover{ transform: translateY(-1px); }
-.pill.is-active{
-  background:
-    radial-gradient(1000px 400px at 10% 120%, rgba(255,128,32,.15), transparent 60%),
-    linear-gradient(118deg, var(--brand-start), var(--brand-mid) 44%, var(--brand-end));
-  color:#0f1115; border-color: transparent;
-  box-shadow: 0 6px 18px rgba(255,96,0,.22);
-}
-
-/* Buttons */
-.btn-primary{
-  display:inline-flex; align-items:center; justify-content:center;
-  height:40px; padding:0 16px; font-weight:800; border-radius:999px;
-  color:#0f1115; border:0; cursor:pointer;
-  background:
-    radial-gradient(1200px 500px at 15% 130%, rgba(255,128,32,.16), transparent 60%),
-    linear-gradient(118deg, var(--brand-start), var(--brand-mid) 44%, var(--brand-end));
-  box-shadow: 0 10px 28px rgba(255,96,0,.22), inset 0 1px 0 rgba(255,255,255,.24);
-  transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
-}
-.btn-primary:hover{ transform: translateY(-1px); filter:saturate(1.02); }
-
-.btn-ghost{
-  display:inline-flex; align-items:center; justify-content:center;
-  height:36px; padding:0 12px; font-weight:700; border-radius:10px;
-  border:1px solid var(--line-soft); background:rgba(255,255,255,0.03);
-}
-
-/* Brand wordmark — exact gradient */
+/* Gradient wordmark & hero accent */
 .brand-word{
-  font-weight: 900; letter-spacing:.02em; text-transform:none;
-  background: linear-gradient(118deg, var(--brand-start), var(--brand-mid) 44%, var(--brand-end));
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-  text-shadow:0 0 0 transparent;
+  font-weight: 900;
+  background: linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 42%, var(--brand-end) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
 }
-.brand-word::before{ content:none !important; } /* kill any decorative box from older CSS */
 
-/* Pricing (Membership) */
-.pricing{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:1rem; }
-.plan-card{
-  background: var(--glow), var(--surface);
-  border:1px solid var(--line-soft);
-  border-radius:18px; padding:20px;
-}
-.plan-card h3{ margin:0 0 6px; }
-.plan-card .price{ font-weight:900; font-size:20px; }
+/* If you want ONLY one word orange (e.g., “Unstoppable”) add class="brand-word" to that <span> */
 
-/* ---- Header / Nav ---- */
-header.nav{
+/* --- Header / Nav --- */
+.nav{
   position:sticky; top:0; z-index:50;
-  backdrop-filter: saturate(110%) blur(10px);
-  background: linear-gradient(to bottom, rgba(14,17,22,.86), rgba(14,17,22,.66));
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  background: color-mix(in oklab, var(--bg) 88%, #000 12%);
+  border-bottom: 1px solid rgba(255,255,255,.05);
 }
-.nav .row{
-  display:flex; align-items:center; justify-content:space-between;
-  height:64px;
+.nav-inner{
+  height:68px; display:flex; align-items:center; justify-content:space-between;
 }
-.nav .links{ display:flex; align-items:center; gap:10px; }
-.nav .links a{ color:#dfe6f2; }
-.nav .links a:hover{ color:#ffffff; }
+.nav-left{ display:flex; align-items:center; gap:18px; }
+.nav-brand{ font-size:20px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+.nav-links{ display:flex; align-items:center; gap:18px; }
+.nav a{ color:var(--muted); text-decoration:none; font-weight:700; }
+.nav a:hover{ color:var(--text); }
 
-/* Utilities */
-.mt-6{ margin-top:24px; }
-.mt-8{ margin-top:32px; }
-.center{ display:flex; align-items:center; justify-content:center; }
-
-/* Accessibility focus */
-:where(a,button):focus-visible{
-  outline:2px solid var(--brand-mid);
-  outline-offset:2px; border-radius:12px;
+/* --- Buttons --- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  height:38px; padding:0 16px; border-radius:999px; border:1px solid transparent;
+  font-weight:800; letter-spacing:.01em; text-decoration:none; cursor:pointer;
+  transition: transform .08s ease, box-shadow .2s ease, filter .2s ease, background .2s ease;
 }
+.btn:active{ transform: translateY(1px); }
+
+/* primary = orange gradient with BLACK text (your request) */
+.btn-primary{
+  background: linear-gradient(118deg, var(--brand-start), var(--brand-mid) 45%, var(--brand-end));
+  color:#070809;
+  box-shadow: 0 6px 18px rgba(255,90,0,.28), 0 0 0 1px rgba(255,120,0,.35) inset;
+}
+.btn-prim
