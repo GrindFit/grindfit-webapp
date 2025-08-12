@@ -1,7 +1,7 @@
+// pages/workout/[day].js
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { requireAuth } from "@/lib/auth";
-import Nav from "@/components/Nav";
 
 export default function WorkoutDay(){
   const router = useRouter();
@@ -24,7 +24,15 @@ export default function WorkoutDay(){
 
   return (
     <>
-      <Nav rightSlot={<button onClick={()=>history.back()} className="btn-ghost">Back</button>} />
+      <header className="nav sticky top-0 z-50">
+        <div className="gf-container flex items-center justify-between h-16">
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-sm" style={{background:"linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion))"}}/>
+            <span className="tracking-wide font-semibold">GRINDFIT</span>
+          </div>
+          <button onClick={()=>history.back()} className="btn-ghost">Back</button>
+        </div>
+      </header>
 
       <main className="gf-container py-10 space-y-6">
         <h1 className="text-2xl font-semibold">{session.label}</h1>
@@ -45,7 +53,7 @@ export default function WorkoutDay(){
 
           <aside className="gf-card">
             <div className="font-semibold">Follow-along (Optional)</div>
-            <p className="small-dim mt-2">Add your video link here when ready. Placeholder for now.</p>
+            <p className="small-dim mt-2">Drop your video link here when ready. Placeholder for now.</p>
             <div className="mt-3 aspect-video rounded-xl border border-[color:var(--gf-stroke)] bg-[color:var(--gf-card)] grid place-content-center small-dim">
               Video Player
             </div>
