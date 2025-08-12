@@ -93,8 +93,7 @@ export default function Home(){
               {NUTRITION[tab].bullets.map((b,i)=><li key={i}>{b}</li>)}
             </ul>
             <p className="small-dim mt-4">
-              <strong>Disclaimer:</strong> These are general guidelines, not medical advice.
-            </p>
+                        </p>
           </div>
         </section>
 
