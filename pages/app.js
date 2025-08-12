@@ -1,7 +1,7 @@
+// pages/app.js
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { requireAuth, logout } from "@/lib/auth";
-import Nav from "@/components/Nav";
 
 export default function AppHome(){
   const [profile,setProfile] = useState(null);
@@ -27,7 +27,15 @@ export default function AppHome(){
 
   return (
     <>
-      <Nav rightSlot={<button onClick={logout} className="btn-ghost">Log out</button>} />
+      <header className="nav sticky top-0 z-50">
+        <div className="gf-container flex items-center justify-between h-16">
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-sm" style={{background:"linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion))"}}/>
+            <span className="tracking-wide font-semibold">GRINDFIT</span>
+          </div>
+          <button onClick={logout} className="btn-ghost">Log out</button>
+        </div>
+      </header>
 
       <main className="gf-container py-10 space-y-8">
         <section>
@@ -86,7 +94,13 @@ export default function AppHome(){
 
           <div className="gf-card">
             <h3 className="font-semibold text-lg">Reset &amp; Recover</h3>
-            <p className="small-dim mt-1">Access the full protocol — daily reset, emotional reset, and recovery patterns.</p>
+            <p className="small-dim mt-1">Fix the body. Reclaim the mind. Build the unbreakable.</p>
+            <ul className="mt-4 list-disc ml-5 small-dim space-y-2">
+              <li><strong>Cold Shower</strong> (within 10 min of waking) + 350–500ml water.</li>
+              <li><strong>GrindFit Reading (20 min/day)</strong> — feed your mind before the world chases you.</li>
+              <li><strong>10,000 Steps</strong> daily + optional mobility flow or ruck once/week.</li>
+              <li><strong>Emotional Reset Block</strong> (1–2×/week): gratitude, letting-go ritual, reconnection.</li>
+            </ul>
             <Link href="/reset" className="btn-ghost inline-block mt-4 no-underline">Open full protocol</Link>
           </div>
         </section>
