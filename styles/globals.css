@@ -188,3 +188,16 @@ input:focus,select:focus,textarea:focus{ @apply border-white/40; }
 
 /* Clean links */
 a.no-underline{ text-decoration: none; }
+/* === Brand wordmark === */
+.brand-word{
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  background: linear-gradient(118deg, #ffb86b 0%, #ff8a3a 42%, #ff5c24 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 0 transparent;
+}
+
+/* Safety: ensure no decorative square precedes the brand */
+.brand-word::before { content: none !important; }
