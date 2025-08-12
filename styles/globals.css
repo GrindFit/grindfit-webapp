@@ -104,3 +104,18 @@ input:focus,select:focus,textarea:focus{ @apply border-white/40; }
   display:grid; place-items:center;
   color:#fff; font-weight:700; letter-spacing:.02em;
 }
+/* Nutrition pills */
+.pill{ @apply px-3 py-1.5 rounded-lg border font-semibold; }
+
+.pill-active{
+  background: linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion));
+  color: #000;
+  border-color: transparent;
+  box-shadow: 0 8px 18px rgba(255,122,26,0.25);
+}
+
+.pill-inactive{
+  color: var(--gf-text);
+  border-color: var(--gf-stroke);
+  background: transparent;
+}
