@@ -10,25 +10,26 @@ export default function Home() {
       <Nav />
 
       {/* HERO */}
-      <section className="section hero">
-        <div className="container">
-          <h1 className="hero-title">
-            <span>Train Hard.</span><br />
-            <span>Think Sharp.</span><br />
-            <span>Live <span className="brand-word">Unstoppable</span>.</span>
-          </h1>
+     {/* HERO */}
+<section className="hero section">
+  <div className="gf-container">
+    <h1>
+      Train Hard.<br/>
+      Think Sharp.<br/>
+      Live <span className="brand-word">Unstoppable</span>
+    </h1>
 
-          <p className="hero-sub">
-            A psychology-driven fitness system that upgrades your body, mind, and lifestyle —
-            with adaptive plans, habit cues, and recovery built in. No noise. No guesswork.
-          </p>
+    <p className="lead mt-6">
+      A psychology-driven fitness system that upgrades your body, mind, and lifestyle — with
+      adaptive plans, habit cues, and recovery built in. No noise. No guesswork.
+    </p>
 
-          <div className="hero-cta">
-            <a className="btn btn-brand" href="#join">Start Your Transformation</a>
-            <a className="btn btn-ghost" href="#why">See Features</a>
-          </div>
-        </div>
-      </section>
+    <div className="mt-6">
+      <a href="#start" className="btn btn-primary">Start Your Transformation</a>
+      <a href="#features" className="btn btn-ghost" style={{marginLeft: '0.6rem'}}>See Features</a>
+    </div>
+  </div>
+</section>
 
       {/* WHY */}
       <section id="why" className="section">
