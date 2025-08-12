@@ -1,133 +1,109 @@
+// pages/app.js
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
+import { requireAuth, logout } from "@/lib/auth";
 
-function readJSON(key, fallback = null) {
-  try {
-    const raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : fallback;
-  } catch {
-    return fallback;
-  }
-}
+export default function AppHome(){
+  const [profile,setProfile] = useState(null);
+  const [plan,setPlan] = useState(null);
 
-export default function App() {
-  const router = useRouter();
-  const [profile, setProfile] = useState(null);
-  const [plan, setPlan] = useState([]);
-
-  // hydrate
-  useEffect(() => {
-    const p = readJSON("grindfit_profile");
-    const w = readJSON("grindfit_plan", []);
-    if (!p || w.length === 0) {
-      router.replace("/onboarding");
-      return;
+  useEffect(()=>{
+    if(!requireAuth()) return;
+    const p = localStorage.getItem("grindfit_profile");
+    const w = localStorage.getItem("grindfit_plan");
+    if(p && w){
+      setProfile(JSON.parse(p));
+      setPlan(JSON.parse(w));
+    }else{
+      window.location.href="/onboarding";
     }
-    setProfile(p);
-    setPlan(w);
-  }, [router]);
+  },[]);
 
-  const toggleComplete = (idx) => {
-    setPlan((prev) => {
-      const next = prev.map((d, i) => (i === idx ? { ...d, complete: !d.complete } : d));
-      localStorage.setItem("grindfit_plan", JSON.stringify(next));
-      return next;
-    });
-  };
+  if(!profile || !plan) return null;
 
-  if (!profile) return null;
+  const week = plan.week1 || {};
+  const days = Object.keys(week);
+  const meal = plan.meals;
 
   return (
     <>
-      <Head>
-        <title>GrindFit — Your Week</title>
-      </Head>
-
-      {/* Header */}
-      <header className="container" style={{ paddingTop: 20 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <span className="logo"><span className="logo-mark" /><span className="logo-type">GRINDFIT</span></span>
-          <div style={{ display: "flex", gap: 10 }}>
-            <a href="/" className="btn btn-ghost">Home</a>
-            <a
-              className="btn btn-ghost"
-              onClick={() => {
-                localStorage.removeItem("grindfit_profile");
-                localStorage.removeItem("grindfit_plan");
-                router.replace("/onboarding");
-              }}
-            >
-              Reset
-            </a>
+      <header className="nav sticky top-0 z-50">
+        <div className="gf-container flex items-center justify-between h-16">
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-sm" style={{background:"linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion))"}}/>
+            <span className="tracking-wide font-semibold">GRINDFIT</span>
           </div>
+          <button onClick={logout} className="btn-ghost">Log out</button>
         </div>
       </header>
 
-      {/* Overview */}
-      <main className="section" style={{ paddingTop: 32 }}>
-        <div className="container" style={{ maxWidth: 1100 }}>
-          <div className="card" style={{ padding: 16, marginBottom: 18 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 10 }}>
-              <div>
-                <div className="kicker">Welcome</div>
-                <h1 style={{ margin: 4, fontSize: "clamp(22px,3vw,30px)", fontWeight: 800 }}>
-                  {profile.name}&nbsp;— {profile.goal} · {profile.level} · {profile.gender}
-                </h1>
-                <p className="muted" style={{ marginTop: 6 }}>
-                  Your training week (Mon–Fri by default). Tap a day to mark complete.
-                </p>
-              </div>
-              <div style={{ display: "flex", gap: 8 }}>
-                {profile.days.map((d) => (
-                  <span key={d} className="btn" style={{ padding: ".45rem .7rem" }}>{d}</span>
-                ))}
-              </div>
-            </div>
+      <main className="gf-container py-10 space-y-8">
+        <section>
+          <div className="flex items-end gap-3 mb-4">
+            <h2 className="text-2xl font-semibold">Week 1</h2>
+            <span className="small-dim">Welcome back, <strong>{profile.name}</strong></span>
           </div>
 
-          {/* Week grid */}
-          <div
-            className="feature-grid"
-            style={{ gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}
-          >
-            {plan.map((d, idx) => (
-              <article key={idx} className="card" style={{ padding: 16, borderRadius: 14 }}>
-                <div className="kicker">{d.day}</div>
-                <h3 style={{ margin: "6px 0 6px", fontWeight: 700 }}>{d.title}</h3>
-                <ul style={{ margin: 0, paddingLeft: "1.1rem", color: "var(--brand-ink-dim)" }}>
-                  {d.cues.map((c, i) => (
-                    <li key={i} style={{ marginBottom: 6 }}>{c}</li>
-                  ))}
-                </ul>
-
-                <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
-                  <button
-                    className="btn btn-amber"
-                    onClick={() => toggleComplete(idx)}
-                    style={{
-                      background: d.complete
-                        ? "linear-gradient(180deg, #5ee179, #24c75d)"
-                        : undefined,
-                      borderColor: d.complete ? "rgba(36,199,93,.45)" : undefined,
-                    }}
-                  >
-                    {d.complete ? "Completed" : "Complete"}
-                  </button>
-                  <a className="btn btn-ghost" href="#notes">Notes</a>
+          <div className="grid md:grid-cols-5 gap-4">
+            {days.map(d=>(
+              <Link key={d} href={`/workout/${d.toLowerCase()}`} className="no-underline">
+                <div className="gf-card h-full hover:border-white/40 transition">
+                  <div className="text-sm small-dim">{d}</div>
+                  <h4 className="font-semibold mt-1">View session</h4>
+                  <div className="mt-2 small-dim">Full details + follow-along video slot.</div>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
+        </section>
 
-          <div className="card" style={{ padding: 16, marginTop: 18 }}>
-            <div className="kicker">Meals (Track)</div>
-            <p className="muted" style={{ marginTop: 6 }}>
-              We’ll attach the plan-specific meal track here (Fat Loss / Lean Mass / Mass Gain).  
-              For now, keep protein high, hydrate, and hit your sleep target. I’ll wire your CSVs in the next pass.
-            </p>
+        <section className="grid lg:grid-cols-2 gap-6">
+          <div className="gf-card">
+            <h3 className="font-semibold text-lg">Your Meals</h3>
+            {!meal ? (
+              <p className="small-dim mt-2">No plan matched yet.</p>
+            ) : (
+              <>
+                <p className="small-dim mt-1">
+                  <strong>{profile.goal}</strong> • {profile.level} • {profile.gender}
+                </p>
+                <div className="mt-4 grid sm:grid-cols-2 gap-4">
+                  {Object.entries(meal.meals).map(([type,items])=>(
+                    <div key={type}>
+                      <div className="font-semibold mb-2">{type}</div>
+                      <ul className="list-disc ml-5 small-dim">
+                        {items.map((m,i)=><li key={i}>{m}</li>)}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 grid grid-cols-4 gap-2 text-center small-dim">
+                  {["Calories","Protein","Carbs","Fat"].map(k=>(
+                    <div key={k} className="bg-[color:var(--gf-card)] rounded-lg p-3 border border-[color:var(--gf-stroke)]">
+                      <div className="text-xs uppercase tracking-wide">{k}</div>
+                      <div className="font-semibold mt-1">{meal.totals[k]}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-5 text-sm small-dim">
+                  <strong>Disclaimer:</strong> These meal plans are general guidelines and do not replace medical or nutritional advice.
+                </div>
+              </>
+            )}
           </div>
-        </div>
+
+          <div className="gf-card">
+            <h3 className="font-semibold text-lg">Reset &amp; Recover</h3>
+            <p className="small-dim mt-1">Fix the body. Reclaim the mind. Build the unbreakable.</p>
+            <ul className="mt-4 list-disc ml-5 small-dim space-y-2">
+              <li><strong>Cold Shower</strong> (within 10 min of waking) + 350–500ml water.</li>
+              <li><strong>GrindFit Reading (20 min/day)</strong> — feed your mind before the world chases you.</li>
+              <li><strong>10,000 Steps</strong> daily + optional mobility flow or ruck once/week.</li>
+              <li><strong>Emotional Reset Block</strong> (1–2×/week): gratitude, letting-go ritual, reconnection.</li>
+            </ul>
+            <Link href="/reset" className="btn-ghost inline-block mt-4 no-underline">Open full protocol</Link>
+          </div>
+        </section>
       </main>
     </>
   );
