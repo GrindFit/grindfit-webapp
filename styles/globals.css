@@ -9,7 +9,7 @@
   --gf-card:#11161c;
   --gf-stroke:#1b232d;
 
-  /* Logo gradient (saturated, like your left preview) */
+  /* Logo gradient (bold, saturated) */
   --gf-amber:#FFB14A;
   --gf-orange:#FF7A1A;
   --gf-vermillion:#FF4D00;
@@ -34,10 +34,8 @@ body{
   -moz-osx-font-smoothing:grayscale;
 }
 
-a{ @apply underline decoration-transparent hover:decoration-[color:var(--gf-orange)]; }
 .gf-container{ @apply max-w-6xl mx-auto px-4; }
 
-/* Nav */
 .nav{
   backdrop-filter:saturate(120%) blur(8px);
   background: linear-gradient(180deg, rgba(10,14,18,0.85), rgba(10,14,18,0.45));
@@ -51,7 +49,7 @@ a{ @apply underline decoration-transparent hover:decoration-[color:var(--gf-oran
   @apply rounded-2xl p-5;
 }
 
-/* Buttons — bold, saturated, “left screenshot” feel */
+/* Buttons — bold, saturated */
 .btn-primary{
   background: linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion));
   @apply inline-flex items-center justify-center text-black font-bold tracking-wide px-5 py-2.5 rounded-xl shadow-lg no-underline;
@@ -65,13 +63,21 @@ a{ @apply underline decoration-transparent hover:decoration-[color:var(--gf-oran
 }
 .btn-ghost:hover{ @apply border-white/35; }
 
-/* Nav pill for “Open App” if needed */
 .btn-pill{
   background: linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion));
   @apply inline-flex items-center justify-center text-black font-bold px-4 py-1.5 rounded-full shadow no-underline;
 }
 
-/* Gradient text for “Unstoppable” */
+/* Brand wordmark */
+.brand-word{
+  background: linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow: 0 2px 8px rgba(255,122,26,0.25);
+}
+
+/* Gradient text (e.g., “Unstoppable”) */
 .text-gradient{
   background: linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion));
   -webkit-background-clip:text;
@@ -88,11 +94,8 @@ input,select,textarea{
 }
 input:focus,select:focus,textarea:focus{ @apply border-white/40; }
 
-/* Small utilities */
 .small-dim{ color:var(--gf-text-muted); }
-.locked{
-  position:relative;
-}
+.locked{ position:relative; }
 .locked::after{
   content:"Members only";
   position:absolute; inset:0;
