@@ -1,158 +1,143 @@
-/* ===== GrindFit Global Styles (clean paste) ===== */
+/* === Reset & base === */
+* { box-sizing: border-box; }
+html, body, #__next { height: 100%; }
+body {
+  margin: 0;
+  background: #0b0f13;
+  color: #eef2f6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Manrope, Arial, "Noto Sans", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
 
-/* --- Tokens --- */
+/* === Brand tokens (exact GRINDFIT gradient) === */
 :root{
-  --bg: #0b0d10;
-  --bg-elev: #12161b;
-  --card: #151a21;
-  --text: #e9eef5;
-  --muted: #9aa4b2;
-  --ring: rgba(255,120,0,.35);
+  --bg: #0b0f13;
+  --panel: #11161c;
+  --panel2:#121b23;
+  --muted:#a4afba;
+  --line: rgba(255,255,255,0.06);
 
-  /* GrindFit signature gradient (matches your screenshot) */
-  --brand-start: #ff8b3d;   /* warm orange */
-  --brand-mid:   #ff6a00;   /* core brand */
-  --brand-end:   #ff3d00;   /* deep ember */
+  /* Exact orange gradient we agreed on */
+  --brand-start:#ff8b6b;
+  --brand-mid:#ff8a3a;
+  --brand-end:#ff5c24;
+
+  --radius: 14px;
+  --shadow: 0 6px 24px rgba(0,0,0,0.35);
 }
 
-/* --- Base / Reset --- */
-*{ box-sizing: border-box; }
-html,body{ height:100%; }
-html{ scroll-behavior:smooth; }
-body{
-  margin:0;
-  background: radial-gradient(1200px 800px at 80% -10%, rgba(255,120,0,.18) 0, transparent 60%),
-              radial-gradient(800px 600px at -10% 0%, rgba(255,90,0,.14) 0, transparent 55%),
-              var(--bg);
-  color:var(--text);
-  font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  line-height:1.5;
-  letter-spacing:.01em;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Utilities */
+.container {
+  width: min(1200px, 92vw);
+  margin-inline: auto;
+}
+.section { padding: 72px 0; }
+.stack-lg > * + * { margin-top: 28px; }
+.stack-md > * + * { margin-top: 18px; }
+.grid-3 {
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+@media (max-width: 992px){ .grid-3{ grid-template-columns: 1fr; } }
+.card {
+  background: linear-gradient(180deg, var(--panel) 0%, #0f141a 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
 }
 
-/* crisp rendering */
-html, body{
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* === Header / Nav === */
+.header {
+  position: sticky; top: 0; z-index: 50;
+  background: linear-gradient(180deg, rgba(11,15,19,0.9), rgba(11,15,19,0.6));
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
 }
-
-/* --- Layout helpers --- */
-.gf-container{ max-width:1120px; margin-inline:auto; padding-inline:24px; }
-.section{ padding:72px 0; }
-.section--tight{ padding:40px 0; }
-.stack-24{ display:grid; gap:24px; }
-.stack-32{ display:grid; gap:32px; }
-
-/* --- Typography --- */
-h1{
-  margin:0 0 16px 0;
-  font-weight: 900;
-  letter-spacing: -.02em;
-  line-height: 1.05;
-  font-size: clamp(42px, 5.2vw, 64px);
+.header-inner {
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
 }
-h2{
-  margin:0 0 12px 0;
-  font-weight:800;
-  letter-spacing:-.01em;
-  font-size: clamp(24px, 2.4vw, 28px);
+.nav a {
+  color: #dbe3ea; text-decoration: none; font-weight: 600;
+  padding: 8px 12px; border-radius: 10px;
 }
-.lead{ color:var(--muted); max-width:64ch; }
+.nav a:hover { background: rgba(255,255,255,0.06); }
 
-/* Gradient wordmark & hero accent */
+/* Primary CTA */
+.btn-primary {
+  display:inline-flex; align-items:center; justify-content:center;
+  gap: 8px; padding: 12px 18px; border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.06);
+  background: linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 45%, var(--brand-end) 100%);
+  color: #0a0a0a; /* black text on orange, as requested */
+  font-weight: 800; letter-spacing: .2px;
+  box-shadow: 0 8px 30px rgba(255, 115, 50, .22), inset 0 0 0 1px rgba(0,0,0,0.05);
+}
+.btn-ghost {
+  display:inline-flex; align-items:center; justify-content:center;
+  padding: 12px 18px; border-radius: 999px;
+  border: 1px solid var(--line); color:#dbe3ea; background: transparent;
+  font-weight: 700;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.06); }
+
+/* Wordmark accent */
 .brand-word{
-  font-weight: 900;
+  font-weight: 1000;
   background: linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 42%, var(--brand-end) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: none;
+  text-shadow: 0 0 0 transparent;
 }
 
-/* If you want ONLY one word orange (e.g., “Unstoppable”) add class="brand-word" to that <span> */
-
-/* --- Header / Nav --- */
-.nav{
-  position:sticky; top:0; z-index:50;
-  backdrop-filter: blur(10px);
-  background: color-mix(in oklab, var(--bg) 88%, #000 12%);
-  border-bottom: 1px solid rgba(255,255,255,.05);
+/* Pills (Nutrition tabs) */
+.pills { display:flex; gap:10px; flex-wrap: wrap; }
+.pill {
+  appearance:none; border: 1px solid var(--line);
+  background: transparent; color: #cfd6dd; font-weight: 800;
+  padding: 8px 14px; border-radius: 999px; cursor:pointer;
 }
-.nav-inner{
-  height:68px; display:flex; align-items:center; justify-content:space-between;
-}
-.nav-left{ display:flex; align-items:center; gap:18px; }
-.nav-brand{ font-size:20px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
-.nav-links{ display:flex; align-items:center; gap:18px; }
-.nav a{ color:var(--muted); text-decoration:none; font-weight:700; }
-.nav a:hover{ color:var(--text); }
-
-/* --- Buttons --- */
-.btn{
-  display:inline-flex; align-items:center; justify-content:center;
-  height:38px; padding:0 16px; border-radius:999px; border:1px solid transparent;
-  font-weight:800; letter-spacing:.01em; text-decoration:none; cursor:pointer;
-  transition: transform .08s ease, box-shadow .2s ease, filter .2s ease, background .2s ease;
-}
-.btn:active{ transform: translateY(1px); }
-
-/* primary = orange gradient with BLACK text (your request) */
-.btn-primary{
-  background: linear-gradient(118deg, var(--brand-start), var(--brand-mid) 45%, var(--brand-end));
-  color:#070809;
-  box-shadow: 0 6px 18px rgba(255,90,0,.28), 0 0 0 1px rgba(255,120,0,.35) inset;
-}
-.btn-primary:hover{ filter: brightness(1.06); }
-
-/* ghost = soft matte */
-.btn-ghost{
-  background: #1a212a; color:var(--text);
-  border-color: rgba(255,255,255,.06);
-}
-.btn-ghost:hover{ background:#202731; }
-
-/* pills (for Nutrition tabs) */
-.pill{
-  height:34px; padding:0 14px; border-radius:999px;
-  background:#161c24; color:var(--muted);
-  border:1px solid rgba(255,255,255,.08);
-  font-weight:800; letter-spacing:.02em;
-}
-.pill:hover{ color:var(--text); }
-.pill.is-active{
-  background: linear-gradient(118deg, var(--brand-start), var(--brand-mid) 45%, var(--brand-end));
-  color:#0b0d10; border-color: transparent;
-  box-shadow: 0 6px 16px rgba(255,90,0,.28);
+.pill[aria-pressed="true"], .pill.is-active{
+  background: linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 42%, var(--brand-end) 100%);
+  color: #0a0a0a; border-color: rgba(0,0,0,0.2);
 }
 
-/* --- Cards --- */
-.cards{ display:grid; gap:18px; grid-template-columns: repeat(12, 1fr); }
-.card{
-  grid-column: span 4;
-  background: linear-gradient(180deg, #171c23, #131820 60%);
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:14px;
-  padding:18px;
-  box-shadow: 0 10px 28px rgba(0,0,0,.25);
+/* Hero */
+.hero { padding: 110px 0 70px; }
+.hero h1 {
+  font-size: clamp(40px, 6vw, 72px);
+  line-height: 1.05; margin: 0 0 18px;
+  font-weight: 1000;
 }
-@media (max-width: 980px){
-  .card{ grid-column: 1 / -1; }
+.hero p { color: var(--muted); font-size: 18px; }
+
+/* Media placeholders */
+.media-grid{
+  display:grid; gap:18px; grid-template-columns: 2fr 1fr 1fr;
+}
+@media (max-width: 992px){ .media-grid{ grid-template-columns: 1fr; } }
+.media {
+  min-height: 200px; border-radius: var(--radius); border:1px solid var(--line);
+  background:
+    radial-gradient(1000px 380px at -50% 120%, rgba(255,140,70,.18), transparent 60%),
+    radial-gradient(900px 300px at 120% -20%, rgba(255,92,36,.18), transparent 55%),
+    #0e1319;
+  display:flex; align-items:center; justify-content:center;
+  color:#7f8b96; font-weight:800; letter-spacing:.3px;
 }
 
-/* --- Media placeholders for video & images --- */
-.media-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem; }
-.media-slot{
-  border-radius:16px;
-  background: radial-gradient(1200px 400px at 10% -20%, rgba(255,120,0,.10) 0, transparent 60%), #131820;
-  border:1px solid rgba(255,255,255,.06);
-  height:190px;
-}
+/* Membership pricing */
+.pricing { display:grid; gap:18px; grid-template-columns: repeat(4,1fr); }
+@media (max-width: 1100px){ .pricing{ grid-template-columns: 1fr; } }
+.price-card .title { font-weight: 900; }
+.price-card .amount { font-size: 28px; font-weight: 1000; }
 
-/* --- Utility --- */
-.mt-4{ margin-top:1rem; }
-.mt-6{ margin-top:1.5rem; }
-.mt-8{ margin-top:2rem; }
-.center{ text-align:center; }
-.hidden{ display:none !important; }
+/* Footer mini */
+.footer {
+  padding: 24px 0; border-top: 1px solid var(--line);
+  color: #9fb0bf; font-size: 14px;
+}
