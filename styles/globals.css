@@ -1,115 +1,103 @@
-/* -------------------------
-   GrindFit — Global Styles
-   ------------------------- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Brand tokens (match logo glow) */
+/* ---------- Brand (GrindFit) ---------- */
 :root{
-  --bg: #0b0b10;
-  --panel: #14141d;
-  --panel-2: #1a1a24;
+  --gf-bg:#0a0e12;
+  --gf-bg-elev:#0f141a;
+  --gf-card:#11161c;
+  --gf-stroke:#1b232d;
 
-  /* amber / burnished orange gradient tuned to logo */
-  --amber-1: #ff7a1a;
-  --amber-2: #c94f0a;
+  /* Logo gradient (saturated, like your left preview) */
+  --gf-amber:#FFB14A;
+  --gf-orange:#FF7A1A;
+  --gf-vermillion:#FF4D00;
 
-  /* ink */
-  --ink-1: #f5f6f9;
-  --ink-2: #cfd2db;
-  --ink-3: #8d93a6;
+  --gf-text:#e8edf3;
+  --gf-text-dim:#a9b2bd;
+  --gf-text-muted:#7c8895;
 
-  --line: rgba(255,255,255,.12);
-  --muted: rgba(255,255,255,.65);
-  --shadow: 0 8px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+  --gf-green:#22c55e;
+  --gf-blue:#60a5fa;
+  --gf-error:#ef4444;
 }
 
-/* Base reset */
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink-1);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";}
-img,video{max-width:100%;display:block}
-a{color:inherit;text-decoration:none}
-button{font:inherit}
-
-/* Layout helpers */
-.container{width:100%;max-width:1180px;margin:0 auto;padding:0 20px}
-.section{padding:28px 0}
-.card{
-  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-  border:1px solid var(--line);
-  border-radius:16px;
-  box-shadow: var(--shadow);
-}
-.kicker{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
-.muted{color:var(--muted)}
-
-/* Logo */
-.logo{display:inline-flex;align-items:center;gap:10px}
-.logo-mark{
-  width:18px;height:18px;border-radius:4px;border:1px solid rgba(255,255,255,.12);
-  background: radial-gradient(60% 60% at 18% 20%, rgba(255,122,26,.65), rgba(255,122,26,.18)),
-              linear-gradient(180deg, var(--panel-2), var(--panel));
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), 0 2px 16px rgba(255,122,26,.25);
-}
-.logo-type{font-weight:800;letter-spacing:.08em}
-
-/* Buttons */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:.66rem 1rem;border-radius:12px;cursor:pointer;border:1px solid var(--line);
-  color:var(--ink-1); background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-  transition:transform .06s ease, opacity .1s ease, border-color .15s ease;
-}
-.btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.22)}
-.btn:active{transform:translateY(0)}
-.btn-ghost{background:transparent}
-.btn-amber{
-  color:#111;
-  background:linear-gradient(180deg, var(--amber-2), var(--amber-1));
-  border-color: rgba(255,122,26,.45);
-  text-shadow: 0 1px 0 rgba(255,255,255,.35);
-}
-
-/* Feature grid */
-.feature-grid{
-  display:grid;gap:18px;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-}
-@media (max-width:1000px){.feature-grid{grid-template-columns: repeat(2,minmax(0,1fr));}}
-@media (max-width:700px){.feature-grid{grid-template-columns: 1fr;}}
-
-/* Hero */
-.hero{
-  position:relative; isolation:isolate;
+html,body,#__next{height:100%;}
+body{
   background:
-    radial-gradient(60% 50% at 0% 0%, rgba(255,122,26,.24), rgba(255,122,26,0) 60%),
-    radial-gradient(35% 35% at 80% 0%, rgba(255,122,26,.12), rgba(255,122,26,0) 60%),
-    linear-gradient(180deg, #121219, #0b0b10 50%, #0b0b10);
-  border-bottom:1px solid var(--line);
+    radial-gradient(1200px 800px at 14% 6%, rgba(255,122,26,0.22), transparent 55%),
+    radial-gradient(1000px 700px at 85% 12%, rgba(255,77,0,0.12), transparent 62%),
+    var(--gf-bg);
+  color:var(--gf-text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
-.hero h1{
-  font-size:clamp(34px,6vw,64px);line-height:1.07;margin:0 0 12px;font-weight:900;
+
+a{ @apply underline decoration-transparent hover:decoration-[color:var(--gf-orange)]; }
+.gf-container{ @apply max-w-6xl mx-auto px-4; }
+
+/* Nav */
+.nav{
+  backdrop-filter:saturate(120%) blur(8px);
+  background: linear-gradient(180deg, rgba(10,14,18,0.85), rgba(10,14,18,0.45));
+  border-bottom:1px solid var(--gf-stroke);
 }
-.hero .unstoppable{
-  background: linear-gradient(90deg, var(--amber-2), var(--amber-1));
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-  text-shadow: 0 0 32px rgba(255,122,26,.15);
+
+/* Cards */
+.gf-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border:1px solid var(--gf-stroke);
+  @apply rounded-2xl p-5;
+}
+
+/* Buttons — bold, saturated, “left screenshot” feel */
+.btn-primary{
+  background: linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion));
+  @apply inline-flex items-center justify-center text-black font-bold tracking-wide px-5 py-2.5 rounded-xl shadow-lg no-underline;
+  box-shadow: 0 12px 28px rgba(255,122,26,0.25);
+}
+.btn-primary:hover{ filter:brightness(1.06); }
+
+.btn-ghost{
+  @apply inline-flex items-center justify-center border text-[color:var(--gf-text)] px-4 py-2 rounded-xl no-underline font-semibold;
+  border-color: var(--gf-stroke);
+}
+.btn-ghost:hover{ @apply border-white/35; }
+
+/* Nav pill for “Open App” if needed */
+.btn-pill{
+  background: linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion));
+  @apply inline-flex items-center justify-center text-black font-bold px-4 py-1.5 rounded-full shadow no-underline;
+}
+
+/* Gradient text for “Unstoppable” */
+.text-gradient{
+  background: linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
 }
 
 /* Inputs */
+input,select,textarea,button{ outline:none; }
 input,select,textarea{
-  width:100%;border:1px solid var(--line);border-radius:12px;height:42px;padding:0 .9rem;
-  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); color:var(--ink-1);
-  outline:none;
+  @apply bg-transparent border rounded-lg w-full px-3 py-2;
+  border-color: var(--gf-stroke);
+  color: var(--gf-text);
 }
-textarea{height:120px;padding:.8rem}
+input:focus,select:focus,textarea:focus{ @apply border-white/40; }
 
-/* Tables (for nutrition/meal outline) */
-.table{width:100%;border-collapse:collapse}
-.table th,.table td{border-bottom:1px solid var(--line); padding:.7rem .6rem; text-align:left}
-.table th{color:var(--ink-3); font-weight:600}
-
-/* Link */
-.link{color:var(--ink-2)}
-.link:hover{color:var(--ink-1)}
-
-/* Small utility for hero CTA row */
-.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+/* Small utilities */
+.small-dim{ color:var(--gf-text-muted); }
+.locked{
+  position:relative;
+}
+.locked::after{
+  content:"Members only";
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.75));
+  border-radius:1rem;
+  display:grid; place-items:center;
+  color:#fff; font-weight:700; letter-spacing:.02em;
+}
