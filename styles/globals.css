@@ -1,144 +1,171 @@
-/* === Core === */
-:root{
-  /* Exact brand orange gradient (matches your screenshot/buttons/headline) */
-  --brand-start:#ff8b1a;   /* warm orange */
-  --brand-mid:#ff7a2a;     /* mid stop */
-  --brand-end:#ff4a00;     /* deep orange */
+/* ----------------------------
+   GRINDFIT global styles
+   ---------------------------- */
 
-  --text:#e6eaee;
-  --muted:#8c95a3;
-  --panel:rgba(18,22,28,.72);
-  --panel-border:rgba(255,255,255,.06);
-  --ring:rgba(255,130,40,.22);
+/* Brand tokens (exact gradient you approved) */
+:root{
+  --brand-start:#ff8b6b;
+  --brand-mid:#ff8a3a;
+  --brand-end:#ff5c24;
+
+  --bg-1:#0f1418;
+  --bg-2:#0b1013;
+  --text:#e7edf2;
+  --muted:#a9b2bb;
+
+  --card:#151b20;
+  --stroke:rgba(255,255,255,.06);
+
+  /* subtle orange glow used on CTAs */
+  --cta-shadow:0 6px 24px rgba(255,88,0,.22);
 }
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-html,body{font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0b0f14;color:var(--text);}
-
-/* Background glow (top-right to bottom) */
-body{
-  background-image:
-    radial-gradient(1200px 500px at 85% 5%, rgba(255,110,30,.18), transparent 60%),
-    radial-gradient(800px 400px at 10% 95%, rgba(255,80,0,.1), transparent 60%);
+/* Crisp text */
+html, body{
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 }
 
-.container{max-width:1150px;margin:0 auto;padding:0 20px}
+*{ box-sizing:border-box; }
 
-.section{padding:72px 0}
-.hero{padding:92px 0 64px}
-
-/* Headings */
-.h2{font-size:clamp(22px,2.3vw,28px);font-weight:800;margin:0 0 20px}
-.hero-title{
-  margin:0 0 18px;
-  line-height:1.06;
-  font-weight:800;
-  font-size:clamp(36px,6vw,64px);
-}
-.hero-sub{max-width:900px;color:var(--muted);font-size:clamp(14px,1.55vw,18px)}
-.center{text-align:center}
-.mt-4{margin-top:24px}
-
-/* Brand word gradient (for “GRINDFIT”, “Unstoppable”) */
-.brand-word{
-  background:linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 42%, var(--brand-end) 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  text-shadow:0 0 0 transparent;
-}
-
-/* Buttons */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;
-  gap:.5rem; padding:12px 18px; border-radius:12px; font-weight:700;
-  border:1px solid var(--panel-border); background:rgba(255,255,255,.02); color:var(--text);
-}
-.btn-ghost{background:rgba(255,255,255,.03)}
-.btn-cta{padding:10px 14px;border-radius:10px}
-.btn.sm{padding:10px 14px;font-weight:700}
-
-.btn-brand{
-  border:none; color:#111; /* dark text so it pops on orange */
-  background:linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 42%, var(--brand-end) 100%);
-  box-shadow:0 6px 24px rgba(255,80,0,.22);
-}
-.btn-brand:hover{filter:saturate(1.06) brightness(1.02)}
-
-/* Nav */
-.nav{backdrop-filter:saturate(140%) blur(8px); background:rgba(8,11,16,.4); border-bottom:1px solid var(--panel-border)}
-.nav-row{display:flex;align-items:center;justify-content:space-between;height:64px}
-.nav-brand{font-size:18px;letter-spacing:.06em}
-.nav-links{display:flex;align-items:center;gap:18px}
-.nav-links a{color:var(--muted);text-decoration:none;font-weight:700}
-.nav-links a:hover{color:var(--text)}
-
-/* Grids / Cards */
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.grid-5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-.card{
-  background:var(--panel);
-  border:1px solid var(--panel-border);
-  border-radius:14px; padding:18px;
-  box-shadow:0 10px 24px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.02);
-}
-.card-title{margin:0 0 8px;font-size:18px;font-weight:800}
-.card.small .preview{margin:2px 0 6px;color:var(--muted);font-weight:600}
-.badge{display:inline-block;background:rgba(255,255,255,.06);border:1px solid var(--panel-border);border-radius:10px;padding:6px 10px;font-weight:800}
-
-/* Pills (Nutrition tabs) */
-.pills{display:flex;gap:10px;margin:12px 0 16px}
-.pill{
-  border:1px solid var(--panel-border);
-  background:rgba(255,255,255,.03);
-  color:var(--muted);
-  border-radius:999px; padding:8px 14px; font-weight:800;
-}
-.pill.is-active{
-  color:#111;
-  background:linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 42%, var(--brand-end) 100%);
-  box-shadow:0 6px 18px rgba(255,80,0,.22);
-  border-color:transparent;
-}
-
-/* Metrics */
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:10px 0 12px}
-.metric{
-  background:rgba(255,255,255,.03);
-  border:1px solid var(--panel-border);
-  border-radius:12px; padding:12px; text-align:center;
-}
-.metric-label{color:var(--muted);font-weight:700}
-.metric-value{font-weight:800;font-size:22px;margin-top:2px}
-
-/* Lists / text */
-.bullet{color:var(--text);margin:10px 0 8px;padding-left:1.1rem}
-.bullet li{margin:4px 0}
-.disclaimer{color:var(--muted);font-size:13px;margin-top:6px}
-
-/* CTA bar at bottom */
-.cta-bar{
+body{
+  margin:0;
+  color:var(--text);
   background:
-    radial-gradient(420px 160px at 15% 120%, rgba(255,80,0,.25), transparent 60%),
-    radial-gradient(560px 200px at 95% -10%, rgba(255,120,30,.22), transparent 60%),
-    linear-gradient(0deg, rgba(255,255,255,.02), rgba(255,255,255,.02));
-  border-top:1px solid var(--panel-border);
-  padding:18px 0;
+    radial-gradient(1200px 600px at 80% -10%, rgba(255,120,48,.10), transparent 60%),
+    radial-gradient(900px 500px at -10% 100%, rgba(255,120,48,.08), transparent 60%),
+    linear-gradient(180deg, var(--bg-1), var(--bg-2));
+  font-family: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height:1.5;
 }
-.cta-bar-row{display:flex;align-items:center;justify-content:space-between;gap:18px}
-.cta-title{font-weight:800}
 
-/* Footer */
-.footer{color:var(--muted);padding:18px 0}
-
-/* Small screens */
-@media (max-width: 980px){
-  .grid-3{grid-template-columns:1fr}
-  .grid-5{grid-template-columns:1fr 1fr}
-  .cta-bar-row{flex-direction:column;align-items:flex-start}
-  .nav-links{gap:12px}
-  .hero{padding-top:78px}
+/* Page frame */
+.gf-container{
+  width:min(1200px, 92vw);
+  margin-inline:auto;
+  padding-inline:1rem;
 }
+
+.section{ padding-block:72px; }
+.section-sm{ padding-block:40px; }
+
+/* ----------------------------
+   Header / Nav
+   ---------------------------- */
+header.nav{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:saturate(110%) blur(8px);
+  background:linear-gradient(180deg, rgba(16,20,24,.85), rgba(16,20,24,.65));
+  border-bottom:1px solid var(--stroke);
+}
+
+.nav-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1rem; height:64px;
+}
+
+/* Brand word / logo gradient text */
+.brand-word{
+  display:inline-block;
+  font-weight:900; letter-spacing:.02em;
+  background:linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 42%, var(--brand-end) 100%);
+  -webkit-background-clip:text; background-clip:text;
+  color:transparent; text-shadow:0 0 0 transparent;
+}
+
+/* Simple pill links (header and nutrition tabs) */
+.pills{ display:flex; gap:.5rem; }
+.pill{
+  appearance:none; border:none; cursor:pointer;
+  font-weight:700; padding:.4rem .9rem; border-radius:999px;
+  background:rgba(255,255,255,.06); color:var(--text);
+  transition:filter .15s ease, transform .15s ease, background .15s ease;
+}
+.pill:hover{ filter:saturate(108%); transform:translateY(-1px); }
+.pill.is-active{
+  background:linear-gradient(118deg, var(--brand-start), var(--brand-mid) 42%, var(--brand-end));
+  color:#111;
+  box-shadow:var(--cta-shadow);
+}
+
+/* ----------------------------
+   Hero
+   ---------------------------- */
+.hero{
+  padding-top:78px;
+}
+.hero h1{
+  margin:0 0 12px 0;
+  font-size:clamp(36px, 5vw, 64px);
+  line-height:1.05;
+  font-weight:900;
+}
+.hero p.lede{
+  color:var(--muted);
+  font-size:1.05rem;
+  max-width:62ch;
+}
+
+/* Call-to-action buttons */
+.btn-row{ display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; }
+
+/* Brand CTA */
+.btn-brand{
+  appearance:none; border:none; cursor:pointer;
+  font-weight:900; letter-spacing:.01em;
+  padding:.9rem 1.2rem; border-radius:14px;
+  color:#111;
+  background:linear-gradient(118deg, var(--brand-start), var(--brand-mid) 42%, var(--brand-end));
+  box-shadow:var(--cta-shadow);
+  transition:filter .15s ease, transform .15s ease;
+}
+.btn-brand:hover{
+  filter:saturate(106%) brightness(1.02);
+  transform:translateY(-1px);
+}
+
+/* Secondary (dark) button */
+.btn-dark{
+  appearance:none; border:1px solid var(--stroke); background:rgba(255,255,255,.04);
+  color:var(--text); font-weight:800; padding:.9rem 1.1rem; border-radius:14px;
+  transition:background .15s ease, transform .15s ease;
+}
+.btn-dark:hover{ background:rgba(255,255,255,.07); transform:translateY(-1px); }
+
+/* ----------------------------
+   Cards / panels
+   ---------------------------- */
+.card{
+  background:var(--card);
+  border:1px solid var(--stroke);
+  border-radius:14px;
+  box-shadow:0 6px 24px rgba(0,0,0,.18);
+  padding:16px;
+}
+
+/* Small stat tiles used in Nutrition section */
+.stat{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--stroke);
+  border-radius:12px;
+  padding:14px; text-align:center;
+}
+
+/* ----------------------------
+   Footer
+   ---------------------------- */
+.footer{
+  padding-block:56px;
+  border-top:1px solid var(--stroke);
+  background:
+    radial-gradient(800px 380px at 80% 120%, rgba(255,120,48,.10), transparent 60%),
+    linear-gradient(180deg, var(--bg-2), var(--bg-1));
+  color:var(--muted);
+  font-size:.95rem;
+}
+
+/* Utility */
+.mt-6{ margin-top:1.5rem; }
+.mt-8{ margin-top:2rem; }
+.center{ text-align:center; }
+.hide{ display:none !important; }
