@@ -1,157 +1,199 @@
+// /pages/index.js
 import { useState } from "react";
 import Link from "next/link";
 import Nav from "@/components/Nav";
 
 const NUTRITION = {
-  "Fat Loss": {
-    blurb:
-      "Cut the noise. Simple meals, tight macros, and easy swaps that keep you on track without starving.",
-    totals: { Calories: 1700, Protein: 140, Carbs: 150, Fat: 60 },
-    bullets: ["Greek yogurt parfait", "Grilled chicken salad", "Baked salmon + veg", "Lean beef + greens"],
-  },
-  "Lean Mass": {
-    blurb:
-      "Add quality size — not bloat. Clean carbs, high protein, and smart timing to fuel training and recovery.",
-    totals: { Calories: 2200, Protein: 165, Carbs: 250, Fat: 65 },
-    bullets: ["Oats + whey", "Chicken poke bowl", "Tuna pasta", "Salmon + potatoes"],
-  },
-  "Mass Gain": {
-    blurb:
-      "Push the scale the right way. Calorie surplus without the junk, focused on performance and muscle.",
-    totals: { Calories: 2600, Protein: 190, Carbs: 330, Fat: 80 },
-    bullets: ["Eggs + bagel", "Beef rice bowl", "Pasta + meat sauce", "Steak + rice"],
+  tabs: ["Fat Loss", "Lean Mass", "Mass Gain"],
+  data: {
+    "Fat Loss": {
+      blurb:
+        "Keep it simple. Tighter meals, right macros, and easy swaps that keep you on track without starving.",
+      macros: { Calories: 1900, Protein: 180, Carbs: 150, Fat: 60 },
+      bullets: ["Greek yogurt parfait", "Grilled chicken salad", "Baked salmon + greens"],
+    },
+    "Lean Mass": {
+      blurb:
+        "Quality in, quality up — not bloat. Clean carbs, high protein, and smart fats to fuel training and recovery.",
+      macros: { Calories: 2600, Protein: 190, Carbs: 330, Fat: 80 },
+      bullets: ["Eggs + bagel", "Beef rice bowl", "Pasta + meat sauce"],
+    },
+    "Mass Gain": {
+      blurb:
+        "Push the scale the right way. Calorie surplus without the junk, focused on performance and muscle.",
+      macros: { Calories: 3000, Protein: 210, Carbs: 420, Fat: 95 },
+      bullets: ["Eggs + bagel", "Beef fried rice", "Pasta + meat sauce", "Steak + rice"],
+    },
   },
 };
 
-export default function Home(){
-  const [tab,setTab] = useState("Fat Loss");
+export default function Home() {
+  const [tab, setTab] = useState("Fat Loss");
+
+  const m = NUTRITION.data[tab];
 
   return (
     <>
       <Nav />
 
-      <main className="gf-container py-16 lg:py-24">
-        {/* HERO */}
-        <section className="max-w-3xl">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
-            Train Hard.<br/>
-            Think Sharp.<br/>
-            Live <span className="text-gradient">Unstoppable</span>.
+      {/* HERO */}
+      <main className="gf-container pt-16 pb-10">
+        <section className="hero mb-12">
+          <h1 className="text-5xl sm:text-6xl leading-tight font-extrabold">
+            Train Hard. <br />
+            Think Sharp. <br />
+            Live{" "}
+            <span className="bg-gradient-to-r from-[#FFB36B] via-[#FF7A3D] to-[#FF4B2B] bg-clip-text text-transparent">
+              Unstoppable
+            </span>
+            .
           </h1>
-          <p className="mt-5 text-lg text-[color:var(--gf-text-dim)] max-w-2xl">
-            A psychology-driven fitness system that upgrades your body, mind, and lifestyle. Built to win.
+          <p className="mt-4 text-lg text-muted-1 max-w-2xl">
+            A psychology-driven fitness system that upgrades body, mind, and lifestyle — with adaptive plans, habit cues, and recovery built in. No noise. No guesswork.
           </p>
-          <div className="mt-8 flex items-center gap-3">
-            <Link className="btn-primary" href="/login">Start Your Transformation</Link>
-            <a className="btn-ghost" href="#why">See Features</a>
+
+        <div className="mt-6 flex gap-3">
+            <Link href="/login" className="btn-primary">Start Your Transformation</Link>
+            <a href="#why" className="btn-ghost">See Features</a>
           </div>
         </section>
 
         {/* WHY */}
-        <section id="why" className="mt-20">
-          <h2 className="text-2xl font-semibold mb-4">Why GrindFit works</h2>
-          <div className="grid lg:grid-cols-3 gap-4">
-            <article className="gf-card">
-              <h3 className="font-semibold mb-2">Goal-tuned plans</h3>
-              <p className="small-dim">Fat Loss, Lean Mass, Mass Gain. Pick your goal, level, gender, and days. We serve the right week — one you can actually finish.</p>
+        <section id="why" className="mb-14">
+          <h2 className="section-title">Why GrindFit works</h2>
+          <div className="grid-cards">
+            <article className="card">
+              <h3 className="card-title">Goal-tuned plans</h3>
+              <p className="card-copy">
+                Built for <strong>Fat Loss, Lean Mass, and Mass Gain</strong>.
+                Pick your goal, level, gender, and training days. We serve the right week — the one you can actually finish.
+              </p>
             </article>
-            <article className="gf-card">
-              <h3 className="font-semibold mb-2">Mindset-first</h3>
-              <p className="small-dim">Micro-wins and cues that stick. Repeatable motions build momentum. We engineer them into your day.</p>
+
+            <article className="card">
+              <h3 className="card-title">Mindset-first</h3>
+              <p className="card-copy">
+                Micro-wins and clear focus cues create compounding momentum. We engineer your day, not just your workouts.
+              </p>
             </article>
-            <article className="gf-card">
-              <h3 className="font-semibold mb-2">Lifestyle upgrade</h3>
-              <p className="small-dim">Recovery, sleep, and stress designed in — lower friction, higher output, more progress.</p>
+
+            <article className="card">
+              <h3 className="card-title">Lifestyle upgrade</h3>
+              <p className="card-copy">
+                Recovery, sleep, and stress integrated — habits that lower friction and raise output. Less burnout, more progress.
+              </p>
             </article>
           </div>
         </section>
 
         {/* NUTRITION */}
-        <section id="nutrition" className="mt-16">
-          <h2 className="text-2xl font-semibold mb-4">Nutrition, made simple</h2>
-
-          <div className="flex gap-2 mb-4 flex-wrap">
-            {Object.keys(NUTRITION).map(k=>(
-              <button key={k}
-                onClick={()=>setTab(k)}
-                className={`px-3 py-1.5 rounded-lg border font-semibold ${tab===k?'bg-white text-black border-white':'text-[color:var(--gf-text)] border-[color:var(--gf-stroke)]'}`}>
-                {k}
-              </button>
-            ))}
+        <section id="nutrition" className="mb-14">
+          <div className="flex items-center justify-between gap-4 mb-4">
+            <h2 className="section-title m-0">Nutrition, made simple</h2>
+            <div className="tabs">
+              {NUTRITION.tabs.map((t) => (
+                <button
+                  key={t}
+                  className={`tab ${t === tab ? "is-active" : ""}`}
+                  onClick={() => setTab(t)}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="gf-card">
-            <p className="small-dim">{NUTRITION[tab].blurb}</p>
-            <div className="mt-4 grid md:grid-cols-4 gap-3 small-dim text-center">
-              {Object.entries(NUTRITION[tab].totals).map(([k,v])=>(
-                <div key={k} className="rounded-lg border border-[color:var(--gf-stroke)] p-3 bg-[color:var(--gf-card)]">
-                  <div className="text-xs uppercase tracking-wide">{k}</div>
-                  <div className="font-semibold mt-1">{v}</div>
+          <div className="card">
+            <p className="card-copy mb-4">{m.blurb}</p>
+
+            <div className="grid macros">
+              {Object.entries(m.macros).map(([k, v]) => (
+                <div key={k} className="macro">
+                  <div className="macro-key">{k}</div>
+                  <div className="macro-val">{v}</div>
                 </div>
               ))}
             </div>
-            <ul className="mt-4 list-disc ml-5 small-dim grid sm:grid-cols-2 gap-x-8">
-              {NUTRITION[tab].bullets.map((b,i)=><li key={i}>{b}</li>)}
+
+            <ul className="bullets mt-4">
+              {m.bullets.map((b) => (
+                <li key={b}>{b}</li>
+              ))}
             </ul>
-            <p className="small-dim mt-4">
-              <strong>Disclaimer:</strong> These are general guidelines, not medical advice.
+
+            <div className="mt-6 flex items-center justify-between flex-wrap gap-3">
+              <span className="badge-ghost">Members only</span>
+              <Link href="/login" className="btn-primary">Access full meal library</Link>
+            </div>
+
+            <p className="disclaimer mt-3">
+              Disclaimer: These are general guidelines, not medical advice. Consult a qualified professional for personalized recommendations.
             </p>
           </div>
         </section>
 
-        {/* RESET — teaser only (no how-to details) */}
-        <section id="reset" className="mt-16">
-          <h2 className="text-2xl font-semibold mb-4">Reset &amp; Recover</h2>
-          <div className="grid lg:grid-cols-3 gap-4">
-            <article className="gf-card">
-              <h3 className="font-semibold mb-1">Daily Reset</h3>
-              <p className="small-dim">A simple morning pattern that sharpens focus and discipline.</p>
+        {/* RESET & RECOVER */}
+        <section id="reset" className="mb-14">
+          <h2 className="section-title">Reset &amp; Recover</h2>
+          <div className="grid-cards">
+            <article className="card">
+              <h3 className="card-title">Daily reset</h3>
+              <p className="card-copy">
+                Cold shower on wake + water. 10k steps. 20 min GrindFit reading.
+                Low-friction habits that build discipline and clarity.
+              </p>
             </article>
-            <article className="gf-card">
-              <h3 className="font-semibold mb-1">Emotional Reset</h3>
-              <p className="small-dim">A short, powerful block that clears mental weight and restores momentum.</p>
+
+            <article className="card">
+              <h3 className="card-title">Emotional reset</h3>
+              <p className="card-copy">
+                Gratitude, letting-go ritual, and social reconnection. Short, powerful,
+                and repeatable (1–2×/week).
+              </p>
             </article>
-            <article className="gf-card">
-              <h3 className="font-semibold mb-1">Recovery Built-In</h3>
-              <p className="small-dim">Movement, mobility, and breathwork — integrated without complexity.</p>
+
+            <article className="card">
+              <h3 className="card-title">Mobility &amp; breath</h3>
+              <p className="card-copy">
+                Optional 5–10 min flow, barefoot walks, or a weekly ruck.
+                Recovery that raises output.
+              </p>
             </article>
           </div>
-          <div className="mt-4">
-            <Link className="btn-ghost" href="/login">See how it works</Link>
+
+          <div className="mt-6 flex items-center justify-between flex-wrap gap-3">
+            <span className="badge-ghost">Members only</span>
+            <Link href="/login" className="btn-primary">Access full protocol</Link>
           </div>
         </section>
 
-        {/* WEEKLY TRAINING (locked preview) */}
-        <section className="mt-16">
-          <h2 className="text-2xl font-semibold mb-4">Weekly training (preview)</h2>
-          <div className="grid md:grid-cols-5 gap-4">
-            {["Monday","Tuesday","Wednesday","Thursday","Friday"].map(d=>(
-              <div key={d} className="gf-card locked">
-                <div className="text-sm small-dim">{d}</div>
-                <div className="font-semibold mt-1">Session preview</div>
-                <div className="mt-2 small-dim">WOD blocks + optional follow-along video.</div>
-              </div>
+        {/* WEEKLY TRAINING (teaser) */}
+        <section className="mb-16">
+          <h2 className="section-title">Weekly training (teaser)</h2>
+          <div className="grid-week">
+            {["Monday","Tuesday","Wednesday","Thursday","Friday"].map((d) => (
+              <article key={d} className="card">
+                <header className="flex items-center justify-between">
+                  <span className="badge">{d}</span>
+                  <span className="badge-ghost">Members only</span>
+                </header>
+                <div className="mt-2 text-sm text-muted-2">
+                  Session preview
+                  <br />
+                  <span className="opacity-70">EMOM complex • 30–40 min</span>
+                </div>
+              </article>
             ))}
           </div>
-          <div className="mt-4">
-            <Link className="btn-primary" href="/login">Join / Log in to unlock</Link>
-          </div>
-        </section>
 
-        {/* CTA */}
-        <section className="mt-16">
-          <div className="gf-card flex items-center justify-between flex-col md:flex-row gap-4">
-            <div>
-              <h4 className="font-semibold text-xl">Your 30-day upgrade, zero guesswork</h4>
-              <p className="small-dim mt-1">We unlock one week at a time — sustainable, focused, effective.</p>
-            </div>
-            <Link className="btn-primary" href="/login">Start now</Link>
+          <div className="mt-6">
+            <Link href="/login" className="btn-primary">Unlock your training</Link>
           </div>
         </section>
       </main>
 
-      <footer className="mt-20 pb-12">
-        <div className="gf-container small-dim">© {new Date().getFullYear()} GRINDFIT. Built to win.</div>
+      <footer className="py-10 text-center text-muted-2">
+        © {new Date().getFullYear()} GrindFit. Built to win.
       </footer>
     </>
   );
