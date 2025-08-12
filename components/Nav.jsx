@@ -12,9 +12,9 @@ export default function Nav({ rightSlot }) {
         <nav className="flex items-center gap-3">
           <a className="btn-ghost" href="#why">Why GrindFit</a>
           <a className="btn-ghost" href="#nutrition">Nutrition</a>
-          <a className="btn-ghost" href="#reset">Reset</a>
-          <Link className="btn-pill" href="/login">Open App</Link>
-          {rightSlot ?? null}
+          <a className="btn-ghost" href="#reset">Reset &amp; Recover</a>
+          <Link className="btn-primary" href="/login">Open App</Link>
+          {rightSlot}
         </nav>
       </div>
     </header>
