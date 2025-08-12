@@ -1,27 +1,25 @@
 // /components/Nav.jsx
 import Link from "next/link";
-import Brand from "./Brand";
+import Brand from "@/components/Brand";
 
-export default function Nav({ rightSlot = null }) {
+export default function Nav() {
   return (
     <header className="nav">
-      <div className="gf-container row">
-        {/* Brand (GF badge + word) */}
-        <Link href="/" className="no-underline" aria-label="Go home">
-          <Brand />
-        </Link>
+      <div className="gf-container nav-inner">
+        <div className="nav-left">
+          <Link href="/" className="no-underline">
+            <Brand />
+          </Link>
+        </div>
 
-        {/* Primary nav */}
-        <nav className="links">
-          <a className="btn-ghost" href="#why">Why GrindFit</a>
-          <a className="btn-ghost" href="#nutrition">Nutrition</a>
-          <a className="btn-ghost" href="#reset">Reset &amp; Recover</a>
-          <a className="btn-ghost" href="#membership">Membership</a>
-
-          {/* Right-side CTA */}
-          {rightSlot ?? (
-            <Link className="btn-primary" href="/login">Open App</Link>
-          )}
+        <nav className="nav-links">
+          <Link href="#why">Why GrindFit</Link>
+          <Link href="#nutrition">Nutrition</Link>
+          <Link href="#reset">Reset & Recover</Link>
+          <Link href="#membership">Membership</Link>
+          <Link href="/login" className="btn btn-primary" style={{ height: 36 }}>
+            Open App
+          </Link>
         </nav>
       </div>
     </header>
