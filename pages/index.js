@@ -1,6 +1,6 @@
-// pages/index.js
 import { useState } from "react";
 import Link from "next/link";
+import Nav from "@/components/Nav";
 
 const NUTRITION = {
   "Fat Loss": {
@@ -28,22 +28,7 @@ export default function Home(){
 
   return (
     <>
-      <header className="nav sticky top-0 z-50">
-        <div className="gf-container flex items-center justify-between h-16">
-          <Link href="/" className="no-underline">
-            <div className="flex items-center gap-2">
-              <div className="h-3 w-3 rounded-sm" style={{background:"linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion))"}}/>
-              <span className="tracking-wide font-semibold">GRINDFIT</span>
-            </div>
-          </Link>
-          <nav className="flex items-center gap-3">
-            <a className="btn-ghost" href="#why">Why GrindFit</a>
-            <a className="btn-ghost" href="#nutrition">Nutrition</a>
-            <a className="btn-ghost" href="#reset">Reset &amp; Recover</a>
-            <Link className="btn-pill" href="/login">Open App</Link>
-          </nav>
-        </div>
-      </header>
+      <Nav />
 
       <main className="gf-container py-16 lg:py-24">
         {/* HERO */}
@@ -54,7 +39,7 @@ export default function Home(){
             Live <span className="text-gradient">Unstoppable</span>.
           </h1>
           <p className="mt-5 text-lg text-[color:var(--gf-text-dim)] max-w-2xl">
-            A psychology-driven fitness system that upgrades your body, mind, and lifestyle. No noise. No guesswork.
+            A psychology-driven fitness system that upgrades your body, mind, and lifestyle. Built to win.
           </p>
           <div className="mt-8 flex items-center gap-3">
             <Link className="btn-primary" href="/login">Start Your Transformation</Link>
@@ -68,15 +53,15 @@ export default function Home(){
           <div className="grid lg:grid-cols-3 gap-4">
             <article className="gf-card">
               <h3 className="font-semibold mb-2">Goal-tuned plans</h3>
-              <p className="small-dim">Built for Fat Loss, Lean Mass, and Mass Gain. Pick your goal, level, gender, and days. We serve the right week — one you can actually finish.</p>
+              <p className="small-dim">Fat Loss, Lean Mass, Mass Gain. Pick your goal, level, gender, and days. We serve the right week — one you can actually finish.</p>
             </article>
             <article className="gf-card">
               <h3 className="font-semibold mb-2">Mindset-first</h3>
-              <p className="small-dim">Micro-wins and cues that stick. Small, repeatable motions create momentum. We engineer them into your day.</p>
+              <p className="small-dim">Micro-wins and cues that stick. Repeatable motions build momentum. We engineer them into your day.</p>
             </article>
             <article className="gf-card">
               <h3 className="font-semibold mb-2">Lifestyle upgrade</h3>
-              <p className="small-dim">Recovery, sleep, and stress integrated — habits that lower friction and raise output. Less burnout, more progress.</p>
+              <p className="small-dim">Recovery, sleep, and stress designed in — lower friction, higher output, more progress.</p>
             </article>
           </div>
         </section>
@@ -109,36 +94,36 @@ export default function Home(){
               {NUTRITION[tab].bullets.map((b,i)=><li key={i}>{b}</li>)}
             </ul>
             <p className="small-dim mt-4">
-              <strong>Disclaimer:</strong> These are general guidelines, not medical advice. Consult a qualified professional for personalized recommendations.
+              <strong>Disclaimer:</strong> These are general guidelines, not medical advice.
             </p>
           </div>
         </section>
 
-        {/* RESET & RECOVER — its own section */}
+        {/* RESET — teaser only (no how-to details) */}
         <section id="reset" className="mt-16">
           <h2 className="text-2xl font-semibold mb-4">Reset &amp; Recover</h2>
           <div className="grid lg:grid-cols-3 gap-4">
             <article className="gf-card">
-              <h3 className="font-semibold mb-2">Daily reset</h3>
-              <p className="small-dim">Cold shower on wake + water. 10k steps. 20 min GrindFit reading. Low-friction habits that build discipline.</p>
+              <h3 className="font-semibold mb-1">Daily Reset</h3>
+              <p className="small-dim">A simple morning pattern that sharpens focus and discipline.</p>
             </article>
             <article className="gf-card">
-              <h3 className="font-semibold mb-2">Emotional reset</h3>
-              <p className="small-dim">Gratitude, letting-go ritual, and social reconnection. Short, powerful, and repeatable (1–2×/week).</p>
+              <h3 className="font-semibold mb-1">Emotional Reset</h3>
+              <p className="small-dim">A short, powerful block that clears mental weight and restores momentum.</p>
             </article>
             <article className="gf-card">
-              <h3 className="font-semibold mb-2">Mobility & breath</h3>
-              <p className="small-dim">Optional 5–10 min flow, barefoot walks, or a weekly ruck. Recovery that raises output.</p>
+              <h3 className="font-semibold mb-1">Recovery Built-In</h3>
+              <p className="small-dim">Movement, mobility, and breathwork — integrated without complexity.</p>
             </article>
           </div>
           <div className="mt-4">
-            <Link className="btn-ghost" href="/login">Access full protocol</Link>
+            <Link className="btn-ghost" href="/login">See how it works</Link>
           </div>
         </section>
 
-        {/* WEEKLY TRAINING (teaser, locked) */}
+        {/* WEEKLY TRAINING (locked preview) */}
         <section className="mt-16">
-          <h2 className="text-2xl font-semibold mb-4">Weekly training (teaser)</h2>
+          <h2 className="text-2xl font-semibold mb-4">Weekly training (preview)</h2>
           <div className="grid md:grid-cols-5 gap-4">
             {["Monday","Tuesday","Wednesday","Thursday","Friday"].map(d=>(
               <div key={d} className="gf-card locked">
