@@ -1,80 +1,63 @@
-import Head from "next/head";
+// pages/workout/[day].js
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
-function readJSON(key, fallback=null){
-  try{ const raw = localStorage.getItem(key); return raw? JSON.parse(raw):fallback; }
-  catch{ return fallback; }
-}
+import { requireAuth } from "@/lib/auth";
 
 export default function WorkoutDay(){
-  const r = useRouter();
-  const { day } = r.query;
-  const [session, setSession] = useState(null);
-  const [profile, setProfile] = useState(null);
+  const router = useRouter();
+  const { day } = router.query;
+  const [session,setSession] = useState(null);
 
   useEffect(()=>{
-    const plan = readJSON("grindfit_plan", []);
-    const prof = readJSON("grindfit_profile");
-    if(!plan.length || !prof){ r.replace("/onboarding"); return; }
-    setProfile(prof);
-    if(day){
-      const found = plan.find(p => p.day.toLowerCase() === String(day).toLowerCase());
-      setSession(found || null);
+    if(!requireAuth()) return;
+    const w = localStorage.getItem("grindfit_plan");
+    if(!w){ window.location.href="/onboarding"; return; }
+    const plan = JSON.parse(w);
+    const map = { monday:"Monday", tuesday:"Tuesday", wednesday:"Wednesday", thursday:"Thursday", friday:"Friday" };
+    const label = map[(day||"").toLowerCase()];
+    if(label && plan.week1 && plan.week1[label]){
+      setSession({ label, blocks: plan.week1[label] });
     }
-  },[day,r]);
+  },[day]);
 
-  if(!session || !profile) return null;
+  if(!session) return null;
 
   return (
     <>
-      <Head><title>{session.day} — Workout | GrindFit</title></Head>
-
-      <header className="container" style={{paddingTop:20}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-          <span className="logo"><span className="logo-mark"/><span className="logo-type">GrindFit</span></span>
-          <div className="row">
-            <a className="btn btn-ghost" href="/app">Back to Week</a>
+      <header className="nav sticky top-0 z-50">
+        <div className="gf-container flex items-center justify-between h-16">
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-sm" style={{background:"linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion))"}}/>
+            <span className="tracking-wide font-semibold">GRINDFIT</span>
           </div>
+          <button onClick={()=>history.back()} className="btn-ghost">Back</button>
         </div>
       </header>
 
-      <main className="section">
-        <div className="container" style={{maxWidth:1000}}>
-          <div className="card" style={{padding:16, marginBottom:16}}>
-            <div className="kicker">{profile.goal} — {profile.level} — {profile.gender}</div>
-            <h1 style={{margin:"6px 0 4px", fontWeight:800}}>
-              {session.day}: {session.title}
-            </h1>
-            <p className="muted" style={{margin:0}}>Follow along live or train at your pace.</p>
+      <main className="gf-container py-10 space-y-6">
+        <h1 className="text-2xl font-semibold">{session.label}</h1>
+
+        <div className="grid lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 space-y-4">
+            {session.blocks.map((b,idx)=>(
+              <div key={idx} className="gf-card">
+                <div className="font-semibold mb-2">{b.title}</div>
+                {b.items?.length>0 && (
+                  <ul className="list-disc ml-5 small-dim space-y-1">
+                    {b.items.map((it,i)=><li key={i}>{it}</li>)}
+                  </ul>
+                )}
+              </div>
+            ))}
           </div>
 
-          <div className="feature-grid" style={{gridTemplateColumns:"1fr 1fr", gap:16}}>
-            {/* Video / live slot */}
-            <article className="card" style={{padding:12}}>
-              <div className="kicker">Follow-Along</div>
-              <div style={{aspectRatio:"16/9", width:"100%", background:"#000", borderRadius:12, border:"1px solid var(--line)", display:"grid",placeItems:"center"}}>
-                <span className="muted">Video stream / player goes here</span>
-              </div>
-            </article>
-
-            {/* Session content */}
-            <article className="card" style={{padding:16}}>
-              <div className="kicker">Session</div>
-              <ul style={{marginTop:8, paddingLeft:"1.1rem", color:"var(--ink-3)"}}>
-                {session.cues.map((c,i)=><li key={i} style={{marginBottom:6}}>{c}</li>)}
-              </ul>
-
-              <div style={{marginTop:12}}>
-                <div className="kicker">Your Notes</div>
-                <textarea placeholder="How did it feel? Load used? Any tweaks for next time."/>
-              </div>
-
-              <div style={{marginTop:12}}>
-                <a className="btn btn-amber" href="/app">Mark Done & Return</a>
-              </div>
-            </article>
-          </div>
+          <aside className="gf-card">
+            <div className="font-semibold">Follow-along (Optional)</div>
+            <p className="small-dim mt-2">Drop your video link here when ready. Placeholder for now.</p>
+            <div className="mt-3 aspect-video rounded-xl border border-[color:var(--gf-stroke)] bg-[color:var(--gf-card)] grid place-content-center small-dim">
+              Video Player
+            </div>
+          </aside>
         </div>
       </main>
     </>
