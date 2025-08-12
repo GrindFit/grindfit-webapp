@@ -71,13 +71,17 @@ export default function Home(){
 
          <div className="flex gap-2 mb-4 flex-wrap">
   {Object.keys(NUTRITION).map(k => (
-    <button
-      key={k}
-      onClick={() => setTab(k)}
-      className={`pill ${tab === k ? "pill-active" : "pill-inactive"}`}
-    >
-      {k}
-    </button>
+                <button
+                key={k}
+                onClick={() => setTab(k)}
+                className={`px-3 py-1.5 rounded-lg font-semibold ${
+                  tab === k
+                    ? "text-black border-transparent bg-[linear-gradient(90deg,var(--gf-amber),var(--gf-orange)_55%,var(--gf-vermillion))]"
+                    : "text-[color:var(--gf-text)] border border-[color:var(--gf-stroke)]"
+                }`}
+              >
+                {k}
+              </button>
   ))}
 </div>
 
