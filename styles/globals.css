@@ -1,63 +1,103 @@
-/* === Brand orange (exact from your button/screenshot) === */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Brand (GrindFit) ---------- */
 :root{
-  --og-start: #ff8b0a;    /* 0%  */
-  --og-mid:   #ff7a00;    /* 42% */
-  --og-end:   #ff5c24;    /* 100% */
-  --og-grad:  linear-gradient(118deg, var(--og-start) 0%, var(--og-mid) 42%, var(--og-end) 100%);
+  --gf-bg:#0a0e12;
+  --gf-bg-elev:#0f141a;
+  --gf-card:#11161c;
+  --gf-stroke:#1b232d;
+
+  /* Logo gradient (saturated, like your left preview) */
+  --gf-amber:#FFB14A;
+  --gf-orange:#FF7A1A;
+  --gf-vermillion:#FF4D00;
+
+  --gf-text:#e8edf3;
+  --gf-text-dim:#a9b2bd;
+  --gf-text-muted:#7c8895;
+
+  --gf-green:#22c55e;
+  --gf-blue:#60a5fa;
+  --gf-error:#ef4444;
 }
 
-/* Subtle hero glow behind the header (same look as your video) */
-body::before{
-  content:"";
-  position: fixed;
-  inset: -20vh -10vw auto -10vw;
-  height: 65vh;
-  background: radial-gradient(60% 60% at 60% 0%, rgba(255,122,0,.22) 0%, rgba(0,0,0,0) 60%);
-  filter: blur(40px);
-  pointer-events: none;
-  z-index: -1;
+html,body,#__next{height:100%;}
+body{
+  background:
+    radial-gradient(1200px 800px at 14% 6%, rgba(255,122,26,0.22), transparent 55%),
+    radial-gradient(1000px 700px at 85% 12%, rgba(255,77,0,0.12), transparent 62%),
+    var(--gf-bg);
+  color:var(--gf-text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-/* === Hero typography & spacing (match weight/size/line-height) === */
-.hero{ padding-top: 7.75rem; }                 /* breathing room */
-.hero h1{
-  font-weight: 900;
-  font-size: clamp(44px, 8.2vw, 96px);
-  line-height: 1.04;
-  letter-spacing: -0.02em;
-}
-.hero .lead{ color: var(--muted); font-size: 1.125rem; }
+a{ @apply underline decoration-transparent hover:decoration-[color:var(--gf-orange)]; }
+.gf-container{ @apply max-w-6xl mx-auto px-4; }
 
-/* “Unstoppable” wordmark in the exact gradient */
-.brand-word{
-  font-weight: 900;
-  background: var(--og-grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 0 transparent;
+/* Nav */
+.nav{
+  backdrop-filter:saturate(120%) blur(8px);
+  background: linear-gradient(180deg, rgba(10,14,18,0.85), rgba(10,14,18,0.45));
+  border-bottom:1px solid var(--gf-stroke);
 }
 
-/* Primary CTA – gradient fill with black label text */
+/* Cards */
+.gf-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border:1px solid var(--gf-stroke);
+  @apply rounded-2xl p-5;
+}
+
+/* Buttons — bold, saturated, “left screenshot” feel */
 .btn-primary{
-  background: var(--og-grad);
-  color: #0b0b0b;
-  font-weight: 800;
-  border-radius: 12px;
-  padding: .8rem 1.1rem;
-  box-shadow: 0 6px 24px rgba(255,96,0,.22);
-  transition: transform .15s ease, filter .15s ease, box-shadow .15s ease;
+  background: linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion));
+  @apply inline-flex items-center justify-center text-black font-bold tracking-wide px-5 py-2.5 rounded-xl shadow-lg no-underline;
+  box-shadow: 0 12px 28px rgba(255,122,26,0.25);
 }
-.btn-primary:hover{ transform: translateY(-1px); filter: saturate(1.08) brightness(1.02); }
-.btn-primary:active{ transform: translateY(0); }
+.btn-primary:hover{ filter:brightness(1.06); }
 
-/* Pills (Fat Loss / Lean Mass / Mass Gain) use the SAME gradient when active */
-.pill{ border-radius: 999px; padding: .45rem .8rem; font-weight: 700; }
-.pill.is-active{ background: var(--og-grad); color: #0b0b0b; }
+.btn-ghost{
+  @apply inline-flex items-center justify-center border text-[color:var(--gf-text)] px-4 py-2 rounded-xl no-underline font-semibold;
+  border-color: var(--gf-stroke);
+}
+.btn-ghost:hover{ @apply border-white/35; }
 
-/* Card & section rhythm so the layout breathes like your ref */
-.section{ padding: 5.5rem 0; }
-.gf-container{ width: min(1100px, 92%); margin-inline: auto; }
+/* Nav pill for “Open App” if needed */
+.btn-pill{
+  background: linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion));
+  @apply inline-flex items-center justify-center text-black font-bold px-4 py-1.5 rounded-full shadow no-underline;
+}
 
-/* Keep this tiny util – used by spacing helpers in index */
-.mt-6{ margin-top: 1.5rem; }
+/* Gradient text for “Unstoppable” */
+.text-gradient{
+  background: linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+/* Inputs */
+input,select,textarea,button{ outline:none; }
+input,select,textarea{
+  @apply bg-transparent border rounded-lg w-full px-3 py-2;
+  border-color: var(--gf-stroke);
+  color: var(--gf-text);
+}
+input:focus,select:focus,textarea:focus{ @apply border-white/40; }
+
+/* Small utilities */
+.small-dim{ color:var(--gf-text-muted); }
+.locked{
+  position:relative;
+}
+.locked::after{
+  content:"Members only";
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.75));
+  border-radius:1rem;
+  display:grid; place-items:center;
+  color:#fff; font-weight:700; letter-spacing:.02em;
+}
