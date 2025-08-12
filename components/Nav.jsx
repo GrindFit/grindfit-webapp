@@ -1,25 +1,19 @@
-// /components/Nav.jsx
+// components/Nav.jsx
 import Link from "next/link";
-import Brand from "@/components/Brand";
+import Brand from "./Brand";
 
 export default function Nav() {
   return (
-    <header className="nav">
-      <div className="gf-container nav-inner">
-        <div className="nav-left">
-          <Link href="/" className="no-underline">
-            <Brand />
-          </Link>
-        </div>
+    <header className="nav sticky top-0 z-40">
+      <div className="container nav-row">
+        <Link href="/"><Brand className="nav-brand" /></Link>
 
         <nav className="nav-links">
-          <Link href="#why">Why GrindFit</Link>
-          <Link href="#nutrition">Nutrition</Link>
-          <Link href="#reset">Reset & Recover</Link>
-          <Link href="#membership">Membership</Link>
-          <Link href="/login" className="btn btn-primary" style={{ height: 36 }}>
-            Open App
-          </Link>
+          <a href="#why">Why GrindFit</a>
+          <a href="#nutrition">Nutrition</a>
+          <a href="#reset">Reset & Recover</a>
+          <Link href="/membership">Membership</Link>
+          <Link href="/login" className="btn btn-cta">Open App</Link>
         </nav>
       </div>
     </header>
