@@ -1,7 +1,7 @@
-// pages/login.js
 import { useEffect, useState } from "react";
 import { isAuthed, login } from "@/lib/auth";
 import { useRouter } from "next/router";
+import Nav from "@/components/Nav";
 
 export default function Login(){
   const router = useRouter();
@@ -10,7 +10,6 @@ export default function Login(){
 
   useEffect(()=>{
     if(isAuthed()) {
-      // If profile exists, go to app; otherwise onboard.
       const hasProfile = !!localStorage.getItem("grindfit_profile");
       router.replace(hasProfile?"/app":"/onboarding");
     }
@@ -19,7 +18,6 @@ export default function Login(){
   function submit(e){
     e.preventDefault();
     if(!email || !code) return;
-    // You can enforce a real code here or integrate Stripe/Memberstack later.
     login(email);
     const hasProfile = !!localStorage.getItem("grindfit_profile");
     router.push(hasProfile?"/app":"/onboarding");
@@ -27,14 +25,7 @@ export default function Login(){
 
   return (
     <>
-      <header className="nav sticky top-0 z-50">
-        <div className="gf-container flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-3 rounded-sm" style={{background:"linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion))"}}/>
-            <span className="tracking-wide font-semibold">GRINDFIT</span>
-          </div>
-        </div>
-      </header>
+      <Nav />
 
       <main className="gf-container py-12 max-w-lg">
         <h1 className="text-2xl font-semibold mb-6">Log in</h1>
@@ -51,8 +42,6 @@ export default function Login(){
           </div>
           <button className="btn-primary w-full" type="submit">Enter</button>
         </form>
-
-        <p className="small-dim mt-4">Don’t have access yet? Use the hero CTAs to join, then come back here.</p>
       </main>
     </>
   );
