@@ -36,15 +36,14 @@ export default function Home(){
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
             Train Hard.<br/>
             Think Sharp.<br/>
-            Live <span className="text-gradient">Unstoppable</span>.
+            Live <span className="text-gradient">Unstoppable</span>
           </h1>
           <p className="mt-5 text-lg text-[color:var(--gf-text-dim)] max-w-2xl">
             A psychology-driven fitness system that upgrades your body, mind, and lifestyle. Built to win.
           </p>
           <div className="mt-8 flex items-center gap-3">
             <Link className="btn-primary" href="/login">Start Your Transformation</Link>
-            <a className="btn-ghost" href="#why">See Features</a>
-          </div>
+                  </div>
         </section>
 
         {/* WHY */}
