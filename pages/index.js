@@ -69,15 +69,17 @@ export default function Home(){
         <section id="nutrition" className="mt-16">
           <h2 className="text-2xl font-semibold mb-4">Nutrition, made simple</h2>
 
-          <div className="flex gap-2 mb-4 flex-wrap">
-            {Object.keys(NUTRITION).map(k=>(
-              <button key={k}
-                onClick={()=>setTab(k)}
-                className={`px-3 py-1.5 rounded-lg border font-semibold ${tab===k?'bg-white text-black border-white':'text-[color:var(--gf-text)] border-[color:var(--gf-stroke)]'}`}>
-                {k}
-              </button>
-            ))}
-          </div>
+         <div className="flex gap-2 mb-4 flex-wrap">
+  {Object.keys(NUTRITION).map(k => (
+    <button
+      key={k}
+      onClick={() => setTab(k)}
+      className={`pill ${tab === k ? "pill-active" : "pill-inactive"}`}
+    >
+      {k}
+    </button>
+  ))}
+</div>
 
           <div className="gf-card">
             <p className="small-dim">{NUTRITION[tab].blurb}</p>
