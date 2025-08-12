@@ -104,4 +104,55 @@ h2{
   color:#070809;
   box-shadow: 0 6px 18px rgba(255,90,0,.28), 0 0 0 1px rgba(255,120,0,.35) inset;
 }
-.btn-prim
+.btn-primary:hover{ filter: brightness(1.06); }
+
+/* ghost = soft matte */
+.btn-ghost{
+  background: #1a212a; color:var(--text);
+  border-color: rgba(255,255,255,.06);
+}
+.btn-ghost:hover{ background:#202731; }
+
+/* pills (for Nutrition tabs) */
+.pill{
+  height:34px; padding:0 14px; border-radius:999px;
+  background:#161c24; color:var(--muted);
+  border:1px solid rgba(255,255,255,.08);
+  font-weight:800; letter-spacing:.02em;
+}
+.pill:hover{ color:var(--text); }
+.pill.is-active{
+  background: linear-gradient(118deg, var(--brand-start), var(--brand-mid) 45%, var(--brand-end));
+  color:#0b0d10; border-color: transparent;
+  box-shadow: 0 6px 16px rgba(255,90,0,.28);
+}
+
+/* --- Cards --- */
+.cards{ display:grid; gap:18px; grid-template-columns: repeat(12, 1fr); }
+.card{
+  grid-column: span 4;
+  background: linear-gradient(180deg, #171c23, #131820 60%);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:14px;
+  padding:18px;
+  box-shadow: 0 10px 28px rgba(0,0,0,.25);
+}
+@media (max-width: 980px){
+  .card{ grid-column: 1 / -1; }
+}
+
+/* --- Media placeholders for video & images --- */
+.media-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem; }
+.media-slot{
+  border-radius:16px;
+  background: radial-gradient(1200px 400px at 10% -20%, rgba(255,120,0,.10) 0, transparent 60%), #131820;
+  border:1px solid rgba(255,255,255,.06);
+  height:190px;
+}
+
+/* --- Utility --- */
+.mt-4{ margin-top:1rem; }
+.mt-6{ margin-top:1.5rem; }
+.mt-8{ margin-top:2rem; }
+.center{ text-align:center; }
+.hidden{ display:none !important; }
