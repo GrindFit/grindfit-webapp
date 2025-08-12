@@ -1,143 +1,69 @@
-/* === Reset & base === */
-* { box-sizing: border-box; }
-html, body, #__next { height: 100%; }
-body {
-  margin: 0;
-  background: #0b0f13;
-  color: #eef2f6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Manrope, Arial, "Noto Sans", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-
-/* === Brand tokens (exact GRINDFIT gradient) === */
+/* === Core === */
 :root{
-  --bg: #0b0f13;
-  --panel: #11161c;
-  --panel2:#121b23;
-  --muted:#a4afba;
-  --line: rgba(255,255,255,0.06);
+  /* Exact brand orange gradient (matches your screenshot/buttons/headline) */
+  --brand-start:#ff8b1a;   /* warm orange */
+  --brand-mid:#ff7a2a;     /* mid stop */
+  --brand-end:#ff4a00;     /* deep orange */
 
-  /* Exact orange gradient we agreed on */
-  --brand-start:#ff8b6b;
-  --brand-mid:#ff8a3a;
-  --brand-end:#ff5c24;
-
-  --radius: 14px;
-  --shadow: 0 6px 24px rgba(0,0,0,0.35);
+  --text:#e6eaee;
+  --muted:#8c95a3;
+  --panel:rgba(18,22,28,.72);
+  --panel-border:rgba(255,255,255,.06);
+  --ring:rgba(255,130,40,.22);
 }
 
-/* Utilities */
-.container {
-  width: min(1200px, 92vw);
-  margin-inline: auto;
-}
-.section { padding: 72px 0; }
-.stack-lg > * + * { margin-top: 28px; }
-.stack-md > * + * { margin-top: 18px; }
-.grid-3 {
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-@media (max-width: 992px){ .grid-3{ grid-template-columns: 1fr; } }
-.card {
-  background: linear-gradient(180deg, var(--panel) 0%, #0f141a 100%);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  box-shadow: var(--shadow);
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html,body{font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#0b0f14;color:var(--text);}
+
+/* Background glow (top-right to bottom) */
+body{
+  background-image:
+    radial-gradient(1200px 500px at 85% 5%, rgba(255,110,30,.18), transparent 60%),
+    radial-gradient(800px 400px at 10% 95%, rgba(255,80,0,.1), transparent 60%);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-/* === Header / Nav === */
-.header {
-  position: sticky; top: 0; z-index: 50;
-  background: linear-gradient(180deg, rgba(11,15,19,0.9), rgba(11,15,19,0.6));
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
-}
-.header-inner {
-  height: 68px;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.nav a {
-  color: #dbe3ea; text-decoration: none; font-weight: 600;
-  padding: 8px 12px; border-radius: 10px;
-}
-.nav a:hover { background: rgba(255,255,255,0.06); }
+.container{max-width:1150px;margin:0 auto;padding:0 20px}
 
-/* Primary CTA */
-.btn-primary {
-  display:inline-flex; align-items:center; justify-content:center;
-  gap: 8px; padding: 12px 18px; border-radius: 999px;
-  border: 1px solid rgba(0,0,0,0.06);
-  background: linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 45%, var(--brand-end) 100%);
-  color: #0a0a0a; /* black text on orange, as requested */
-  font-weight: 800; letter-spacing: .2px;
-  box-shadow: 0 8px 30px rgba(255, 115, 50, .22), inset 0 0 0 1px rgba(0,0,0,0.05);
-}
-.btn-ghost {
-  display:inline-flex; align-items:center; justify-content:center;
-  padding: 12px 18px; border-radius: 999px;
-  border: 1px solid var(--line); color:#dbe3ea; background: transparent;
-  font-weight: 700;
-}
-.btn-ghost:hover { background: rgba(255,255,255,0.06); }
+.section{padding:72px 0}
+.hero{padding:92px 0 64px}
 
-/* Wordmark accent */
+/* Headings */
+.h2{font-size:clamp(22px,2.3vw,28px);font-weight:800;margin:0 0 20px}
+.hero-title{
+  margin:0 0 18px;
+  line-height:1.06;
+  font-weight:800;
+  font-size:clamp(36px,6vw,64px);
+}
+.hero-sub{max-width:900px;color:var(--muted);font-size:clamp(14px,1.55vw,18px)}
+.center{text-align:center}
+.mt-4{margin-top:24px}
+
+/* Brand word gradient (for “GRINDFIT”, “Unstoppable”) */
 .brand-word{
-  font-weight: 1000;
-  background: linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 42%, var(--brand-end) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 0 transparent;
+  background:linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 42%, var(--brand-end) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-shadow:0 0 0 transparent;
 }
 
-/* Pills (Nutrition tabs) */
-.pills { display:flex; gap:10px; flex-wrap: wrap; }
-.pill {
-  appearance:none; border: 1px solid var(--line);
-  background: transparent; color: #cfd6dd; font-weight: 800;
-  padding: 8px 14px; border-radius: 999px; cursor:pointer;
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:.5rem; padding:12px 18px; border-radius:12px; font-weight:700;
+  border:1px solid var(--panel-border); background:rgba(255,255,255,.02); color:var(--text);
 }
-.pill[aria-pressed="true"], .pill.is-active{
-  background: linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 42%, var(--brand-end) 100%);
-  color: #0a0a0a; border-color: rgba(0,0,0,0.2);
-}
+.btn-ghost{background:rgba(255,255,255,.03)}
+.btn-cta{padding:10px 14px;border-radius:10px}
+.btn.sm{padding:10px 14px;font-weight:700}
 
-/* Hero */
-.hero { padding: 110px 0 70px; }
-.hero h1 {
-  font-size: clamp(40px, 6vw, 72px);
-  line-height: 1.05; margin: 0 0 18px;
-  font-weight: 1000;
+.btn-brand{
+  border:none; color:#111; /* dark text so it pops on orange */
+  background:linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 42%, var(--brand-end) 100%);
+  box-shadow:0 6px 24px rgba(255,80,0,.22);
 }
-.hero p { color: var(--muted); font-size: 18px; }
-
-/* Media placeholders */
-.media-grid{
-  display:grid; gap:18px; grid-template-columns: 2fr 1fr 1fr;
-}
-@media (max-width: 992px){ .media-grid{ grid-template-columns: 1fr; } }
-.media {
-  min-height: 200px; border-radius: var(--radius); border:1px solid var(--line);
-  background:
-    radial-gradient(1000px 380px at -50% 120%, rgba(255,140,70,.18), transparent 60%),
-    radial-gradient(900px 300px at 120% -20%, rgba(255,92,36,.18), transparent 55%),
-    #0e1319;
-  display:flex; align-items:center; justify-content:center;
-  color:#7f8b96; font-weight:800; letter-spacing:.3px;
-}
-
-/* Membership pricing */
-.pricing { display:grid; gap:18px; grid-template-columns: repeat(4,1fr); }
-@media (max-width: 1100px){ .pricing{ grid-template-columns: 1fr; } }
-.price-card .title { font-weight: 900; }
-.price-card .amount { font-size: 28px; font-weight: 1000; }
-
-/* Footer mini */
-.footer {
-  padding: 24px 0; border-top: 1px solid var(--line);
-  color: #9fb0bf; font-size: 14px;
-}
+.btn-brand:hover{filter:saturat
