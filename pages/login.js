@@ -1,43 +1,58 @@
-import Head from "next/head";
-import Nav from "../components/Nav";
-import { useState } from "react";
+// pages/login.js
+import { useEffect, useState } from "react";
+import { isAuthed, login } from "@/lib/auth";
+import { useRouter } from "next/router";
 
 export default function Login(){
-  const [email, setEmail] = useState("");
+  const router = useRouter();
+  const [email,setEmail] = useState("");
+  const [code,setCode] = useState("");
 
-  function onSubmit(e){
+  useEffect(()=>{
+    if(isAuthed()) {
+      // If profile exists, go to app; otherwise onboard.
+      const hasProfile = !!localStorage.getItem("grindfit_profile");
+      router.replace(hasProfile?"/app":"/onboarding");
+    }
+  },[router]);
+
+  function submit(e){
     e.preventDefault();
-    alert("Demo: send magic link to " + email);
+    if(!email || !code) return;
+    // You can enforce a real code here or integrate Stripe/Memberstack later.
+    login(email);
+    const hasProfile = !!localStorage.getItem("grindfit_profile");
+    router.push(hasProfile?"/app":"/onboarding");
   }
 
   return (
     <>
-      <Head>
-        <title>GrindFit — Login</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
-      <Nav/>
-      <main className="section">
-        <div className="container" style={{maxWidth: 520}}>
-          <h1 style={{fontWeight:1000, marginBottom:12}}>Access GrindFit</h1>
-          <p style={{color:"#a4afba", marginBottom:16}}>Enter your email to get a login link.</p>
-          <form onSubmit={onSubmit} className="card" style={{padding:18, display:"grid", gap:12}}>
-            <label htmlFor="email" style={{fontWeight:800}}>Email</label>
-            <input
-              id="email"
-              type="email"
-              required
-              value={email}
-              onChange={(e)=>setEmail(e.target.value)}
-              placeholder="you@domain.com"
-              style={{
-                borderRadius:12, border:"1px solid var(--line)", padding:"12px 14px",
-                background:"#0f141a", color:"#eef2f6"
-              }}
-            />
-            <button className="btn-primary" type="submit">Send link</button>
-          </form>
+      <header className="nav sticky top-0 z-50">
+        <div className="gf-container flex items-center justify-between h-16">
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-sm" style={{background:"linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion))"}}/>
+            <span className="tracking-wide font-semibold">GRINDFIT</span>
+          </div>
         </div>
+      </header>
+
+      <main className="gf-container py-12 max-w-lg">
+        <h1 className="text-2xl font-semibold mb-6">Log in</h1>
+        <p className="small-dim mb-6">Members get access to workouts, meals, and the full Reset Protocol.</p>
+
+        <form onSubmit={submit} className="space-y-4 gf-card">
+          <div>
+            <label className="block text-sm mb-1">Email</label>
+            <input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="you@domain.com"/>
+          </div>
+          <div>
+            <label className="block text-sm mb-1">Access Code</label>
+            <input type="password" value={code} onChange={e=>setCode(e.target.value)} placeholder="Your member code"/>
+          </div>
+          <button className="btn-primary w-full" type="submit">Enter</button>
+        </form>
+
+        <p className="small-dim mt-4">Don’t have access yet? Use the hero CTAs to join, then come back here.</p>
       </main>
     </>
   );
