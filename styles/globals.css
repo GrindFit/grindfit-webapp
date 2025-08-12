@@ -1,171 +1,63 @@
-/* ----------------------------
-   GRINDFIT global styles
-   ---------------------------- */
-
-/* Brand tokens (exact gradient you approved) */
+/* === Brand orange (exact from your button/screenshot) === */
 :root{
-  --brand-start:#ff8b6b;
-  --brand-mid:#ff8a3a;
-  --brand-end:#ff5c24;
-
-  --bg-1:#0f1418;
-  --bg-2:#0b1013;
-  --text:#e7edf2;
-  --muted:#a9b2bb;
-
-  --card:#151b20;
-  --stroke:rgba(255,255,255,.06);
-
-  /* subtle orange glow used on CTAs */
-  --cta-shadow:0 6px 24px rgba(255,88,0,.22);
+  --og-start: #ff8b0a;    /* 0%  */
+  --og-mid:   #ff7a00;    /* 42% */
+  --og-end:   #ff5c24;    /* 100% */
+  --og-grad:  linear-gradient(118deg, var(--og-start) 0%, var(--og-mid) 42%, var(--og-end) 100%);
 }
 
-/* Crisp text */
-html, body{
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+/* Subtle hero glow behind the header (same look as your video) */
+body::before{
+  content:"";
+  position: fixed;
+  inset: -20vh -10vw auto -10vw;
+  height: 65vh;
+  background: radial-gradient(60% 60% at 60% 0%, rgba(255,122,0,.22) 0%, rgba(0,0,0,0) 60%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: -1;
 }
 
-*{ box-sizing:border-box; }
-
-body{
-  margin:0;
-  color:var(--text);
-  background:
-    radial-gradient(1200px 600px at 80% -10%, rgba(255,120,48,.10), transparent 60%),
-    radial-gradient(900px 500px at -10% 100%, rgba(255,120,48,.08), transparent 60%),
-    linear-gradient(180deg, var(--bg-1), var(--bg-2));
-  font-family: 'Manrope', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  line-height:1.5;
-}
-
-/* Page frame */
-.gf-container{
-  width:min(1200px, 92vw);
-  margin-inline:auto;
-  padding-inline:1rem;
-}
-
-.section{ padding-block:72px; }
-.section-sm{ padding-block:40px; }
-
-/* ----------------------------
-   Header / Nav
-   ---------------------------- */
-header.nav{
-  position:sticky; top:0; z-index:50;
-  backdrop-filter:saturate(110%) blur(8px);
-  background:linear-gradient(180deg, rgba(16,20,24,.85), rgba(16,20,24,.65));
-  border-bottom:1px solid var(--stroke);
-}
-
-.nav-inner{
-  display:flex; align-items:center; justify-content:space-between;
-  gap:1rem; height:64px;
-}
-
-/* Brand word / logo gradient text */
-.brand-word{
-  display:inline-block;
-  font-weight:900; letter-spacing:.02em;
-  background:linear-gradient(118deg, var(--brand-start) 0%, var(--brand-mid) 42%, var(--brand-end) 100%);
-  -webkit-background-clip:text; background-clip:text;
-  color:transparent; text-shadow:0 0 0 transparent;
-}
-
-/* Simple pill links (header and nutrition tabs) */
-.pills{ display:flex; gap:.5rem; }
-.pill{
-  appearance:none; border:none; cursor:pointer;
-  font-weight:700; padding:.4rem .9rem; border-radius:999px;
-  background:rgba(255,255,255,.06); color:var(--text);
-  transition:filter .15s ease, transform .15s ease, background .15s ease;
-}
-.pill:hover{ filter:saturate(108%); transform:translateY(-1px); }
-.pill.is-active{
-  background:linear-gradient(118deg, var(--brand-start), var(--brand-mid) 42%, var(--brand-end));
-  color:#111;
-  box-shadow:var(--cta-shadow);
-}
-
-/* ----------------------------
-   Hero
-   ---------------------------- */
-.hero{
-  padding-top:78px;
-}
+/* === Hero typography & spacing (match weight/size/line-height) === */
+.hero{ padding-top: 7.75rem; }                 /* breathing room */
 .hero h1{
-  margin:0 0 12px 0;
-  font-size:clamp(36px, 5vw, 64px);
-  line-height:1.05;
-  font-weight:900;
+  font-weight: 900;
+  font-size: clamp(44px, 8.2vw, 96px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
 }
-.hero p.lede{
-  color:var(--muted);
-  font-size:1.05rem;
-  max-width:62ch;
+.hero .lead{ color: var(--muted); font-size: 1.125rem; }
+
+/* “Unstoppable” wordmark in the exact gradient */
+.brand-word{
+  font-weight: 900;
+  background: var(--og-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 0 transparent;
 }
 
-/* Call-to-action buttons */
-.btn-row{ display:flex; gap:.75rem; align-items:center; flex-wrap:wrap; }
-
-/* Brand CTA */
-.btn-brand{
-  appearance:none; border:none; cursor:pointer;
-  font-weight:900; letter-spacing:.01em;
-  padding:.9rem 1.2rem; border-radius:14px;
-  color:#111;
-  background:linear-gradient(118deg, var(--brand-start), var(--brand-mid) 42%, var(--brand-end));
-  box-shadow:var(--cta-shadow);
-  transition:filter .15s ease, transform .15s ease;
+/* Primary CTA – gradient fill with black label text */
+.btn-primary{
+  background: var(--og-grad);
+  color: #0b0b0b;
+  font-weight: 800;
+  border-radius: 12px;
+  padding: .8rem 1.1rem;
+  box-shadow: 0 6px 24px rgba(255,96,0,.22);
+  transition: transform .15s ease, filter .15s ease, box-shadow .15s ease;
 }
-.btn-brand:hover{
-  filter:saturate(106%) brightness(1.02);
-  transform:translateY(-1px);
-}
+.btn-primary:hover{ transform: translateY(-1px); filter: saturate(1.08) brightness(1.02); }
+.btn-primary:active{ transform: translateY(0); }
 
-/* Secondary (dark) button */
-.btn-dark{
-  appearance:none; border:1px solid var(--stroke); background:rgba(255,255,255,.04);
-  color:var(--text); font-weight:800; padding:.9rem 1.1rem; border-radius:14px;
-  transition:background .15s ease, transform .15s ease;
-}
-.btn-dark:hover{ background:rgba(255,255,255,.07); transform:translateY(-1px); }
+/* Pills (Fat Loss / Lean Mass / Mass Gain) use the SAME gradient when active */
+.pill{ border-radius: 999px; padding: .45rem .8rem; font-weight: 700; }
+.pill.is-active{ background: var(--og-grad); color: #0b0b0b; }
 
-/* ----------------------------
-   Cards / panels
-   ---------------------------- */
-.card{
-  background:var(--card);
-  border:1px solid var(--stroke);
-  border-radius:14px;
-  box-shadow:0 6px 24px rgba(0,0,0,.18);
-  padding:16px;
-}
+/* Card & section rhythm so the layout breathes like your ref */
+.section{ padding: 5.5rem 0; }
+.gf-container{ width: min(1100px, 92%); margin-inline: auto; }
 
-/* Small stat tiles used in Nutrition section */
-.stat{
-  background:rgba(255,255,255,.04);
-  border:1px solid var(--stroke);
-  border-radius:12px;
-  padding:14px; text-align:center;
-}
-
-/* ----------------------------
-   Footer
-   ---------------------------- */
-.footer{
-  padding-block:56px;
-  border-top:1px solid var(--stroke);
-  background:
-    radial-gradient(800px 380px at 80% 120%, rgba(255,120,48,.10), transparent 60%),
-    linear-gradient(180deg, var(--bg-2), var(--bg-1));
-  color:var(--muted);
-  font-size:.95rem;
-}
-
-/* Utility */
-.mt-6{ margin-top:1.5rem; }
-.mt-8{ margin-top:2rem; }
-.center{ text-align:center; }
-.hide{ display:none !important; }
+/* Keep this tiny util – used by spacing helpers in index */
+.mt-6{ margin-top: 1.5rem; }
