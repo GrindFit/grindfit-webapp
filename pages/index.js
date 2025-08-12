@@ -87,25 +87,34 @@ export default function Home() {
       </section>
 
       {/* NUTRITION */}
-      <section id="nutrition" className="section">
-        <div className="gf-container">
-          <h2 className="section-h">Nutrition, made simple</h2>
+<section id="nutrition" className="section">
+  <div className="gf-container stack-24">
+    <h2>Nutrition, made simple</h2>
 
-          {/* pills directly under the heading */}
-          <div className="flex flex-wrap gap-2 mt-2">
-            {Object.keys(NUTRITION).map((k) => (
-              <button
-                key={k}
-                data-active={goal === k}
-                className="pill"
-                onClick={() => setGoal(k)}
-                type="button"
-                aria-pressed={goal === k}
-              >
-                {k}
-              </button>
-            ))}
-          </div>
+    <div className="stack-24">
+      {/* Pills directly UNDER the headline */}
+      <div className="stack-24" style={{gap: "12px"}}>
+        <div className="stack-24">
+          <div className="stack-24" />
+        </div>
+        <div className="stack-24" />
+      </div>
+
+      <div className="stack-24">
+        <div className="stack-24" />
+      </div>
+    </div>
+
+    <div style={{display:"flex", gap:"10px"}}>
+      <button className="pill is-active">Fat Loss</button>
+      <button className="pill">Lean Mass</button>
+      <button className="pill">Mass Gain</button>
+    </div>
+
+    {/* ...your macros panel / meals go here... */}
+  </div>
+</section>
+
 
           {/* macros */}
           <div className="grid macros mt-6">
