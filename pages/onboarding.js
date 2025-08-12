@@ -1,8 +1,8 @@
-// pages/onboarding.js
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { WORKOUTS_WEEK1, MEAL_PLANS } from "@/lib/data";
 import { requireAuth } from "@/lib/auth";
+import Nav from "@/components/Nav";
 
 const GOALS = ["Fat Loss","Lean Mass","Mass Gain"];
 const LEVELS = ["Beginner","Intermediate","Advanced"];
@@ -43,14 +43,7 @@ export default function Onboarding(){
 
   return (
     <>
-      <header className="nav sticky top-0 z-50">
-        <div className="gf-container flex items-center justify-between h-16">
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-3 rounded-sm" style={{background:"linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion))"}}/>
-            <span className="tracking-wide font-semibold">GRINDFIT</span>
-          </div>
-        </div>
-      </header>
+      <Nav />
 
       <main className="gf-container py-12">
         <h1 className="text-2xl font-semibold mb-6">Let’s build your plan</h1>
