@@ -1,139 +1,110 @@
-import Head from "next/head";
-import { useEffect, useMemo, useState } from "react";
+// pages/onboarding.js
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { WORKOUTS_WEEK1, MEAL_PLANS } from "@/lib/data";
+import { requireAuth } from "@/lib/auth";
 
-const DAYS = ["Mon","Tue","Wed","Thu","Fri"];
-
-function buildWeek({goal, level, gender, days}){
-  const baseCue = "Warm-up (5–7m) breath + mobility. Controlled tempo. Cooldown (5m).";
-  const byGoal = {
-    "Fat Loss": [
-      {name:"Full-Body Circuit A", notes:"EMOM 10–12m + incline walk 10m"},
-      {name:"Upper Push / Pull", notes:"Supersets 3×8–12 + 8m cardio"},
-      {name:"Lower Strength", notes:"Squat pattern 3×6–8 + posterior"},
-      {name:"Full-Body Circuit B", notes:"12–15m carries / swings"},
-      {name:"Upper Volume", notes:"machines/dumbbells 3×12–15"},
-    ],
-    "Lean Mass": [
-      {name:"Upper — Press focus", notes:"Top set + back-off 3×6–8"},
-      {name:"Lower — Hinge focus", notes:"RDL / hip hinge 3×6–8"},
-      {name:"Upper — Pull focus", notes:"Row / pull 3×8–10"},
-      {name:"Lower — Squat focus", notes:"Front / back 3×5–8"},
-      {name:"Full-Body Hypertrophy", notes:"3×10–14 tension focus"},
-    ],
-    "Mass Gain": [
-      {name:"Push — Heavy", notes:"Press + accessories 4×5–8"},
-      {name:"Pull — Heavy", notes:"Row/Pulldown + accessories 4×5–8"},
-      {name:"Legs — Heavy", notes:"Squat + posterior 4×5–8"},
-      {name:"Push — Volume", notes:"3×10–12 + isolation"},
-      {name:"Pull/Legs — Volume", notes:"3×10–12 hypertrophy"},
-    ],
-  };
-  const list = byGoal[goal] ?? byGoal["Lean Mass"];
-  return days.map((d,i)=>({
-    day:d,
-    title:list[i%list.length].name,
-    cues:[baseCue,`Level: ${level}`,`Gender: ${gender}`, list[i%list.length].notes],
-    complete:false
-  }));
-}
+const GOALS = ["Fat Loss","Lean Mass","Mass Gain"];
+const LEVELS = ["Beginner","Intermediate","Advanced"];
+const GENDERS = ["Female","Male"];
 
 export default function Onboarding(){
-  const r = useRouter();
+  const router = useRouter();
   const [name,setName] = useState("");
-  const [goal,setGoal] = useState("Lean Mass");
-  const [level,setLevel] = useState("Beginner");
-  const [gender,setGender] = useState("Male");
-  const [sel,setSel] = useState(DAYS);
+  const [goal,setGoal] = useState("");
+  const [level,setLevel] = useState("");
+  const [gender,setGender] = useState("");
+  const [days,setDays] = useState(["Mon","Tue","Wed","Thu","Fri"]);
 
-  useEffect(()=>{
-    const plan = localStorage.getItem("grindfit_plan");
-    if (plan) r.replace("/app");
-  },[r]);
+  useEffect(()=>{ requireAuth(); },[]);
 
-  const canGo = name.trim() && goal && level && gender && sel.length>0;
-  const ordered = useMemo(()=>DAYS.filter(d=>sel.includes(d)),[sel]);
-  const toggle = d => setSel(prev => prev.includes(d) ? prev.filter(x=>x!==d) : [...prev,d]);
+  const disabled = !name || !goal || !level || !gender || days.length===0;
 
-  const submit = ()=>{
-    if(!canGo) return;
-    const profile = {name:name.trim(),goal,level,gender,days:ordered,createdAt:new Date().toISOString()};
-    const plan = buildWeek(profile);
+  function toggleDay(d){
+    setDays(prev => prev.includes(d) ? prev.filter(x=>x!==d) : [...prev,d].sort(
+      (a,b)=>["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].indexOf(a)-
+             ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].indexOf(b)
+    ));
+  }
+
+  function makePlan(){
+    const plan = {};
+    ["Monday","Tuesday","Wednesday","Thursday","Friday"].forEach(d=>{
+      plan[d] = WORKOUTS_WEEK1[d] || [];
+    });
+
+    const profile = { name, goal, level, gender, days, createdAt:new Date().toISOString() };
+    const meals = (MEAL_PLANS[goal] && MEAL_PLANS[goal][level] && MEAL_PLANS[goal][level][gender]) || null;
+
     localStorage.setItem("grindfit_profile", JSON.stringify(profile));
-    localStorage.setItem("grindfit_plan", JSON.stringify(plan));
-    r.push("/app");
-  };
+    localStorage.setItem("grindfit_plan", JSON.stringify({ week1: plan, meals }));
+    router.push("/app");
+  }
 
   return (
     <>
-      <Head><title>Onboarding — GrindFit</title></Head>
-
-      <header className="container" style={{paddingTop:20}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-          <span className="logo"><span className="logo-mark"/><span className="logo-type">GrindFit</span></span>
-          <a className="btn btn-ghost" href="/">Back</a>
+      <header className="nav sticky top-0 z-50">
+        <div className="gf-container flex items-center justify-between h-16">
+          <div className="flex items-center gap-2">
+            <div className="h-3 w-3 rounded-sm" style={{background:"linear-gradient(90deg, var(--gf-amber), var(--gf-orange) 55%, var(--gf-vermillion))"}}/>
+            <span className="tracking-wide font-semibold">GRINDFIT</span>
+          </div>
         </div>
       </header>
 
-      <main className="section">
-        <div className="container" style={{maxWidth:900}}>
-          <h1 style={{fontWeight:800,margin:"0 0 8px",fontSize:"clamp(24px,3vw,34px)"}}>Build your week</h1>
-          <p className="muted" style={{marginBottom:18}}>Goal, level, gender, and training days (Mon–Fri by default).</p>
+      <main className="gf-container py-12">
+        <h1 className="text-2xl font-semibold mb-6">Let’s build your plan</h1>
 
-          <div className="card" style={{padding:16}}>
-            <div style={{display:"grid",gap:14,gridTemplateColumns:"1fr 1fr",alignItems:"end"}}>
-              <div style={{gridColumn:"1 / -1"}}>
-                <label className="kicker">Your Name</label>
-                <input value={name} onChange={e=>setName(e.target.value)} placeholder="e.g., Alex"/>
-              </div>
-
-              <div>
-                <label className="kicker">Goal</label>
-                <select value={goal} onChange={e=>setGoal(e.target.value)}>
-                  <option>Fat Loss</option><option>Lean Mass</option><option>Mass Gain</option>
-                </select>
-              </div>
-              <div>
-                <label className="kicker">Level</label>
-                <select value={level} onChange={e=>setLevel(e.target.value)}>
-                  <option>Beginner</option><option>Intermediate</option><option>Advanced</option>
-                </select>
-              </div>
-              <div>
-                <label className="kicker">Gender</label>
-                <select value={gender} onChange={e=>setGender(e.target.value)}>
-                  <option>Male</option><option>Female</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="kicker">Training Days</label>
-                <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-                  {DAYS.map(d=>(
-                    <button key={d} type="button" className="btn"
-                      onClick={()=>toggle(d)}
-                      style={{
-                        borderColor: sel.includes(d)? "rgba(255,122,26,.45)":"var(--line)",
-                        background: sel.includes(d)
-                          ? "linear-gradient(180deg, var(--amber-2), var(--amber-1))"
-                          : "linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02))",
-                        color: sel.includes(d)? "#0b0b10":"var(--ink-1)", padding:".6rem .8rem"
-                      }}>
-                      {d}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div style={{marginTop:16}}>
-              <button className="btn btn-amber" onClick={submit} disabled={!canGo} style={{opacity:canGo?1:.6}}>
-                Generate 1-Week Plan
-              </button>
-            </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="gf-card">
+            <label className="block text-sm mb-2">Your Name</label>
+            <input value={name} onChange={e=>setName(e.target.value)} placeholder="e.g., Alex"/>
           </div>
 
-          <p className="muted" style={{marginTop:12}}>You’ll get a Mon–Fri week. Mark days complete in the app. Video slots are on each day page.</p>
+          <div className="gf-card">
+            <label className="block text-sm mb-2">Goal</label>
+            <select value={goal} onChange={e=>setGoal(e.target.value)}>
+              <option value="">Select…</option>
+              {GOALS.map(g=><option key={g}>{g}</option>)}
+            </select>
+          </div>
+
+          <div className="gf-card">
+            <label className="block text-sm mb-2">Level</label>
+            <select value={level} onChange={e=>setLevel(e.target.value)}>
+              <option value="">Select…</option>
+              {LEVELS.map(l=><option key={l}>{l}</option>)}
+            </select>
+          </div>
+
+          <div className="gf-card">
+            <label className="block text-sm mb-2">Gender</label>
+            <select value={gender} onChange={e=>setGender(e.target.value)}>
+              <option value="">Select…</option>
+              {GENDERS.map(g=><option key={g}>{g}</option>)}
+            </select>
+          </div>
+
+          <div className="gf-card md:col-span-2">
+            <label className="block text-sm mb-2">Training Days (tap to toggle)</label>
+            <div className="flex gap-2 flex-wrap">
+              {["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d=>(
+                <button key={d}
+                  onClick={()=>toggleDay(d)}
+                  className={`px-3 py-1 rounded-lg border ${days.includes(d)?'bg-white text-black border-white':'border-[color:var(--gf-stroke)] text-[color:var(--gf-text)]'}`}>
+                  {d}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 flex gap-3">
+          <button disabled={disabled} onClick={makePlan}
+            className={`btn-primary ${disabled?'opacity-40 cursor-not-allowed':''}`}>
+            Generate Week 1
+          </button>
+          <button onClick={()=>history.back()} className="btn-ghost">Cancel</button>
         </div>
       </main>
     </>
