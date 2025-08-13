@@ -1,21 +1,26 @@
 // components/Brand.jsx
-export default function Brand({ size = "2xl", className = "" }) {
-  const map = {
-    sm:  "h-8  md:h-10",
-    md:  "h-10 md:h-12",
-    lg:  "h-12 md:h-16",
-    xl:  "h-16 md:h-20",
-    "2xl":"h-20 md:h-24 lg:h-28",   // nice, bold header size
+export default function Brand({ size = "xl", className = "" }) {
+  // Sizes tuned to read like “Unstoppable”
+  const sizes = {
+    sm:  "text-[22px] md:text-[26px]",
+    md:  "text-[26px] md:text-[32px]",
+    lg:  "text-[30px] md:text-[40px]",
+    xl:  "text-[34px] md:text-[44px] lg:text-[56px]",   // ≈ hero word weight
+    "2xl":"text-[40px] md:text-[52px] lg:text-[64px]",
   };
 
   return (
-    <span className={`inline-block ${map[size]} ${className}`}>
-      <img
-        src="/logo-word.png"           // the image you uploaded to /public
-        alt="GRINDFIT"
-        draggable={false}
-        className="h-full w-auto block select-none mix-blend-screen"
-      />
+    <span
+      className={[
+        "brand-word",                 // uses your GF gradient (already in globals.css)
+        "font-extrabold tracking-wider leading-none",
+        sizes[size],
+        className,
+      ].join(" ")}
+      aria-label="GRINDFIT"
+      title="GRINDFIT"
+    >
+      GRINDFIT
     </span>
   );
 }
