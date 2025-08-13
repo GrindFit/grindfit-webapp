@@ -4,9 +4,9 @@ import Brand from "@/components/Brand";
 export default function Nav({ rightSlot }) {
   return (
     <header className="nav sticky top-0 z-50">
-     <div className="gf-container flex items-center justify-between h-16 xl:h-20">
+     <div className="gf-container flex items-center justify-between h-16 xl:h-24">
         <Link href="/" className="no-underline">
-          <Brand size="xl" />
+          <Brand size="2xl" />
         </Link>
 
         <nav className="flex items-center gap-3">
