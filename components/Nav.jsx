@@ -13,6 +13,8 @@ export default function Nav({ rightSlot }) {
           <a className="btn-ghost" href="#why">Why GrindFit</a>
           <a className="btn-ghost" href="#nutrition">Nutrition</a>
           <a className="btn-ghost" href="#reset">Reset &amp; Recover</a>
+          {/* NEW */}
+          <Link className="btn-ghost" href="/membership">Membership</Link>
           <Link className="btn-primary" href="/login">Open App</Link>
           {rightSlot}
         </nav>
