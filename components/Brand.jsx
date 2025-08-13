@@ -3,20 +3,22 @@ import Image from "next/image";
 
 export default function Brand({ className = "" }) {
   return (
-    <span className={`inline-flex items-center shrink-0 ${className}`}>
+    <span
+      className={"inline-flex items-center shrink-0 " + className}
+      aria-label="GrindFit"
+      title="GrindFit"
+    >
       <Image
-        src="/logo-word.png"    // if you uploaded to /public/assets, use "/assets/logo-word.png"
-        alt="GrindFit"
-        priority
-        width={560}             // large intrinsic size for retina sharpness
+        src="/logo-word.png"          // make sure this file is in /public
+        alt="GRINDFIT"
+        width={600}                   // intrinsic size; CSS below controls display size
         height={160}
         className="
-          w-auto
-          h-10 sm:h-12 md:h-14 lg:h-16
-          select-none
-          [mix-blend-mode:screen]   /* visually removes the black box on dark bg */
-          [image-rendering:-webkit-optimize-contrast]
+          h-10 md:h-12 lg:h-14 xl:h-16
+          w-auto object-contain select-none pointer-events-none
         "
+        priority
+        style={{ mixBlendMode: "screen" }}  // hides dark box on dark header
       />
     </span>
   );
