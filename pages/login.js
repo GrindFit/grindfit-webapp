@@ -1,3 +1,4 @@
+// pages/login.js
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Nav from "../components/Nav";
@@ -5,6 +6,7 @@ import Nav from "../components/Nav";
 export default function Login() {
   const [name, setName] = useState("");
 
+  // If already has a profile, bounce to /member
   useEffect(() => {
     try {
       const raw = localStorage.getItem("grindfit_profile");
@@ -15,7 +17,9 @@ export default function Login() {
   function onSubmit(e) {
     e.preventDefault();
     const profile = { name: name?.trim() || "Member" };
-    try { localStorage.setItem("grindfit_profile", JSON.stringify(profile)); } catch {}
+    try {
+      localStorage.setItem("grindfit_profile", JSON.stringify(profile));
+    } catch {}
     window.location.href = "/member";
   }
 
@@ -27,11 +31,18 @@ export default function Login() {
           <h1 className="text-4xl font-extrabold leading-tight">
             Welcome back to <span className="brand-word">GRINDFIT</span>
           </h1>
-          <p className="mt-3 small-dim">Log in to access your training, nutrition, reset &amp; recovery, and more.</p>
+          <p className="mt-3 small-dim">
+            Log in to access your training, nutrition, reset &amp; recovery, and more.
+          </p>
+
           <form onSubmit={onSubmit} className="gf-card mt-6 space-y-4">
             <div>
               <label className="small-dim block mb-1">Name</label>
-              <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" />
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your name"
+              />
             </div>
             <div className="flex items-center gap-3">
               <button className="btn-primary" type="submit">Log in</button>
