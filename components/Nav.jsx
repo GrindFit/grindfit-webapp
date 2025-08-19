@@ -1,25 +1,22 @@
+// components/Nav.jsx
 import Link from "next/link";
-import Brand from "@/components/Brand";
+import Brand from "./Brand";
 
 export default function Nav({ rightSlot }) {
   return (
-    <header className="nav sticky top-0 z-50">
-      {/* Full-width row (no gf-container), so logo can sit at the far-left */}
-      <div className="w-full flex items-center justify-between h-16 xl:h-20">
-        {/* Tiny pad so it doesn't kiss the bezel; set to pl-0 if you want *absolute* flush */}
-      <Link href="/" className="no-underline">
-  <Brand size="clamp(68px,7.8vw,124px)" />
-</Link>
-          {/* Size was good before; keep 2xl. Bump to "3xl" if you want larger. */}
-          <Brand size="2xl" />
+    <header className="w-full sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-black/60">
+      <div className="gf-container flex items-center justify-between min-h-[88px] xl:min-h-[100px]">
+        {/* Brand on the far-left */}
+        <Link href="/" className="no-underline">
+          <Brand size="clamp(64px,7.2vw,116px)" />
         </Link>
 
-        {/* Keep the right-side nav tidy */}
-        <nav className="flex items-center gap-3 pr-4">
-          <a className="btn-ghost" href="#why">Why GrindFit</a>
-          <a className="btn-ghost" href="#nutrition">Nutrition</a>
-          <a className="btn-ghost" href="#reset">Reset &amp; Recover</a>
-          <Link className="btn-ghost" href="/membership">Membership</Link>
+        {/* Right-side nav links */}
+        <nav className="flex items-center gap-3">
+          <a className="btn-ghost" href="/why">Why GrindFit</a>
+          <a className="btn-ghost" href="/nutrition">Nutrition</a>
+          <a className="btn-ghost" href="/reset">Reset &amp; Recover</a>
+          <a className="btn-ghost" href="/membership">Membership</a>
           <Link className="btn-primary" href="/login">Open App</Link>
           {rightSlot}
         </nav>
