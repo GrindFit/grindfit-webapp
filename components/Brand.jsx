@@ -1,4 +1,3 @@
-
 // components/Brand.jsx
 export default function Brand({ size = "clamp(64px,7vw,120px)", className = "" }) {
   // Presets (px) — go bigger than before
