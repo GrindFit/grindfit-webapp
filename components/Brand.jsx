@@ -1,4 +1,4 @@
-export default function Brand({ size = "clamp(64px,7.2vw,116px)", className = "" }) {
+export default function Brand({ size = "clamp(68px,7.8vw,124px", className = "" }) {
   return (
     <span
       className={`inline-block align-middle leading-none select-none ${className}`}
