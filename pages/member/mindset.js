@@ -1,13 +1,11 @@
-import { useEffect } from "react";
-import Nav from "@/components/Nav";
-import { requireAuth, logout } from "@/lib/auth";
 import Link from "next/link";
+import Nav from "../../components/Nav";
+function doLogout(){ try{localStorage.removeItem("grindfit_profile");}catch{} window.location.href="/"; }
 
-export default function Mindset() {
-  useEffect(()=>{ requireAuth(); },[]);
+export default function Mindset(){
   return (
     <>
-      <Nav rightSlot={<button onClick={logout} className="btn-ghost">Log out</button>} />
+      <Nav rightSlot={<button onClick={doLogout} className="btn-ghost">Log out</button>} />
       <main className="gf-container py-10 space-y-6">
         <h1 className="text-2xl font-semibold">Mindset</h1>
         <div className="gf-card">
