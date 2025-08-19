@@ -7,8 +7,8 @@ export default function Nav({ rightSlot }) {
       {/* Full-width row (no gf-container), so logo can sit at the far-left */}
       <div className="w-full flex items-center justify-between h-16 xl:h-20">
         {/* Tiny pad so it doesn't kiss the bezel; set to pl-0 if you want *absolute* flush */}
-       <Link href="/" className="no-underline -ml-4 sm:-ml-6">
- <Brand size="clamp(68px,7.8vw,124px)" />
+      <Link href="/" className="no-underline">
+  <Brand size="clamp(68px,7.8vw,124px)" />
 </Link>
           {/* Size was good before; keep 2xl. Bump to "3xl" if you want larger. */}
           <Brand size="2xl" />
