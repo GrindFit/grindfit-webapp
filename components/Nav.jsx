@@ -9,7 +9,7 @@ export default function Nav({ rightSlot }) {
         {/* Tiny pad so it doesn't kiss the bezel; set to pl-0 if you want *absolute* flush */}
         <Link href="/" className="no-underline pl-2">
           {/* Size was good before; keep 2xl. Bump to "3xl" if you want larger. */}
-          <Brand size="clamp(64px,7.5vw,128px)" />   // responsive (≈ Unstoppable scale)
+          <Brand size="clamp(60px,6.9vw,116px)" />   // responsive (≈ Unstoppable scale)
         </Link>
 
         {/* Keep the right-side nav tidy */}
