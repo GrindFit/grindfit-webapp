@@ -3,7 +3,7 @@ import Brand from "@/components/Brand";
 
 export default function Nav({ rightSlot }) {
   return (
-    <header className="nav sticky top-0 z-50">
+    <header className="nav sticky top-0 z-50 pt-2 sm:pt-3">
       {/* Full-width row (no gf-container), so logo can sit at the far-left */}
       <div className="gf-container flex items-center justify-between min-h-[92px] xl:min-h-[120px]">
         {/* Tiny pad so it doesn't kiss the bezel; set to pl-0 if you want *absolute* flush */}
