@@ -1,11 +1,16 @@
 // components/Brand.jsx
-export default function Brand({ size = "clamp(64px,7.2vw,116px)" }) {
+export default function Brand({
+  size = "clamp(64px,7.2vw,116px)",
+  className = "",
+}) {
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 700 160"
       role="img"
       aria-label="GRINDFIT"
       style={{ height: size, display: "block" }}
+      className={className}
     >
       <defs>
         {/* GrindFit gradient */}
@@ -15,6 +20,7 @@ export default function Brand({ size = "clamp(64px,7.2vw,116px)" }) {
           <stop offset="100%" stopColor="#F25C05" />
         </linearGradient>
       </defs>
+
       <text
         x="0"
         y="120"
