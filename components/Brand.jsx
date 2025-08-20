@@ -9,8 +9,8 @@ export default function Brand({
       viewBox="0 0 700 160"
       role="img"
       aria-label="GRINDFIT"
-      style={{ height: size, display: "block" }}
       className={className}
+      style={{ height: size, display: "block" }}
     >
       <defs>
         <linearGradient id="gf-word" x1="0" y1="0" x2="0" y2="1">
@@ -27,7 +27,7 @@ export default function Brand({
         fontFamily="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'"
         fontWeight="800"
         fontSize="120"
-        letterSpacing="-0.02em"
+        style={{ letterSpacing: "-0.02em" }}
       >
         GRINDFIT
       </text>
