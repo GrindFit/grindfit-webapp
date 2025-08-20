@@ -22,6 +22,7 @@ export default function Signup() {
     router.push("/login");
   };
 
+
   return (
     <>
       <Nav />
