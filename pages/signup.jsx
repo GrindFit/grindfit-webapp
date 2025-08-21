@@ -26,7 +26,7 @@ export default function Signup() {
 
   return (
     return (
- <div
+ <main
   className="relative min-h-screen overflow-hidden text-white"
   style={{
     backgroundImage:
@@ -38,7 +38,7 @@ export default function Signup() {
     backgroundSize: 'cover',
   }}
 >
-   </div>
+   </main>
 
       {/* IDENTICAL header spacing to /login */}
       <header className="relative mx-auto max-w-7xl px-6 pt-10">
