@@ -1,26 +1,47 @@
 // components/Nav.jsx
 import Link from "next/link";
+import { useRouter } from "next/router";
 import Brand from "./Brand";
 
-export default function Nav({ rightSlot }) {
+export default function Nav() {
+  const { pathname } = useRouter();
+
+  // On auth pages, hide the main nav links (show only the logo)
+  const hideLinks =
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname === "/auth/update-password" ||
+    pathname.startsWith("/auth/");
+
   return (
     <header className="w-full sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-black/60">
-      <div className="gf-container flex items-center justify-between min-h-[88px] xl:min-h-[100px]">
-        {/* Brand on the far-left */}
-        <Link href="/" className="no-underline">
-          <Brand size="clamp(64px,7.2vw,116px)" />
+      <nav className="container mx-auto flex items-center justify-between min-h-[80px] px-4">
+        <Link href="/" aria-label="GRINDFIT home" className="no-underline">
+          <Brand />
         </Link>
 
-        {/* Right-side nav links */}
-        <nav className="flex items-center gap-3">
-          <a className="btn-ghost" href="/why">Why GrindFit</a>
-          <a className="btn-ghost" href="/nutrition">Nutrition</a>
-          <a className="btn-ghost" href="/reset">Reset &amp; Recover</a>
-          <a className="btn-ghost" href="/membership">Membership</a>
-          <Link className="btn-primary" href="/login">Open App</Link>
-          {rightSlot}
-        </nav>
-      </div>
+        {!hideLinks && (
+          <div className="flex items-center gap-3">
+            <Link className="btn-ghost" href="/#why">
+              Why GrindFit?
+            </Link>
+            <Link className="btn-ghost" href="/#nutrition">
+              Nutrition
+            </Link>
+            <Link className="btn-ghost" href="/#reset">
+              Reset &amp; Recover
+            </Link>
+            <Link className="btn-ghost" href="/#membership">
+              Membership
+            </Link>
+
+            {/* Open App → always goes to /login */}
+            <Link className="btn-primary" href="/login">
+              Open App
+            </Link>
+          </div>
+        )}
+      </nav>
     </header>
   );
 }
