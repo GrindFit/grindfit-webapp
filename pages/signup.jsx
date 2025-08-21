@@ -1,12 +1,10 @@
 // pages/signup.jsx
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { supabase } from "../lib/supabaseClient";
 import Brand from "../components/Brand";
 
 export default function Signup() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
@@ -18,22 +16,17 @@ export default function Signup() {
     setErr("");
     setOk("");
     setLoading(true);
+
     const { error } = await supabase.auth.signUp({ email, password });
     setLoading(false);
+    if (error) return setErr(error.message);
 
-    if (error) {
-      setErr(error.message);
-      return;
-    }
-
-    // Supabase usually emails a confirmation link.
-    // Give clear feedback and keep them here.
     setOk("Check your email to confirm your account.");
   }
 
   return (
     <main className="relative min-h-screen overflow-hidden text-white">
-      {/* Warm brand gradient — identical to /login */}
+      {/* IDENTICAL background to /login */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
@@ -46,12 +39,12 @@ export default function Signup() {
         }}
       />
 
-      {/* Brand header (same spacing as /login) */}
+      {/* IDENTICAL header spacing to /login */}
       <header className="relative mx-auto max-w-7xl px-6 pt-10">
         <Brand />
       </header>
 
-      {/* Center the card under the logo */}
+      {/* IDENTICAL container/alignment to /login */}
       <section className="relative mx-auto max-w-7xl px-6 pt-8">
         <div className="mx-auto w-full max-w-md rounded-2xl bg-black/70 p-6 shadow-2xl ring-1 ring-white/10 backdrop-blur-sm">
           <h2 className="text-lg font-semibold">Create account</h2>
