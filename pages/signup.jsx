@@ -41,16 +41,15 @@ export default function Signup() {
         />
       </div>
 
-      {/* top logo */}
-      <div className="relative z-10 container mx-auto px-4 pt-14 flex justify-center">
+      {/* shared container: keeps logo and card perfectly centered on the same axis */}
+      <div className="relative z-10 container mx-auto px-4 pt-14 flex flex-col items-center">
+        {/* logo */}
         <div className="w-[180px] sm:w-[220px] md:w-[260px]">
           <Brand />
         </div>
-      </div>
 
-      {/* auth card */}
-      <div className="relative z-10 container mx-auto px-4">
-        <div className="mx-auto mt-8 sm:mt-10 max-w-md rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur">
+        {/* auth card */}
+        <div className="mt-8 w-full max-w-md rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur">
           <h1 className="text-xl font-semibold text-white">Create account</h1>
           <p className="mt-1 text-sm text-white/60">Use the same email you purchase with.</p>
 
