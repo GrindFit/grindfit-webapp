@@ -1,4 +1,3 @@
-// pages/signup.jsx
 import { useState } from "react";
 import Link from "next/link";
 import { supabase } from "../lib/supabaseClient";
@@ -7,92 +6,82 @@ import Brand from "../components/Brand";
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [err, setErr] = useState("");
-  const [ok, setOk] = useState("");
   const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState("");
 
   async function onSubmit(e) {
     e.preventDefault();
     setErr("");
-    setOk("");
     setLoading(true);
 
     const { error } = await supabase.auth.signUp({ email, password });
     setLoading(false);
-    if (error) return setErr(error.message);
 
-    setOk("Check your email to confirm your account.");
+    if (error) setErr(error.message);
+    else alert("Check your email to confirm your account.");
   }
 
-  return (
-    return (
- <main
-  className="relative min-h-screen overflow-hidden text-white"
-  style={{
+  // SAME shell as /login
+  const shellStyle = {
     backgroundImage:
-      `radial-gradient(1200px 600px at 20% -10%, rgba(255,140,0,0.18), transparent 40%),
-       radial-gradient(1000px 800px at 110% 25%, rgba(255,69,0,0.10), transparent 40%),
-       linear-gradient(180deg, #0b0b0e 0%, #0b0b0e 100%)`,
-    backgroundColor: '#0b0b0e',   // fallback
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-  }}
->
-   </main>
+      "radial-gradient(1200px 600px at 20% -10%, rgba(255,140,0,0.18), transparent 40%), " +
+      "radial-gradient(1000px 800px at 110% 25%, rgba(255,69,0,0.10), transparent 40%), " +
+      "linear-gradient(180deg, #0b0b0e 0%, #0b0b0e 100%)",
+    backgroundColor: "#0b0b0e",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+  };
 
-      {/* IDENTICAL header spacing to /login */}
+  return (
+    <main className="relative min-h-screen overflow-hidden text-white" style={shellStyle}>
+      {/* Header spacing to match /login */}
       <header className="relative mx-auto max-w-7xl px-6 pt-10">
         <Brand />
       </header>
 
-      {/* IDENTICAL container/alignment to /login */}
-      <section className="relative mx-auto max-w-7xl px-6 pt-8">
-        <div className="mx-auto w-full max-w-md rounded-2xl bg-black/70 p-6 shadow-2xl ring-1 ring-white/10 backdrop-blur-sm">
-          <h2 className="text-lg font-semibold">Create account</h2>
+      {/* Centered auth card */}
+      <section className="relative mx-auto mt-20 max-w-md px-6">
+        <div className="mx-auto w-full rounded-xl border border-white/10 bg-black/40 p-6 shadow-2xl backdrop-blur-md">
+          <h1 className="mb-6 text-center text-xl font-semibold">Create account</h1>
 
-          <form className="mt-4 space-y-4" onSubmit={onSubmit}>
+          <form onSubmit={onSubmit} className="space-y-4">
             <label className="block text-sm">
-              Email
+              <span className="mb-2 block text-white/70">Email</span>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-md bg-neutral-900/80 p-2 outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-white/20"
+                className="w-full rounded-md border border-white/10 bg-transparent px-3 py-2 outline-none focus:ring-2 focus:ring-orange-400"
               />
             </label>
 
             <label className="block text-sm">
-              Password
+              <span className="mb-2 block text-white/70">Password</span>
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 w-full rounded-md bg-neutral-900/80 p-2 outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-white/20"
+                className="w-full rounded-md border border-white/10 bg-transparent px-3 py-2 outline-none focus:ring-2 focus:ring-orange-400"
               />
             </label>
 
-            {err ? (
-              <p className="text-sm text-red-400">{err}</p>
-            ) : ok ? (
-              <p className="text-sm text-emerald-300">{ok}</p>
-            ) : null}
+            {err && <p className="text-sm text-red-400">{err}</p>}
 
             <button
-              type="submit"
               disabled={loading}
-              className="mt-2 w-full rounded-md bg-gradient-to-r from-amber-500 to-orange-600 px-3 py-2 font-semibold text-black shadow ring-1 ring-black/10 disabled:opacity-60"
+              className="mt-4 w-full rounded-md bg-gradient-to-r from-orange-500 to-amber-500 py-2 font-semibold text-black disabled:opacity-60"
             >
               {loading ? "Creating…" : "Create account"}
             </button>
-
-            <div className="mt-3 flex justify-between text-xs text-white/70">
-              <Link href="/login" className="underline hover:text-white">
-                Back to Log in
-              </Link>
-            </div>
           </form>
+
+          <div className="mt-4 text-center text-sm text-white/70">
+            <Link href="/login" className="underline hover:text-white">
+              Back to Log in
+            </Link>
+          </div>
         </div>
       </section>
     </main>
