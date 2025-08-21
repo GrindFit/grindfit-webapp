@@ -31,10 +31,14 @@ export default function Signup() {
       {/* warm brand gradient backdrop */}
       <div className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-[#111827] via-[#0b0f12] to-[#0b0f12]" />
-        <div className="absolute -top-24 -left-20 h-[60vh] w-[60vw] rounded-full opacity-[0.18] blur-3xl"
-             style={{ background: "radial-gradient(600px 600px at center, #ff7a18 0%, rgba(0,0,0,0) 60%)" }} />
-        <div className="absolute -bottom-32 -right-24 h-[60vh] w-[60vw] rounded-full opacity-[0.18] blur-3xl"
-             style={{ background: "radial-gradient(600px 600px at center, #ffd36e 0%, rgba(0,0,0,0) 60%)" }} />
+        <div
+          className="absolute -top-24 -left-20 h-[60vh] w-[60vw] rounded-full opacity-[0.18] blur-3xl"
+          style={{ background: "radial-gradient(600px 600px at center, #ff7a18 0%, rgba(0,0,0,0) 60%)" }}
+        />
+        <div
+          className="absolute -bottom-32 -right-24 h-[60vh] w-[60vw] rounded-full opacity-[0.18] blur-3xl"
+          style={{ background: "radial-gradient(600px 600px at center, #ffd36e 0%, rgba(0,0,0,0) 60%)" }}
+        />
       </div>
 
       {/* top logo */}
@@ -44,11 +48,11 @@ export default function Signup() {
         </div>
       </div>
 
-      {/* card */}
+      {/* auth card */}
       <div className="relative z-10 container mx-auto px-4">
         <div className="mx-auto mt-8 sm:mt-10 max-w-md rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur">
           <h1 className="text-xl font-semibold text-white">Create account</h1>
-          <p className="mt-1 text-sm text-white/60">Join GRINDFIT.</p>
+          <p className="mt-1 text-sm text-white/60">Use the same email you purchase with.</p>
 
           <form onSubmit={onSubmit} className="mt-6 space-y-4">
             <div>
@@ -56,7 +60,7 @@ export default function Signup() {
               <input
                 type="email"
                 value={email}
-                onChange={e=>setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 className="w-full rounded-xl bg-white/5 px-3 py-2.5 text-white placeholder-white/40 outline-none ring-1 ring-white/10 focus:ring-white/30"
                 placeholder="you@grindfit.com"
@@ -67,7 +71,7 @@ export default function Signup() {
               <input
                 type="password"
                 value={password}
-                onChange={e=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 required
                 className="w-full rounded-xl bg-white/5 px-3 py-2.5 text-white placeholder-white/40 outline-none ring-1 ring-white/10 focus:ring-white/30"
                 placeholder="••••••••"
@@ -79,8 +83,9 @@ export default function Signup() {
 
             <button
               disabled={loading}
-              className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 py-2.5 font-medium text-black hover:brightness-105 disabled:opacity-60">
-              {loading ? "Creating..." : "Sign up"}
+              className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 py-2.5 font-medium text-black hover:brightness-105 disabled:opacity-60"
+            >
+              {loading ? "Creating..." : "Create account"}
             </button>
           </form>
 
