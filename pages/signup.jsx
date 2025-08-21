@@ -25,18 +25,16 @@ export default function Signup() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden text-white">
-      {/* IDENTICAL background to /login */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
-        style={{
-          backgroundImage: `
-            radial-gradient(1200px 600px at 20% -10%, rgba(255,140,0,0.18), transparent 40%),
-            radial-gradient(1000px 500px at 110% 20%, rgba(255,69,0,0.14), transparent 42%),
-            linear-gradient(180deg, #0b0d0e 0%, #0b0d0e 100%)
-          `,
-        }}
+  <main
+  className="relative min-h-screen overflow-hidden text-white"
+  style={{
+    backgroundImage:
+      'radial-gradient(1200px 600px at 20% -10%, rgba(255,140,0,0.18), transparent 40%), radial-gradient(1000px 500px at 110% 20%, rgba(255,69,0,0.14), transparent 42%), linear-gradient(180deg, #0b0d0e 0%, #0b0d0e 100%)',
+    backgroundColor: '#0b0d0e', // fallback
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  }}
+>
       />
 
       {/* IDENTICAL header spacing to /login */}
