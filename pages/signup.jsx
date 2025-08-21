@@ -1,100 +1,106 @@
-// /pages/signup.jsx
+// pages/signup.jsx
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
+import { supabase } from "../lib/supabaseClient";
 import Brand from "../components/Brand";
-import supabase from "../lib/supabaseClient";
 
 export default function Signup() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
   const [ok, setOk] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function onSubmit(e) {
     e.preventDefault();
-    setErr(""); setOk(""); setLoading(true);
-    const origin = typeof window !== "undefined" ? window.location.origin : "";
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: `${origin}/login` },
-    });
+    setErr("");
+    setOk("");
+    setLoading(true);
+    const { error } = await supabase.auth.signUp({ email, password });
     setLoading(false);
-    if (error) setErr(error.message);
-    else setOk("Check your email to confirm your account.");
+
+    if (error) {
+      setErr(error.message);
+      return;
+    }
+
+    // Supabase usually emails a confirmation link.
+    // Give clear feedback and keep them here.
+    setOk("Check your email to confirm your account.");
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0f12]">
-      {/* warm brand gradient backdrop */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#111827] via-[#0b0f12] to-[#0b0f12]" />
-        <div
-          className="absolute -top-24 -left-20 h-[60vh] w-[60vw] rounded-full opacity-[0.18] blur-3xl"
-          style={{ background: "radial-gradient(600px 600px at center, #ff7a18 0%, rgba(0,0,0,0) 60%)" }}
-        />
-        <div
-          className="absolute -bottom-32 -right-24 h-[60vh] w-[60vw] rounded-full opacity-[0.18] blur-3xl"
-          style={{ background: "radial-gradient(600px 600px at center, #ffd36e 0%, rgba(0,0,0,0) 60%)" }}
-        />
-      </div>
+    <main className="relative min-h-screen overflow-hidden text-white">
+      {/* Warm brand gradient — identical to /login */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          backgroundImage: `
+            radial-gradient(1200px 600px at 20% -10%, rgba(255,140,0,0.18), transparent 40%),
+            radial-gradient(1000px 500px at 110% 20%, rgba(255,69,0,0.14), transparent 42%),
+            linear-gradient(180deg, #0b0d0e 0%, #0b0d0e 100%)
+          `,
+        }}
+      />
 
-      {/* shared container: keeps logo and card perfectly centered on the same axis */}
-      <div className="relative z-10 container mx-auto px-4 pt-14 flex flex-col items-center">
-        {/* logo */}
-        <div className="w-[180px] sm:w-[220px] md:w-[260px]">
-          <Brand />
-        </div>
+      {/* Brand header (same spacing as /login) */}
+      <header className="relative mx-auto max-w-7xl px-6 pt-10">
+        <Brand />
+      </header>
 
-        {/* auth card */}
-        <div className="mt-8 w-full max-w-md rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur">
-          <h1 className="text-xl font-semibold text-white">Create account</h1>
-          <p className="mt-1 text-sm text-white/60">Use the same email you purchase with.</p>
+      {/* Center the card under the logo */}
+      <section className="relative mx-auto max-w-7xl px-6 pt-8">
+        <div className="mx-auto w-full max-w-md rounded-2xl bg-black/70 p-6 shadow-2xl ring-1 ring-white/10 backdrop-blur-sm">
+          <h2 className="text-lg font-semibold">Create account</h2>
 
-          <form onSubmit={onSubmit} className="mt-6 space-y-4">
-            <div>
-              <label className="block text-sm text-white/70 mb-1">Email</label>
+          <form className="mt-4 space-y-4" onSubmit={onSubmit}>
+            <label className="block text-sm">
+              Email
               <input
                 type="email"
+                required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full rounded-xl bg-white/5 px-3 py-2.5 text-white placeholder-white/40 outline-none ring-1 ring-white/10 focus:ring-white/30"
-                placeholder="you@grindfit.com"
+                className="mt-1 w-full rounded-md bg-neutral-900/80 p-2 outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-white/20"
               />
-            </div>
-            <div>
-              <label className="block text-sm text-white/70 mb-1">Password</label>
+            </label>
+
+            <label className="block text-sm">
+              Password
               <input
                 type="password"
+                required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full rounded-xl bg-white/5 px-3 py-2.5 text-white placeholder-white/40 outline-none ring-1 ring-white/10 focus:ring-white/30"
-                placeholder="••••••••"
+                className="mt-1 w-full rounded-md bg-neutral-900/80 p-2 outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-white/20"
               />
-            </div>
+            </label>
 
-            {err && <p className="text-sm text-red-400">{err}</p>}
-            {ok && <p className="text-sm text-emerald-400">{ok}</p>}
+            {err ? (
+              <p className="text-sm text-red-400">{err}</p>
+            ) : ok ? (
+              <p className="text-sm text-emerald-300">{ok}</p>
+            ) : null}
 
             <button
+              type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 py-2.5 font-medium text-black hover:brightness-105 disabled:opacity-60"
+              className="mt-2 w-full rounded-md bg-gradient-to-r from-amber-500 to-orange-600 px-3 py-2 font-semibold text-black shadow ring-1 ring-black/10 disabled:opacity-60"
             >
-              {loading ? "Creating..." : "Create account"}
+              {loading ? "Creating…" : "Create account"}
             </button>
-          </form>
 
-          <div className="mt-4 flex justify-between text-sm">
-            <a href="/login" className="text-white/80 hover:text-white underline decoration-white/30">
-              Back to Log in
-            </a>
-          </div>
+            <div className="mt-3 flex justify-between text-xs text-white/70">
+              <Link href="/login" className="underline hover:text-white">
+                Back to Log in
+              </Link>
+            </div>
+          </form>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
