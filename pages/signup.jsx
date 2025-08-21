@@ -26,16 +26,20 @@ export default function Signup() {
 
   return (
     return (
-  <main
-    className="relative min-h-screen overflow-hidden text-white"
-    style={{
-      backgroundImage:
-        'radial-gradient(1200px 600px at 20% -10%, rgba(255,140,0,0.18), transparent 42%), radial-gradient(1000px 500px at 118% 23%, rgba(255,69,0,0.10), transparent 42%), linear-gradient(180deg, #0b0d0e 0%, #0b0d0e 100%)',
-      backgroundColor: '#0b0d0e',   // fallback base
-      backgroundRepeat: 'no-repeat',
-      backgroundSize: 'cover',
-    }}
-  >
+ <div
+  className="relative min-h-screen overflow-hidden text-white"
+  style={{
+    backgroundImage:
+      `radial-gradient(1200px 600px at 20% -10%, rgba(255,140,0,0.18), transparent 40%),
+       radial-gradient(1000px 800px at 110% 25%, rgba(255,69,0,0.10), transparent 40%),
+       linear-gradient(180deg, #0b0b0e 0%, #0b0b0e 100%)`,
+    backgroundColor: '#0b0b0e',   // fallback
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  }}
+>
+   </div>
+
       {/* IDENTICAL header spacing to /login */}
       <header className="relative mx-auto max-w-7xl px-6 pt-10">
         <Brand />
