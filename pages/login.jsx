@@ -1,7 +1,7 @@
 // /pages/login.jsx
 import { useState } from "react";
 import { useRouter } from "next/router";
-import Nav from "../components/Nav";
+import Brand from "../components/Brand";          // centered logo (no full nav)
 import { supabase } from "../lib/supabaseClient";
 
 export default function Login() {
@@ -21,7 +21,6 @@ export default function Login() {
       setErr(error.message);
       return;
     }
-    // send members straight to the hub
     router.replace("/member");
   };
 
@@ -40,17 +39,21 @@ export default function Login() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0b0b0f] text-white">
-      {/* Top nav (logo only on this page, links hidden by Nav.jsx) */}
-      <Nav />
+      {/* Warm GRINDFIT gradient blobs (match marketing vibe) */}
+      <div className="pointer-events-none absolute -top-44 -left-40 h-[60rem] w-[60rem] rounded-full bg-gradient-to-br from-orange-500/35 via-amber-400/20 to-transparent blur-3xl" />
+      <div className="pointer-events-none absolute top-24 -right-40 h-[54rem] w-[54rem] rounded-full bg-gradient-to-bl from-orange-600/25 via-rose-500/15 to-transparent blur-3xl" />
 
-      {/* Warm brand gradients */}
-      <div className="pointer-events-none absolute -top-40 -left-40 h-[60rem] w-[60rem] rounded-full bg-gradient-to-br from-orange-500/30 via-amber-400/20 to-transparent blur-3xl" />
-      <div className="pointer-events-none absolute top-16 -right-40 h-[50rem] w-[50rem] rounded-full bg-gradient-to-br from-pink-500/20 via-orange-500/10 to-transparent blur-3xl" />
+      {/* Centered logo (clean auth header) */}
+      <div className="relative z-10 container mx-auto px-4 pt-14 flex justify-center">
+        <div className="w-[220px] sm:w-[260px]">
+          <Brand />
+        </div>
+      </div>
 
-      {/* Page content */}
+      {/* Auth card */}
       <main className="relative z-10">
         <section className="container mx-auto px-4">
-          <div className="mx-auto mt-24 max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-md">
+          <div className="mx-auto mt-10 max-w-md rounded-2xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-md">
             <h1 className="mb-6 text-xl font-semibold tracking-tight text-white">
               Welcome back
             </h1>
@@ -82,11 +85,7 @@ export default function Login() {
 
               {err && <p className="text-sm text-red-400">{err}</p>}
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="btn-primary mt-2 w-full"
-              >
+              <button type="submit" disabled={loading} className="btn-primary mt-2 w-full">
                 {loading ? "Logging in…" : "Log In"}
               </button>
             </form>
