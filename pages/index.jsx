@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Nav from "../../components/Nav";
+import Nav from "../components/Nav";
 
 function doLogout(){ try{localStorage.removeItem("grindfit_profile");}catch{} window.location.href="/"; }
 
