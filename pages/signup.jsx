@@ -25,16 +25,17 @@ export default function Signup() {
   }
 
   return (
- <main
-  className="relative min-h-screen overflow-hidden text-white"
-  style={{
-    backgroundImage:
-      'radial-gradient(1200px 600px at 20% -10%, rgba(255,140,0,0.18), transparent 42%), radial-gradient(1000px 500px at 118% 23%, rgba(255,69,0,0.10), transparent 42%), linear-gradient(180deg, #0b0d0e 0%, #0b0d0e 100%)',
-    backgroundColor: '#0b0d0e', // fallback base
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-  }}
->
+     <div className="relative min-h-screen overflow-hidden bg-[#0b0b0f] text-white">
+      {/* Warm GRINDFIT gradient blobs (match marketing vibe) */}
+      <div className="pointer-events-none absolute -top-44 -left-40 h-[60rem] w-[60rem] rounded-full bg-gradient-to-br from-orange-500/35 via-amber-400/20 to-transparent blur-3xl" />
+      <div className="pointer-events-none absolute top-24 -right-40 h-[54rem] w-[54rem] rounded-full bg-gradient-to-bl from-orange-600/25 via-rose-500/15 to-transparent blur-3xl" />
+
+      {/* Centered logo (clean auth header) */}
+      <div className="relative z-10 container mx-auto px-4 pt-14 flex justify-center">
+        <div className="w-[220px] sm:w-[260px]">
+          <Brand />
+        </div>
+      </div>
       {/* IDENTICAL header spacing to /login */}
       <header className="relative mx-auto max-w-7xl px-6 pt-10">
         <Brand />
