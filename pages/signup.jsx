@@ -1,8 +1,8 @@
 // /pages/signup.jsx
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { supabase } from "../lib/supabaseClient";
-import Nav from "../components/Nav";
+import Brand from "../components/Brand";
+import supabase from "../lib/supabaseClient";
 
 export default function Signup() {
   const router = useRouter();
@@ -10,65 +10,87 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
+  const [ok, setOk] = useState("");
 
-  const onSubmit = async (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
-    setErr("");
-    setLoading(true);
-    const { error } = await supabase.auth.signUp({ email, password });
+    setErr(""); setOk(""); setLoading(true);
+    const origin = typeof window !== "undefined" ? window.location.origin : "";
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { emailRedirectTo: `${origin}/login` },
+    });
     setLoading(false);
-    if (error) return setErr(error.message);
-    alert("Check your email to confirm your account.");
-    router.push("/login");
-  };
-
+    if (error) setErr(error.message);
+    else setOk("Check your email to confirm your account.");
+  }
 
   return (
-    <>
-      <Nav />
-      <div className="min-h-screen flex items-center justify-center bg-[radial-gradient(1200px_600px_at_20%_-10%,#0ea5e9_0%,transparent_60%),radial-gradient(900px_500px_at_120%_10%,#a855f7_0%,transparent_55%),linear-gradient(180deg,#0b1020,#0b1020)] px-4">
-        <form
-          onSubmit={onSubmit}
-          className="w-full max-w-md rounded-2xl border border-white/10 bg-white/5 p-6 text-white shadow-[0_1px_0_0_rgba(255,255,255,0.06)_inset,0_40px_80px_-24px_rgba(0,0,0,0.5)]"
-        >
-          <h1 className="text-2xl font-semibold tracking-tight">Create account</h1>
-          <p className="text-white/70 text-sm mt-1">Use the same email you purchase with.</p>
+    <div className="min-h-screen bg-[#0b0f12]">
+      {/* warm brand gradient backdrop */}
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#111827] via-[#0b0f12] to-[#0b0f12]" />
+        <div className="absolute -top-24 -left-20 h-[60vh] w-[60vw] rounded-full opacity-[0.18] blur-3xl"
+             style={{ background: "radial-gradient(600px 600px at center, #ff7a18 0%, rgba(0,0,0,0) 60%)" }} />
+        <div className="absolute -bottom-32 -right-24 h-[60vh] w-[60vw] rounded-full opacity-[0.18] blur-3xl"
+             style={{ background: "radial-gradient(600px 600px at center, #ffd36e 0%, rgba(0,0,0,0) 60%)" }} />
+      </div>
 
-          <label className="block text-sm mt-5 mb-1 text-white/80">Email</label>
-          <input
-            type="email"
-            className="w-full rounded-xl bg-black/30 border border-white/15 px-3 py-2 outline-none focus:ring-2 focus:ring-white/20"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+      {/* top logo */}
+      <div className="relative z-10 container mx-auto px-4 pt-14 flex justify-center">
+        <div className="w-[180px] sm:w-[220px] md:w-[260px]">
+          <Brand />
+        </div>
+      </div>
 
-          <label className="block text-sm mt-4 mb-1 text-white/80">Password</label>
-          <input
-            type="password"
-            className="w-full rounded-xl bg-black/30 border border-white/15 px-3 py-2 outline-none focus:ring-2 focus:ring-white/20"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+      {/* card */}
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="mx-auto mt-8 sm:mt-10 max-w-md rounded-2xl border border-white/10 bg-black/40 p-6 backdrop-blur">
+          <h1 className="text-xl font-semibold text-white">Create account</h1>
+          <p className="mt-1 text-sm text-white/60">Join GRINDFIT.</p>
 
-          {err && <div className="mt-3 text-sm text-red-300">{err}</div>}
+          <form onSubmit={onSubmit} className="mt-6 space-y-4">
+            <div>
+              <label className="block text-sm text-white/70 mb-1">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={e=>setEmail(e.target.value)}
+                required
+                className="w-full rounded-xl bg-white/5 px-3 py-2.5 text-white placeholder-white/40 outline-none ring-1 ring-white/10 focus:ring-white/30"
+                placeholder="you@grindfit.com"
+              />
+            </div>
+            <div>
+              <label className="block text-sm text-white/70 mb-1">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={e=>setPassword(e.target.value)}
+                required
+                className="w-full rounded-xl bg-white/5 px-3 py-2.5 text-white placeholder-white/40 outline-none ring-1 ring-white/10 focus:ring-white/30"
+                placeholder="••••••••"
+              />
+            </div>
 
-          <button
-            disabled={loading}
-            className="mt-5 w-full rounded-xl border border-white/15 bg-white/10 hover:bg-white/20 px-4 py-2 font-medium"
-          >
-            {loading ? "Creating..." : "Create account"}
-          </button>
+            {err && <p className="text-sm text-red-400">{err}</p>}
+            {ok && <p className="text-sm text-emerald-400">{ok}</p>}
 
-          <div className="mt-3 text-sm">
-            Already a member?{" "}
-            <a href="/login" className="text-white/80 hover:text-white underline underline-offset-4">
-              Log in
+            <button
+              disabled={loading}
+              className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-amber-400 py-2.5 font-medium text-black hover:brightness-105 disabled:opacity-60">
+              {loading ? "Creating..." : "Sign up"}
+            </button>
+          </form>
+
+          <div className="mt-4 flex justify-between text-sm">
+            <a href="/login" className="text-white/80 hover:text-white underline decoration-white/30">
+              Back to Log in
             </a>
           </div>
-        </form>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
