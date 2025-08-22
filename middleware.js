@@ -1,11 +1,12 @@
-// middleware.js  — DEV: allow all requests to pass (no auth redirect)
+// /middleware.js
 import { NextResponse } from "next/server";
 
+// TEMP: allow everything through (no redirects)
 export function middleware() {
   return NextResponse.next();
 }
 
-// Keep matcher so file only runs on member routes (optional for perf)
+// Disable middleware by matching nothing
 export const config = {
-  matcher: ["/member/:path*"],
+  matcher: [],
 };
