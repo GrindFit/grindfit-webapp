@@ -1,15 +1,18 @@
-import Link from "next/link";
-import Nav from "../../components/Nav";
+import MemberShell from "../../components/MemberShell";
 
 export default function Nutrition() {
   return (
-    <>
-      <Nav />
-      <main className="gf-container py-10">
-        <h1 className="text-3xl font-extrabold mb-6">Nutrition</h1>
-        <p className="mb-8">Simple, sustainable, and effective.</p>
-        <Link className="btn-ghost" href="/member">← Back to Members</Link>
-      </main>
-    </>
+    <MemberShell>
+      {() => (
+        <>
+          <h1 className="text-2xl sm:text-3xl font-semibold">Nutrition</h1>
+          <p className="text-white/70 mt-2">Simple meals and macros for your goal.</p>
+
+          <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-6">
+            <div className="text-white/80">Coming soon: macro planner & meal ideas 🍳</div>
+          </div>
+        </>
+      )}
+    </MemberShell>
   );
 }
