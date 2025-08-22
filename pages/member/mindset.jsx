@@ -1,15 +1,18 @@
-import Link from "next/link";
-import Nav from "../../components/Nav";
+import MemberShell from "../../components/MemberShell";
 
 export default function Mindset() {
   return (
-    <>
-      <Nav />
-      <main className="gf-container py-10">
-        <h1 className="text-3xl font-extrabold mb-6">Mindset</h1>
-        <p className="mb-8">Micro wins. Momentum. Make it a habit.</p>
-        <Link className="btn-ghost" href="/member">← Back to Members</Link>
-      </main>
-    </>
+    <MemberShell>
+      {() => (
+        <>
+          <h1 className="text-2xl sm:text-3xl font-semibold">Mindset</h1>
+          <p className="text-white/70 mt-2">Micro-wins and cues that stick.</p>
+
+          <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-6">
+            <div className="text-white/80">Coming soon: daily cues & reflections 🧠</div>
+          </div>
+        </>
+      )}
+    </MemberShell>
   );
 }
