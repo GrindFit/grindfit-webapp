@@ -1,3 +1,4 @@
+// /pages/signup.jsx
 import { useState } from "react";
 import Link from "next/link";
 import { supabase } from "../lib/supabaseClient";
@@ -21,7 +22,7 @@ export default function Signup() {
     else alert("Check your email to confirm your account.");
   }
 
-  // SAME shell as /login
+  // IDENTICAL shell as /login
   const shellStyle = {
     backgroundImage:
       "radial-gradient(1200px 600px at 20% -10%, rgba(255,140,0,0.18), transparent 40%), " +
@@ -34,12 +35,12 @@ export default function Signup() {
 
   return (
     <main className="relative min-h-screen overflow-hidden text-white" style={shellStyle}>
-      {/* Header spacing to match /login */}
+      {/* header spacing matches /login */}
       <header className="relative mx-auto max-w-7xl px-6 pt-10">
         <Brand />
       </header>
 
-      {/* Centered auth card */}
+      {/* centered auth card */}
       <section className="relative mx-auto mt-20 max-w-md px-6">
         <div className="mx-auto w-full rounded-xl border border-white/10 bg-black/40 p-6 shadow-2xl backdrop-blur-md">
           <h1 className="mb-6 text-center text-xl font-semibold">Create account</h1>
