@@ -34,7 +34,17 @@ export default function Signup() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden text-white" style={shellStyle}>
+    <main
+  className="relative min-h-screen overflow-hidden text-white"
+  style={{
+    background:
+      'radial-gradient(1200px 600px at 20% -10%, rgba(255,140,0,0.18), transparent 40%), ' +
+      'radial-gradient(1000px 800px at 110% 25%, rgba(255,69,0,0.10), transparent 40%), ' +
+      'linear-gradient(180deg, #0b0b0e 0%, #0b0b0e 100%)',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  }}
+>
       {/* header spacing matches /login */}
       <header className="relative mx-auto max-w-7xl px-6 pt-10">
         <Brand />
