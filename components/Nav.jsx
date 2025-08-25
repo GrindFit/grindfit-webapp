@@ -22,18 +22,22 @@ export default function Nav() {
 
         {!hideLinks && (
           <div className="flex items-center gap-3">
-            <Link className="btn-ghost" href="/#why">
-              Why GrindFit?
-            </Link>
-            <Link className="btn-ghost" href="/#nutrition">
-              Nutrition
-            </Link>
-            <Link className="btn-ghost" href="/#reset">
-              Reset &amp; Recover
-            </Link>
-            <Link className="btn-ghost" href="/#membership">
-              Membership
-            </Link>
+<Link className="btn-ghost" href="/#why">Why Grindfit</Link>
+<Link className="btn-ghost" href="/#nutrition">Nutrition</Link>
+<Link className="btn-ghost" href="/#recovery">Reset & Recover</Link>
+<Link className="btn-ghost" href="/membership">Membership</Link>
+
+  {/* Why Grindfit content */}
+</section>
+
+<section id="nutrition">
+  {/* Nutrition content */}
+</section>
+
+<section id="recovery">
+  {/* Reset & Recover content */}
+</section>
+
 
             {/* Open App → always goes to /login */}
             <Link className="btn-primary" href="/login">
