@@ -15,6 +15,37 @@ export default function Nav() {
           </span>
         </Link>
 
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';   // ⬅ add this
+
+export default function Nav() {
+  const router = useRouter();              // ⬅ add this
+  if (router.pathname.startsWith('/member')) {
+    // Don't render the marketing nav on member pages
+    return null;                           // ⬅ add this block
+  }
+
+  const [open, setOpen] = useState(false);
+
+  // keep the rest of your nav as-is (with the absolute anchors)
+  const links = [
+    { href: '/#why',        label: 'Why GrindFit' },
+    { href: '/#nutrition',  label: 'Nutrition' },
+    { href: '/#reset',      label: 'Reset & Recover' },
+    { href: '/#membership', label: 'Membership' },
+  ];
+
+  return (
+    <header className="sticky top-0 z-50 w-full border-b border-white/5 bg-black/60 backdrop-blur">
+      {/* ...the rest of your Nav.jsx exactly as you have it... */}
+    </header>
+  );
+}
+
+        
         {/* Marketing nav + CTA */}
         <nav className="space-x-6 text-white/80">
           <Link href="#why"        scroll={false} className="hover:text-white">
