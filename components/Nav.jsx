@@ -1,58 +1,44 @@
 // components/Nav.jsx
+"use client";
+
 import Link from "next/link";
-import { useRouter } from "next/router";
-import Brand from "./Brand";
 
 export default function Nav() {
-  const { pathname } = useRouter();
-
-  // On auth pages, hide the main nav links (show only the logo)
-  const hideLinks =
-    pathname === "/login" ||
-    pathname === "/signup" ||
-    pathname === "/auth/update-password" ||
-    pathname.startsWith("/auth/");
-
   return (
-    <header className="w-full sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-black/60">
-      <nav className="container mx-auto flex items-center justify-between min-h-[80px] px-4">
-        <Link href="/" aria-label="GRINDFIT home" className="no-underline">
-          <Brand />
+    <header className="sticky top-0 z-50 w-full backdrop-blur supports-[backdrop-filter]:bg-black/60">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+        {/* Brand */}
+        <Link href="/">
+          <span className="text-2xl font-black tracking-wide">
+            <span className="text-orange-500">GRIND</span>
+            <span>FIT</span>
+          </span>
         </Link>
 
-        {!hideLinks && (
-          <div className="flex items-center gap-3">
- <Link className="btn-ghost" href="/#why">
-              Why GrindFit?
-            </Link>
-            <Link className="btn-ghost" href="/#nutrition">
-              Nutrition
-            </Link>
-            <Link className="btn-ghost" href="/#reset">
-              Reset &amp; Recover
-            </Link>
-            <Link className="btn-ghost" href="/#membership">
-              Membership
-            </Link>
-  {/* Why Grindfit content */}
-</section>
+        {/* Marketing nav + CTA */}
+        <nav className="space-x-6 text-white/80">
+          <Link href="#why"        scroll={false} className="hover:text-white">
+            Why GrindFit
+          </Link>
+          <Link href="#nutrition"  scroll={false} className="hover:text-white">
+            Nutrition
+          </Link>
+          <Link href="#reset"      scroll={false} className="hover:text-white">
+            Reset &amp; Recover
+          </Link>
+          <Link href="#membership" scroll={false} className="hover:text-white">
+            Membership
+          </Link>
 
-<section id="nutrition">
-  {/* Nutrition content */}
-</section>
-
-<section id="recovery">
-  {/* Reset & Recover content */}
-</section>
-
-
-            {/* Open App → always goes to /login */}
-            <Link className="btn-primary" href="/login">
-              Open App
-            </Link>
-          </div>
-        )}
-      </nav>
+          {/* Open-App button */}
+          <Link
+            href="/member"
+            className="inline-block rounded-md bg-orange-500 px-4 py-1.5 text-sm font-semibold text-black hover:bg-orange-400"
+          >
+            Open App
+          </Link>
+        </nav>
+      </div>
     </header>
   );
 }
