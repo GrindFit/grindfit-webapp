@@ -119,3 +119,101 @@ input:focus,select:focus,textarea:focus{ @apply border-white/40; }
   border-color: var(--gf-stroke);
   background: transparent;
 }
+/* ──────────────────────────────────────────────────────────────
+   GRINDFIT brand globals
+   - Warm orange corner glows
+   - Sticky-nav anchor offset (fixes misalignment when clicking #why, #nutrition, etc.)
+   - Helpers for gradient text + card hover bloom
+   ──────────────────────────────────────────────────────────── */
+
+:root {
+  --gf-bg: #0B0B0E;
+  --gf-accent: #FF7A18;   /* warm orange */
+  --gf-amber:  #FFB256;   /* soft amber  */
+}
+
+/* Base background */
+html, body {
+  background: var(--gf-bg);
+}
+
+/* Top-right and bottom-left ambient glows */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  pointer-events: none;
+  z-index: -1;
+  width: 52vw;
+  height: 52vw;
+  border-radius: 50%;
+  filter: blur(70px);
+  transform: translateZ(0);
+}
+
+body::before {
+  top: -14vw;
+  right: -14vw;
+  opacity: .22;
+  background:
+    radial-gradient(60% 60% at 50% 50%,
+      rgba(255,122,24,.28) 0%,
+      rgba(255,178,86,.12) 60%,
+      rgba(255,122,24,0) 70%);
+}
+
+body::after {
+  bottom: -18vw;
+  left: -18vw;
+  opacity: .16;
+  background:
+    radial-gradient(60% 60% at 50% 50%,
+      rgba(255,178,86,.22) 0%,
+      rgba(255,122,24,.08) 60%,
+      rgba(255,178,86,0) 70%);
+}
+
+/* Sticky-nav anchor offset:
+   any element with an id (e.g., <section id="why">) will align nicely
+   when clicked from the nav. Adjust 96px if your nav height changes. */
+[id] {
+  scroll-margin-top: 96px;
+}
+
+/* Gradient text for brand headings/logotype */
+.gf-gradient-text {
+  background: linear-gradient(90deg, var(--gf-accent) 0%, #FF9E2B 50%, var(--gf-amber) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Card hover “bloom” like your Loveable example */
+.gf-card {
+  position: relative;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.gf-card:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.gf-card::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 12px;          /* match your card radius */
+  background:
+    radial-gradient(120% 100% at 50% 0%,
+      rgba(255,122,24,0) 0%,
+      rgba(255,122,24,.22) 60%,
+      rgba(255,178,86,0) 100%);
+  opacity: 0;
+  filter: blur(14px);
+  transition: opacity .25s ease;
+  z-index: -1;
+}
+
+.gf-card:hover::after {
+  opacity: 1;
+}
