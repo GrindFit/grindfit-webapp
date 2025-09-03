@@ -1,162 +1,117 @@
 // components/CommandCenter.jsx
-import React from "react";
+import { CheckCircle2, PlayCircle } from "lucide-react";
 
 export default function CommandCenter() {
   return (
-    <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_1fr_0.9fr]">
-      {/* Progress */}
-      <div className="gf-card rounded-2xl p-6">
-        <h3 className="font-semibold text-white/90">Today’s Progress</h3>
+    <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1.05fr_1fr_0.9fr]">
+      {/* Today's Progress */}
+      <div className="gf-panel">
+        <div className="text-sm font-semibold text-neutral-200">Today’s Progress</div>
 
-        <div className="mt-5 space-y-4">
-          <Bar label="Steps" value={6700} max={10000} tone="orange" />
-          <Bar label="Water" value={2} max={4} tone="green" unit="L" />
-          <Bar label="Calories" value={1950} max={2500} tone="orange" />
-          {/* weight bar explicitly green as requested */}
-          <Bar label="Weight" value={72} max={80} tone="green" unit="kg" />
-        </div>
+        <Bar label="Steps" value={67} sub="6,700 / 10,000" color="orange" />
+        <Bar label="Water" value={50} sub="2 L / 4 L" color="green" />
+        <Bar label="Calories" value={78} sub="1,950 / 2,500" color="orange" />
+        {/* weight bar specifically green per request */}
+        <Bar label="Weight" value={72} sub="72 kg" color="green" />
 
-        <div className="mt-6 grid grid-cols-2 gap-4">
+        <div className="mt-5 grid grid-cols-2 gap-3">
           <MiniStat label="Workouts" value="45" tone="orange" />
           <MiniStat label="kg lost" value="-12" tone="green" />
         </div>
       </div>
 
-      {/* Week plan */}
-      <div className="gf-card rounded-2xl p-6">
-        <h3 className="font-semibold text-white/90">This Week’s Plan</h3>
-        <ul className="mt-4 space-y-3">
-          {[
-            ["Monday", "Push Day — Chest & Triceps", "done"],
-            ["Tuesday", "Pull Day — Back & Biceps", "next"],
-            ["Wednesday", "Leg Day — Quads & Glutes", "todo"],
-            ["Thursday", "Cardio & Core", "todo"],
-            ["Friday", "Full Body HIIT", "todo"],
-          ].map(([day, label, state]) => (
-            <li
-              key={day}
-              className="flex items-center justify-between rounded-xl bg-white/3 px-4 py-3 ring-1 ring-black/5"
-            >
-              <div>
-                <p className="text-sm font-semibold text-white">{day}</p>
-                <p className="text-xs text-[#9BA3AF]">{label}</p>
-              </div>
+      {/* This Week's Plan */}
+      <div className="gf-panel">
+        <div className="text-sm font-semibold text-neutral-200">This Week’s Plan</div>
 
-              {/* badge on the right: orange check for completed, black/white play for next, subtle dot for todo */}
-              {state === "done" ? (
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--gf-orange-start),var(--gf-orange-end))] shadow-[0_0_0_2px_#0b0f12]">
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="14"
-                    height="14"
-                    className="text-black"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M20.285 6.709a1 1 0 010 1.414l-9.193 9.193a1 1 0 01-1.414 0l-5.364-5.364a1 1 0 111.414-1.414l4.657 4.657 8.486-8.486a1 1 0 011.414 0z"
-                    />
-                  </svg>
-                </span>
-              ) : state === "next" ? (
-                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black">
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="12"
-                    height="12"
-                    className="text-white"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M8 5v14l11-7z"
-                    />
-                  </svg>
-                </span>
-              ) : (
-                <span className="inline-block h-2.5 w-2.5 rounded-full bg-white/20" />
-              )}
-            </li>
-          ))}
-        </ul>
+        <PlanRow day="Monday"   title="Push Day — Chest & Triceps"  status="done" />
+        <PlanRow day="Tuesday"  title="Pull Day — Back & Biceps"   status="next" />
+        <PlanRow day="Wednesday" title="Leg Day — Quads & Glutes"  />
+        <PlanRow day="Thursday" title="Cardio & Core" />
+        <PlanRow day="Friday"   title="Full Body HIIT" />
       </div>
 
-      {/* Nutrition */}
-      <div className="gf-card rounded-2xl p-6">
-        <h3 className="font-semibold text-white/90">Nutrition Goals</h3>
+      {/* Nutrition Goals */}
+      <div className="gf-panel">
+        <div className="text-sm font-semibold text-neutral-200">Nutrition Goals</div>
 
-        <div className="mt-5 rounded-2xl bg-black/30 p-5 text-center ring-1 ring-black/10">
-          <p className="text-sm text-[#9BA3AF]">CALORIES REMAINING</p>
-          <p className="mt-1 text-4xl font-extrabold text-white">2,156</p>
+        <div className="mt-4 rounded-lg bg-neutral-900/50 p-5 text-center">
+          <div className="text-xs text-neutral-400">CALORIES REMAINING</div>
+          <div className="mt-1 text-3xl font-black text-white">2,156</div>
         </div>
 
-        <div className="mt-5 grid grid-cols-3 gap-3">
-          <Macro label="Protein" value="120g" tone="orange" />
-          <Macro label="Carbs" value="280g" tone="green" />
-          <Macro label="Fat" value="75g" tone="orange" />
+        {/* gradient numbers (no squares above) */}
+        <div className="mt-4 grid grid-cols-3 gap-3">
+          <div className="rounded-lg bg-neutral-900/40 p-3 text-center">
+            <div className="text-xs text-neutral-400">Protein</div>
+            <div className="gf-num--orange text-2xl font-extrabold">120g</div>
+          </div>
+          <div className="rounded-lg bg-neutral-900/40 p-3 text-center">
+            <div className="text-xs text-neutral-400">Carbs</div>
+            <div className="gf-num--green text-2xl font-extrabold">280g</div>
+          </div>
+          <div className="rounded-lg bg-neutral-900/40 p-3 text-center">
+            <div className="text-xs text-neutral-400">Fat</div>
+            <div className="gf-num--orange text-2xl font-extrabold">75g</div>
+          </div>
         </div>
 
-        <button className="gf-cta mt-6 w-full rounded-xl px-4 py-2 text-sm font-semibold text-black">
-          Start Workout
-        </button>
+        <button className="mt-5 w-full gf-cta">Start Workout</button>
       </div>
     </div>
   );
 }
 
-/* ——— subcomponents ——— */
+/* ---------- small bits ---------- */
 
-function Bar({ label, value, max, tone, unit }) {
-  const pct = Math.max(0, Math.min(100, (value / max) * 100));
-  const grad =
-    tone === "green"
-      ? "bg-[linear-gradient(90deg,var(--gf-green-start),var(--gf-green-end))]"
-      : "bg-[linear-gradient(90deg,var(--gf-orange-start),var(--gf-orange-end))]";
+function Bar({ label, value, sub, color }) {
   return (
-    <div>
-      <div className="flex items-baseline justify-between text-xs">
-        <span className="text-white/90">{label}</span>
-        <span className="text-[#9BA3AF]">
-          {value}
-          {unit ? ` ${unit}` : ""} / {max}
-          {unit ? ` ${unit}` : ""}
-        </span>
+    <div className="mt-4">
+      <div className="flex items-center justify-between text-xs text-neutral-400">
+        <span>{label}</span>
+        <span>{sub}</span>
       </div>
-      <div className="mt-2 h-2.5 w-full rounded-full bg-white/10">
+      <div className="mt-2 h-2 w-full rounded-full bg-neutral-800">
         <div
-          className={`h-2.5 rounded-full ${grad}`}
-          style={{ width: `${pct}%` }}
+          className={`h-2 rounded-full ${color === "green" ? "gf-bar--green" : "gf-bar--orange"}`}
+          style={{ width: `${Math.max(0, Math.min(100, value))}%` }}
         />
       </div>
     </div>
   );
 }
 
-function MiniStat({ label, value, tone }) {
-  const grad =
-    tone === "green"
-      ? "bg-[linear-gradient(135deg,var(--gf-green-start),var(--gf-green-end))]"
-      : "bg-[linear-gradient(135deg,var(--gf-orange-start),var(--gf-orange-end))]";
+function MiniStat({ label, value, tone = "orange" }) {
   return (
-    <div className="flex items-center justify-center gap-3 rounded-2xl bg-black/30 p-4 ring-1 ring-black/10">
-      <span className={`inline-flex h-9 w-9 items-center justify-center rounded-full ${grad} text-black font-bold`}>
-        {typeof value === "string" ? value : String(value)}
-      </span>
-      <span className="text-sm text-[#9BA3AF]">{label}</span>
+    <div className="flex items-center justify-center gap-3 rounded-xl bg-neutral-900/50 p-4">
+      <div className={`gf-mini ${tone === "green" ? "gf-mini--green" : "gf-mini--orange"}`}>
+        {value}
+      </div>
+      <div className="text-sm font-semibold text-white">{label}</div>
     </div>
   );
 }
 
-function Macro({ label, value, tone }) {
-  const grad =
-    tone === "green"
-      ? "bg-[linear-gradient(135deg,var(--gf-green-start),var(--gf-green-end))]"
-      : "bg-[linear-gradient(135deg,var(--gf-orange-start),var(--gf-orange-end))]";
+function PlanRow({ day, title, status }) {
+  const chip =
+    status === "done" ? (
+      <div className="gf-dot gf-dot--orange" aria-label="completed" />
+    ) : status === "next" ? (
+      <div className="gf-play">
+        {/* explicitly green play for Tuesday */}
+        <PlayCircle size={16} />
+      </div>
+    ) : (
+      <div className="gf-dot" />
+    );
+
   return (
-    <div className="rounded-xl bg-black/30 p-3 text-center ring-1 ring-black/10">
-      <div className={`mx-auto mb-2 h-7 w-7 rounded-md ${grad}`} />
-      <div className="text-xs text-[#9BA3AF]">{label}</div>
-      <div className="text-sm font-semibold text-white">{value}</div>
+    <div className="mt-3 flex items-center justify-between rounded-lg bg-neutral-900/40 p-3">
+      <div>
+        <div className="text-xs text-neutral-400">{day}</div>
+        <div className="text-sm font-medium text-neutral-100">{title}</div>
+      </div>
+      {chip}
     </div>
   );
 }
