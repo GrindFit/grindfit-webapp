@@ -178,3 +178,126 @@ body {
   align-items:center;
   gap:8px;
 }
+/* =========================
+   Scroll-snap page sections
+   ========================= */
+.gf-snap{
+  height:100vh;
+  overflow-y:auto;
+  scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;
+}
+.gf-section{
+  min-height:100vh;
+  scroll-snap-align:start;
+  display:flex;
+  align-items:center;
+  position:relative;
+  padding:96px 0; /* room for nav */
+}
+
+/* =========================
+   Hero ambience + safety
+   ========================= */
+.gf-hero { isolation:isolate; }
+.gf-hero-decos{ position:absolute; inset:0; z-index:0; pointer-events:none; }
+.gf-hero-deco{
+  position:absolute; width:480px; height:220px; border-radius:28px;
+  background: radial-gradient(1200px 900px at 10% 0%, rgba(255,122,24,.08), transparent 55%),
+              radial-gradient(1000px 600px at 92% 0%, rgba(255,162,74,.08), transparent 60%);
+  filter: blur(8px);
+}
+.gf-hero .mx-auto{ position:relative; z-index:10; }
+
+/* =========================
+   Brand gradient + CTA
+   ========================= */
+.gf-gradient-text{
+  background: linear-gradient(90deg, var(--gf-orange-start) 0%, var(--gf-orange-mid) 45%, var(--gf-orange-end) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.gf-cta{
+  display:inline-block; font-weight:700; color:#111;
+  padding:.78rem 1.1rem; border-radius:14px;
+  background: linear-gradient(90deg, var(--gf-orange-start) 0%, var(--gf-orange-mid) 45%, var(--gf-orange-end) 100%);
+  box-shadow: 0 8px 22px rgba(255,122,24,.15), inset 0 1px 0 rgba(255,255,255,.15);
+  transition: transform .18s ease, filter .18s ease;
+}
+.gf-cta:hover{ filter:brightness(1.05); transform:translateY(-1px); }
+
+/* =========================
+   Headings & cards
+   ========================= */
+.gf-section-title{
+  font-weight:900; color:#fff; letter-spacing:-.02em;
+  font-size: clamp(28px, 2.2rem + .4vw, 40px);
+}
+.gf-card{
+  border-radius:18px;
+  background: rgba(15,18,22,.6);
+  box-shadow: 0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.06);
+  padding: 20px;
+}
+.gf-card-title{
+  color:#fff; font-weight:800; font-size:16px; letter-spacing:.2px;
+}
+
+/* =========================
+   Feature cards + icons
+   ========================= */
+.gf-feature{
+  position:relative; border-radius:16px;
+  background: rgba(12,14,18,.7);
+  border:1px solid rgba(255,255,255,.06);
+  padding:18px;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.gf-feature:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(255,122,24,.15);
+}
+.gf-icon{
+  width:56px; height:56px; border-radius:14px; flex:0 0 auto;
+  background: linear-gradient(160deg, var(--gf-orange-start), var(--gf-orange-end));
+  box-shadow: 0 1px 0 rgba(255,255,255,.2) inset, 0 16px 28px rgba(255,122,24,.22);
+}
+.gf-icon--green{
+  background: linear-gradient(160deg, #22d3a6, #16a34a);
+  box-shadow: 0 1px 0 rgba(255,255,255,.18) inset, 0 16px 28px rgba(34,211,164,.22);
+}
+
+/* =========================
+   Small pills & rows
+   ========================= */
+.gf-pill{
+  border-radius:14px;
+  padding:12px 14px;
+  background: rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+}
+.gf-row{
+  display:flex; align-items:center; gap:12px;
+  padding:10px 12px; border-radius:12px;
+  background: rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.06);
+}
+
+/* soft translucent badges */
+.gf-badge{
+  display:inline-grid; place-items:center;
+  width:28px; height:28px; border-radius:9px;
+  font-weight:900; line-height:1; font-size:14px;
+  border:1px solid rgba(255,255,255,.12);
+}
+.gf-badge--orange{ background: rgba(255,122,24,.18); color:#ffedd5; }
+.gf-badge--green { background: rgba(16,185,129,.18); color:#dcfce7; }
+.gf-badge--muted { background: rgba(255,255,255,.08); color:#fff; }
+
+/* =========================
+   Color variables (lambo)
+   ========================= */
+:root{
+  --gf-orange-start:#ff7a18;
+  --gf-orange-mid:#ff8d32;
+  --gf-orange-end:#ffa24a;
+}
