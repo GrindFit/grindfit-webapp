@@ -7,23 +7,21 @@
    Brand tokens (all custom properties live inside :root)
 ----------------------------------------------------------- */
 :root {
-  /* Brand orange ramp (brighter, punchier) */
-  --gf-orange-start: #ff8a00; /* light / highlight */
-  --gf-orange-mid:   #ff6400; /* mid */
-  --gf-orange-end:   #ff3d00; /* deep tail */
+  /* Brand orange – bright & punchy */
+  --gf-orange-start: #ff7a18;
+  --gf-orange-mid:   #ff8d32;
+  --gf-orange-end:   #ffa24a;
 
-  /* Solid button fill (keep as a color, not gradient) */
-  --gf-btn: #ff7a1a;
+  /* Accent green – vivid + modern */
+  --gf-green-start:  #22c55e;
+  --gf-green-mid:    #10b981;
+  --gf-green-end:    #16a34a;
 
-  /* Logo accents (teal, saturated) and a red accent used in UI */
-  --gf-blue:   #0e6a5a;
-  --gf-accent: #ef4444;
+  /* Solid button color (kept as a color, not gradient) */
+  --gf-btn: #ff7a18;
 
-  /* Base neutrals */
-  --gf-text:      #e5e7eb;
-  --gf-text-dim:  #94a3b8;
-  --gf-surface:   #0b0f12;
-  --gf-surface-2: #0e1317;
+  /* Ink/base */
+  --gf-ink: #0c0d0f;
 }
 
 /* Keep sections from being hidden under the sticky nav on hash links */
@@ -244,3 +242,92 @@ body::after {
 }
 
 .gf-cta:hover::after { opacity: .70; }
+
+/* --------------------------------------------- */
+/* Brand gradient text                          */
+/* --------------------------------------------- */
+.gf-gradient-text {
+  background: linear-gradient(90deg, var(--gf-orange-start) 0%, var(--gf-orange-end) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Section titles to match the Loveable feel */
+.gf-section-title {
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.35rem, 1.05rem + 1.2vw, 2rem);
+  color: #e5e7eb;
+}
+
+/* Gradient chips behind icons */
+.gf-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 12px 28px rgba(0,0,0,0.35);
+}
+.gf-icon--orange {
+  background: linear-gradient(180deg, var(--gf-orange-start) 0%, var(--gf-orange-end) 100%);
+}
+.gf-icon--green {
+  background: linear-gradient(180deg, var(--gf-green-start) 0%, var(--gf-green-end) 100%);
+}
+
+/* Feature cards – roomier with gentle glow */
+.gf-feature {
+  position: relative;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: #0f1115;
+  transition: transform .25s cubic-bezier(.22,.8,.23,1), box-shadow .25s;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 12px 28px rgba(0,0,0,.35);
+}
+.gf-feature:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08) inset,
+    0 18px 36px rgba(0,0,0,.45);
+}
+
+/* Bars for Command Center */
+.gf-bar {
+  height: 8px;
+  border-radius: 9999px;
+  background: #0e1014;
+  overflow: hidden;
+}
+.gf-bar > span { display:block; height:100%; }
+.gf-bar--orange > span {
+  background: linear-gradient(90deg, var(--gf-orange-start), var(--gf-orange-end));
+}
+.gf-bar--green > span {
+  background: linear-gradient(90deg, var(--gf-green-start), var(--gf-green-end));
+}
+
+/* Primary CTA */
+.gf-cta {
+  border-radius: 14px;
+  color: #0b0b0e;
+  font-weight: 700;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 10px 24px rgba(0,0,0,.35);
+  transition: filter .2s ease, transform .2s ease;
+}
+.gf-cta:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+/* Subtle label on cards */
+.gf-chip {
+  font-size: .75rem;
+  opacity: .6;
+}
