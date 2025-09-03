@@ -1,182 +1,134 @@
+// pages/index.jsx
 import Head from "next/head";
+import { Dumbbell, Utensils, LineChart, Users, CalendarCheck, BookOpen } from "lucide-react";
 import CommandCenter from "../components/CommandCenter";
-import { Utensils, Dumbbell, Gauge, Users, CalendarDays, ShieldCheck, Crown } from "lucide-react";
+import Plans from "../components/Plans";
 
-function FeatureCard({ title, desc, Icon, color = "orange" }) {
+// tiny helper for icon chips
+function IconChip({ children, color = "orange" }) {
+  const isGreen = color === "green";
+  const chip =
+    isGreen
+      ? "from-emerald-400 to-emerald-500"
+      : "from-[#FF7A18] to-[#FFA24A]";
+
   return (
-    <div className="gf-feature">
-      <div className={`gf-icon ${color === "green" ? "gf-icon--green" : ""}`}>
-        <Icon size={22} />
+    <div className="absolute -top-3 -left-3 h-9 w-9 rounded-xl bg-gradient-to-br shadow-[0_10px_30px_rgba(0,0,0,0.35)] blur-[0px] grid place-items-center">
+      <div className={`h-9 w-9 rounded-xl bg-gradient-to-br ${chip} grid place-items-center`} />
+      <div className="absolute inset-0 grid place-items-center text-black">
+        {children}
       </div>
-      <h3 className="font-bold text-white mt-4">{title}</h3>
-      <p className="mt-2 text-sm opacity-80">{desc}</p>
     </div>
   );
 }
 
-function PricingCard({ name, price, period, items, featured = false, popular = false }) {
+function FeatureCard({ title, desc, Icon, color = "orange" }) {
   return (
-    <div className={`plan-card ${featured ? "plan-card--featured" : ""}`}>
-      {popular && (
-        <span className="badge-popular">
-          <Crown size={16} /> Most Popular
-        </span>
-      )}
-      <div>
-        <p className="text-sm opacity-75">{name}</p>
-        <div className="flex items-end gap-1">
-          <span className="text-4xl font-extrabold">${price}</span>
-          <span className="opacity-70 mb-1 text-sm">/{period}</span>
-        </div>
-      </div>
-
-      <ul className="space-y-2 text-sm">
-        {items.map((t) => (
-          <li key={t} className="flex items-start gap-2">
-            <span className="gf-icon gf-icon--green w-5 h-5 rounded-md text-[10px] flex items-center justify-center">✓</span>
-            <span className="opacity-90">{t}</span>
-          </li>
-        ))}
-      </ul>
-
-      <button className="gf-cta mt-2">{featured ? "Get Premium" : "Start Free Trial"}</button>
+    <div className="relative rounded-2xl border border-white/5 bg-black/30 p-6 backdrop-blur-sm transition hover:-translate-y-0.5 hover:shadow-[0_15px_50px_rgba(0,0,0,0.35)]">
+      <IconChip color={color}>
+        <Icon size={18} />
+      </IconChip>
+      <h3 className="font-semibold text-white mt-2">{title}</h3>
+      <p className="mt-1 text-[13px] leading-5 text-white/70">{desc}</p>
     </div>
   );
 }
 
 export default function Home() {
+  const features = [
+    {
+      title: "Personalized Nutrition",
+      desc: "Custom meal plans tuned to your goals with effortless macro tracking.",
+      Icon: Utensils,
+      color: "orange",
+    },
+    {
+      title: "Smart Workouts",
+      desc: "Adaptive programs that grow with you—from beginner to elite.",
+      Icon: Dumbbell,
+      color: "orange",
+    },
+    {
+      title: "Real-time Tracking",
+      desc: "Steps, water, calories and vitals visualized beautifully.",
+      Icon: LineChart,
+      color: "green",
+    },
+    {
+      title: "Community Support",
+      desc: "Train with accountability, motivation and inspiration.",
+      Icon: Users,
+      color: "green",
+    },
+    {
+      title: "Weekly Planning",
+      desc: "Plan sessions, track progress, stay consistent week by week.",
+      Icon: CalendarCheck,
+      color: "green",
+    },
+    {
+      title: "Expert Guidance",
+      desc: "Decades of insight distilled into every feature. Trusted by thousands.",
+      Icon: BookOpen,
+      color: "green", // ← bottom-right is green (consistency)
+    },
+  ];
+
   return (
     <>
       <Head>
-        <title>GrindFit</title>
-        <meta name="description" content="Think Sharp. Live Unstoppable." />
+        <title>GrindFit — Train Hard. Think Sharp. Live Unstoppable.</title>
       </Head>
 
-      {/* NAV (assumes your existing Nav uses <Brand />) */}
-
       {/* HERO */}
-      <main className="max-w-6xl mx-auto px-5 pt-20 pb-8">
-        <h1 className="text-4xl sm:text-6xl md:text-7xl font-black leading-none">
-          Train Hard.
-          <br />
-          Think Sharp.
-          <br />
-          Live <span className="gf-gradient-text">Unstoppable</span>
-        </h1>
-        <p className="max-w-2xl mt-5 opacity-85">
-          A psychology-driven fitness system that upgrades your body, mind, and lifestyle. Built to win.
-        </p>
-        <div className="mt-6">
-          <button className="gf-cta px-5 py-3 rounded-xl font-semibold">
+      <section className="relative overflow-hidden">
+        {/* subtle ambient canvas already exists from your globals; we keep it dark */}
+        <div className="mx-auto w-full max-w-6xl px-6 pt-20 sm:pt-24 md:pt-28">
+          <h1 className="text-4xl sm:text-5xl md:text-[56px] leading-[1.05] font-black tracking-tight text-white">
+            Train Hard.
+            <br />
+            Think Sharp.
+            <br />
+            Live{" "}
+            <span className="bg-gradient-to-r from-[#FF7A18] to-[#FFA24A] bg-clip-text text-transparent">
+              Unstoppable
+            </span>
+          </h1>
+
+          <p className="mt-5 max-w-2xl text-white/75">
+            A psychology-driven fitness system that upgrades your body, mind, and lifestyle.
+            Built to win.
+          </p>
+
+          <button
+            className="mt-7 inline-flex items-center rounded-xl px-6 py-3 font-semibold text-black
+                       bg-gradient-to-r from-[#FF7A18] to-[#FFA24A]
+                       shadow-[0_10px_40px_rgba(255,122,24,0.25)]
+                       hover:brightness-105 transition"
+          >
             Start Your Transformation
           </button>
         </div>
+      </section>
 
-        {/* Features */}
-        <section id="why" className="mt-16">
-          <h2 className="gf-section-title text-3xl sm:text-4xl">
-            Everything You Need to <span className="gf-gradient-text">Succeed</span>
-          </h2>
+      {/* FEATURES */}
+      <section className="mx-auto w-full max-w-6xl px-6 pt-14 md:pt-18">
+        <h2 className="mb-6 text-[28px] sm:text-[32px] md:text-[36px] font-extrabold tracking-tight text-white">
+          Everything You Need to Succeed
+        </h2>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
-            <FeatureCard
-              title="Personalized Nutrition"
-              desc="Custom meal plans based on your goals, fitness level, and preferences. Track macros effortlessly."
-              Icon={Utensils}
-            />
-            <FeatureCard
-              title="Smart Workouts"
-              desc="Adaptive programs that adjust to your progress — from beginner to elite athlete."
-              Icon={Dumbbell}
-            />
-            <FeatureCard
-              title="Weekly Planning"
-              desc="Plan sessions and see your full roadmap. Stay consistent week by week."
-              Icon={CalendarDays}
-            />
-            <FeatureCard
-              title="Real-time Tracking"
-              desc="Monitor steps, water intake, calories, and vital metrics. Your progress, visualized."
-              Icon={Gauge}
-              color="green"
-            />
-            <FeatureCard
-              title="Community Support"
-              desc="Join a community that keeps you accountable, motivated, and inspired."
-              Icon={Users}
-              color="green"
-            />
-            <FeatureCard
-              title="Expert Guidance"
-              desc="Decades of insight distilled into every feature. Trusted by thousands."
-              Icon={ShieldCheck}
-            />
-          </div>
-        </section>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map((f, i) => (
+            <FeatureCard key={i} {...f} />
+          ))}
+        </div>
+      </section>
 
-        {/* Command Center */}
-        <CommandCenter />
+      {/* COMMAND CENTER — full, bold section */}
+      <CommandCenter />
 
-        {/* Pricing */}
-        <section id="pricing" className="mt-20">
-          <h2 className="gf-section-title text-3xl sm:text-4xl">
-            Choose Your <span className="gf-gradient-text">Transformation Plan</span>
-          </h2>
-
-          <div className="grid lg:grid-cols-4 gap-6 mt-8">
-            <PricingCard
-              name="Starter"
-              price="19"
-              period="month"
-              items={[
-                "Basic workout plans",
-                "Nutrition tracking",
-                "Daily metrics logging",
-                "Mobile app access",
-                "Community support",
-              ]}
-            />
-            <PricingCard
-              name="Premium"
-              price="39"
-              period="month"
-              featured
-              popular
-              items={[
-                "Everything in Starter",
-                "AI-progressive programming",
-                "Personalized meal planning",
-                "Advanced analytics",
-                "Priority support",
-              ]}
-            />
-            <PricingCard
-              name="Elite"
-              price="59"
-              period="month"
-              items={[
-                "Everything in Premium",
-                "1-on-1 personal coaching",
-                "Custom workout design",
-                "Advanced biometrics",
-                "Nutrition consultations",
-              ]}
-            />
-            <PricingCard
-              name="Champion"
-              price="79"
-              period="month"
-              items={[
-                "All Elite features",
-                "Exclusive live workshops",
-                "Elite community access",
-                "Goal setting sprints",
-                "Priority new features",
-              ]}
-            />
-          </div>
-        </section>
-      </main>
+      {/* PRICING */}
+      <Plans />
     </>
   );
 }
