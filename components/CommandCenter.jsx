@@ -1,124 +1,128 @@
-// components/CommandCenter.jsx
 export default function CommandCenter() {
   return (
-    <section id="dashboard" className="relative py-20">
-      <h2 className="text-center text-3xl md:text-4xl font-extrabold text-white mb-10">
-        <span className="gf-gradient-text">Your Fitness</span>{" "}
-        <span>Command Center</span>
-      </h2>
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {/* LEFT: Today's Progress */}
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+        <p className="mb-4 text-sm text-zinc-400 font-medium">Today’s Progress</p>
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
-        {/* Card 1 — Today's Progress */}
-        <div className="rounded-2xl bg-white/[0.03] border border-white/10 p-6">
-          <p className="text-sm text-white/70 mb-4">Today&apos;s Progress</p>
-          <div className="space-y-5">
-            <ProgressRow label="Steps" value={85} />
-            <ProgressRow label="Water Intake" value={75} />
-            <ProgressRow label="Calories" value={66} />
-          </div>
+        <ProgressRow label="Steps" value={85} />
+        <ProgressRow label="Water Intake" value={75} suffix="%" />
+        <ProgressRow label="Calories" value={66} suffix="%" />
 
-          <div className="mt-6 grid grid-cols-2 gap-4 text-center">
-            <MiniStat value="45" label="Workouts" />
-            <MiniStat value="-12" label="lbs Lost" />
-          </div>
+        <div className="mt-6 grid grid-cols-2 gap-4">
+          <MiniStat label="Workouts" value="45" />
+          <MiniStat label="lbs Lost" value="-12" />
         </div>
+      </div>
 
-        {/* Card 2 — This Week's Plan */}
-        <div className="rounded-2xl bg-white/[0.03] border border-white/10 p-6">
-          <p className="text-sm text-white/70 mb-4">This Week&apos;s Plan</p>
-          <ul className="space-y-3 text-sm">
-            {[
-              ["Monday", "Push Day • Chest & Triceps", "45 min"],
-              ["Tuesday", "Pull Day • Back & Biceps", "50 min"],
-              ["Wednesday", "Leg Day • Quads & Glutes", "60 min"],
-              ["Thursday", "Cardio & Core", "30 min"],
-              ["Friday", "Full Body • HIIT", "40 min"],
-            ].map(([day, title, dur]) => (
-              <li
-                key={day}
-                className="flex items-center justify-between rounded-xl bg-white/[0.04] px-4 py-3"
-              >
-                <div>
-                  <div className="text-white">{day}</div>
-                  <div className="text-white/60 text-xs">{title}</div>
-                </div>
-                <div className="text-white/60 text-xs">{dur}</div>
-              </li>
-            ))}
-          </ul>
+      {/* MIDDLE: This Week's Plan */}
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+        <p className="mb-4 text-sm text-zinc-400 font-medium">This Week’s Plan</p>
 
-          <div className="mt-6 rounded-2xl p-5 text-center bg-gradient-to-b from-[var(--gf-orange-start)] to-[var(--gf-orange-end)] text-black">
-            <div className="text-sm font-medium mb-1">
-              Ready for today&apos;s workout?
-            </div>
-            <div className="text-xs mb-3">45 min Push Day • Chest & Triceps</div>
-            <a
-              href="#join"
-              className="inline-flex items-center rounded-full bg-black/90 text-white px-4 py-2 text-sm"
-            >
-              Start Workout
-            </a>
-          </div>
-        </div>
+        <PlanRow
+          day="Monday"
+          title="Push Day – Chest & Triceps"
+          meta="45 min"
+          active
+        />
+        <PlanRow day="Tuesday" title="Pull Day – Back & Biceps" meta="50 min" />
+        <PlanRow day="Wednesday" title="Leg Day – Quads & Glutes" meta="60 min" />
+        <PlanRow day="Thursday" title="Cardio & Core" meta="30 min" />
+        <PlanRow day="Friday" title="Full Body HIIT" meta="40 min" />
+      </div>
 
-        {/* Card 3 — Nutrition Goals */}
-        <div className="rounded-2xl bg-white/[0.03] border border-white/10 p-6">
-          <p className="text-sm text-white/70 mb-4">Nutrition Goals</p>
+      {/* RIGHT: Nutrition Goals */}
+      <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+        <p className="mb-4 text-sm text-zinc-400 font-medium">Nutrition Goals</p>
 
-          <div className="rounded-xl bg-white/[0.04] p-4 text-center mb-4">
-            <div className="text-3xl font-extrabold text-white">2,156</div>
-            <div className="text-xs text-white/60">calories remaining</div>
+        <div className="rounded-xl border border-white/10 bg-black/20 p-5 text-center">
+          <div className="text-4xl font-extrabold text-white">2,156</div>
+          <div className="mt-1 text-xs uppercase tracking-wide text-zinc-400">
+            calories remaining
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
-            {[
-              ["120g", "Protein"],
-              ["280g", "Carbs"],
-              ["75g", "Fat"],
-            ].map(([v, l]) => (
-              <div
-                key={l}
-                className="rounded-xl bg-white/[0.04] p-3 text-center"
-              >
-                <div className="text-lg font-bold text-white">{v}</div>
-                <div className="text-[11px] text-white/60">{l}</div>
-              </div>
-            ))}
+          <div className="mt-5 grid grid-cols-3 gap-3 text-left">
+            <MacroBox label="Protein" value="120g" />
+            <MacroBox label="Carbs" value="280g" />
+            <MacroBox label="Fat" value="75g" />
           </div>
         </div>
       </div>
-    </section>
+
+      {/* FULL-WIDTH CTA ROW */}
+      <div className="lg:col-span-3 rounded-2xl border border-white/10 bg-gradient-to-r from-[var(--gf-orange-start)]/15 via-[var(--gf-orange-mid)]/10 to-transparent p-6">
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-3 text-center md:flex-row md:justify-between md:text-left">
+          <div>
+            <p className="text-sm text-zinc-300">Ready for today’s workout?</p>
+            <p className="text-xs text-zinc-400">
+              45 min Push Day · Chest &amp; Triceps
+            </p>
+          </div>
+
+          <button className="gf-cta rounded-xl bg-[var(--gf-btn)] px-5 py-3 font-semibold text-black hover:brightness-105">
+            Start Workout
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 
-function ProgressRow({ label, value }) {
+/* ---------- Small, local UI helpers ---------- */
+
+function ProgressRow({ label, value, suffix = "%" }) {
+  // value: 0 - 100
+  const display = Math.max(0, Math.min(100, value));
   return (
-    <div>
-      <div className="flex justify-between text-xs text-white/60 mb-1">
+    <div className="mb-4">
+      <div className="mb-2 flex items-center justify-between text-xs text-zinc-400">
         <span>{label}</span>
-        <span>{value}%</span>
+        <span>{display}{suffix}</span>
       </div>
-      <Bar value={value} />
+      <div className="h-2 w-full rounded-full bg-white/10">
+        <div
+          className="h-2 rounded-full bg-[var(--gf-orange-mid)]"
+          style={{ width: `${display}%` }}
+        />
+      </div>
     </div>
   );
 }
 
-function Bar({ value }) {
+function MiniStat({ label, value }) {
   return (
-    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-      <div
-        className="h-full rounded-full bg-[var(--gf-orange-end)]"
-        style={{ width: `${value}%` }}
-      />
-    </div>
-  );
-}
-
-function MiniStat({ value, label }) {
-  return (
-    <div className="rounded-xl bg-white/[0.04] p-3">
+    <div className="rounded-xl border border-white/10 bg-black/20 p-4 text-center">
       <div className="text-2xl font-bold text-white">{value}</div>
-      <div className="text-xs text-white/50">{label}</div>
+      <div className="mt-1 text-xs text-zinc-400">{label}</div>
+    </div>
+  );
+}
+
+function PlanRow({ day, title, meta, active = false }) {
+  return (
+    <div
+      className={`mt-2 rounded-xl border p-4 ${
+        active
+          ? "border-[var(--gf-orange-mid)]/40 bg-white/5"
+          : "border-white/10 bg-black/20"
+      }`}
+    >
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="text-sm font-semibold text-white">{day}</div>
+          <div className="text-xs text-zinc-400">{title}</div>
+        </div>
+        <div className="text-xs text-zinc-400">{meta}</div>
+      </div>
+    </div>
+  );
+}
+
+function MacroBox({ label, value }) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-center">
+      <div className="text-lg font-bold text-white">{value}</div>
+      <div className="mt-1 text-xs text-zinc-400">{label}</div>
     </div>
   );
 }
