@@ -315,3 +315,68 @@ nav .gf-brand { font-weight: 900; letter-spacing: -0.02em; }
 
 /* Guard against any stray decorative strips you might have had before */
 .gf-section-strip, .gf-deco-bar { display: none !important; }
+/* ===== Brand tokens (already defined earlier) =====
+   Expect the following CSS variables to exist in :root:
+   --gf-orange-start, --gf-orange-end
+   --gf-green-start,  --gf-green-end
+*/
+
+/* Full page snap experience */
+.gf-snap {
+  scroll-snap-type: y mandatory;
+}
+.gf-section {
+  scroll-snap-align: start;
+}
+
+/* Brand wordmark gradient text */
+.gf-gradient-text {
+  background: linear-gradient(90deg, var(--gf-orange-start), var(--gf-orange-end));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* CTA (lambo orange), with a tiny glow on hover */
+.gf-cta {
+  background: linear-gradient(135deg, var(--gf-orange-start), var(--gf-orange-end));
+  box-shadow: 0 10px 35px rgba(255, 122, 24, 0.18);
+  transition: filter .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.gf-cta:hover { filter: brightness(1.05); }
+
+/* Icon chips */
+.gf-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px; width: 44px;
+  border-radius: 12px;
+  color: #0b0f12;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 8px 20px rgba(0,0,0,.35);
+}
+.gf-icon--orange {
+  background: linear-gradient(135deg, var(--gf-orange-start), var(--gf-orange-end));
+}
+.gf-icon--green {
+  background: linear-gradient(135deg, var(--gf-green-start), var(--gf-green-end));
+}
+
+/* Cards */
+.gf-card {
+  background: rgba(14, 18, 22, 0.7);
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 15px 40px rgba(0,0,0,.35);
+  backdrop-filter: blur(6px);
+}
+
+/* Featured plan badge (with crown) */
+.gf-badge {
+  background: linear-gradient(135deg, var(--gf-orange-start), var(--gf-orange-end));
+  box-shadow: 0 8px 25px rgba(255, 122, 24, 0.25);
+}
+
+/* Remove any stray decorative strips you might have had before */
+.gf-section-strip, .gf-deco-bar { display: none !important; }
