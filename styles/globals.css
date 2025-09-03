@@ -492,5 +492,39 @@ body{background:#0b0d0f;color:#e5e7eb;scroll-behavior:smooth;}
   color:#0a0a0a;font-weight:900;font-size:12px;padding:6px 12px;border-radius:999px;
 }
 
+/* ===== Full-screen, full-width section fit ===== */
+
+/* Make the page a snapping viewport */
+:root, html, body { height: 100%; }
+main {
+  min-height: 100%;
+  scroll-snap-type: y mandatory;
+  overflow-y: auto;
+}
+
+/* Every top-level section in <main> fills one screen */
+main > section {
+  min-height: 100svh;                 /* better than 100vh on some browsers */
+  display: grid;
+  place-items: center;                 /* vertically + horizontally centers content */
+  scroll-snap-align: start;
+  padding-block: clamp(24px, 5vh, 72px);
+}
+
+/* Let the content expand wider on desktop while staying elegant */
+main > section > * {
+  width: min(1440px, 92vw);            /* fills page but never gets cartoonishly wide */
+  margin-inline: auto;
+}
+
+/* Optional: nudge base size a touch on big screens (no layout change) */
+@media (min-width: 1200px) {
+  main > section { font-size: clamp(1rem, 0.98rem + 0.25vw, 1.125rem); }
+}
+
+/* Keep decorative strips from showing if any theme bits reappear */
+.gf-section-strip, .gf-deco-bar { display: none !important; }
+
+
 /* Guard against any stray decorative strips you might have had before */
 .gf-section-strip, .gf-deco-bar { display:none !important; }
