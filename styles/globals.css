@@ -3,11 +3,15 @@
 @tailwind utilities;
 
 /* ---------- Brand (GrindFit) ---------- */
-:root{
-  --gf-bg:#0a0e12;
-  --gf-bg-elev:#0f141a;
-  --gf-card:#11161c;
-  --gf-stroke:#1b232d;
+:root {
+  /* Brand orange ramp (brighter, more punchy) */
+  --gf-orange-start: #FF8A00;  /* light/highlight */
+  --gf-orange-mid:   #FF6A00;  /* mid */
+  --gf-orange-end:   #FF3D00;  /* deep tail */
+
+  /* Solid button fill (kept as a color, not a gradient) */
+  --gf-btn: #FF7A1A;
+}
 
   /* Logo gradient (bold, saturated) */
   --gf-amber:#FFB14A;
