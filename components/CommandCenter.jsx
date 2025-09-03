@@ -1,128 +1,104 @@
+// components/CommandCenter.jsx
 export default function CommandCenter() {
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {/* LEFT: Today's Progress */}
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-        <p className="mb-4 text-sm text-zinc-400 font-medium">Today’s Progress</p>
+    <section id="dashboard" className="mt-20">
+      <h2 className="gf-section-title text-3xl sm:text-4xl">
+        Your Fitness <span className="gf-gradient-text">Command Center</span>
+      </h2>
 
-        <ProgressRow label="Steps" value={85} />
-        <ProgressRow label="Water Intake" value={75} suffix="%" />
-        <ProgressRow label="Calories" value={66} suffix="%" />
+      <div className="grid md:grid-cols-3 gap-6 mt-8">
+        {/* Left: Today’s Progress */}
+        <div className="cc-card">
+          <p className="text-sm mb-3 opacity-80">Today’s Progress</p>
+          <div className="space-y-4">
+            <div>
+              <div className="flex justify-between text-xs opacity-70 mb-1">
+                <span>Steps</span><span>85%</span>
+              </div>
+              <div className="w-full bg-black/30 rounded-full h-2 overflow-hidden">
+                <div className="cc-bar cc-bar--orange h-2 w-[85%]" />
+              </div>
+            </div>
 
-        <div className="mt-6 grid grid-cols-2 gap-4">
-          <MiniStat label="Workouts" value="45" />
-          <MiniStat label="lbs Lost" value="-12" />
-        </div>
-      </div>
+            <div>
+              <div className="flex justify-between text-xs opacity-70 mb-1">
+                <span>Water Intake</span><span>73%</span>
+              </div>
+              <div className="w-full bg-black/30 rounded-full h-2 overflow-hidden">
+                <div className="cc-bar cc-bar--green h-2 w-[73%]" />
+              </div>
+            </div>
 
-      {/* MIDDLE: This Week's Plan */}
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-        <p className="mb-4 text-sm text-zinc-400 font-medium">This Week’s Plan</p>
-
-        <PlanRow
-          day="Monday"
-          title="Push Day – Chest & Triceps"
-          meta="45 min"
-          active
-        />
-        <PlanRow day="Tuesday" title="Pull Day – Back & Biceps" meta="50 min" />
-        <PlanRow day="Wednesday" title="Leg Day – Quads & Glutes" meta="60 min" />
-        <PlanRow day="Thursday" title="Cardio & Core" meta="30 min" />
-        <PlanRow day="Friday" title="Full Body HIIT" meta="40 min" />
-      </div>
-
-      {/* RIGHT: Nutrition Goals */}
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-        <p className="mb-4 text-sm text-zinc-400 font-medium">Nutrition Goals</p>
-
-        <div className="rounded-xl border border-white/10 bg-black/20 p-5 text-center">
-          <div className="text-4xl font-extrabold text-white">2,156</div>
-          <div className="mt-1 text-xs uppercase tracking-wide text-zinc-400">
-            calories remaining
+            <div>
+              <div className="flex justify-between text-xs opacity-70 mb-1">
+                <span>Calories</span><span>66%</span>
+              </div>
+              <div className="w-full bg-black/30 rounded-full h-2 overflow-hidden">
+                <div className="cc-bar cc-bar--orange h-2 w-[66%]" />
+              </div>
+            </div>
           </div>
 
-          <div className="mt-5 grid grid-cols-3 gap-3 text-left">
-            <MacroBox label="Protein" value="120g" />
-            <MacroBox label="Carbs" value="280g" />
-            <MacroBox label="Fat" value="75g" />
+          <div className="grid grid-cols-2 gap-3 mt-5">
+            <div className="cc-card">
+              <p className="text-xs opacity-70">Workouts</p>
+              <p className="text-2xl font-bold mt-1">45</p>
+            </div>
+            <div className="cc-card">
+              <p className="text-xs opacity-70">lbs Lost</p>
+              <p className="text-2xl font-bold mt-1">-12</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* FULL-WIDTH CTA ROW */}
-      <div className="lg:col-span-3 rounded-2xl border border-white/10 bg-gradient-to-r from-[var(--gf-orange-start)]/15 via-[var(--gf-orange-mid)]/10 to-transparent p-6">
-        <div className="mx-auto flex max-w-3xl flex-col items-center gap-3 text-center md:flex-row md:justify-between md:text-left">
-          <div>
-            <p className="text-sm text-zinc-300">Ready for today’s workout?</p>
-            <p className="text-xs text-zinc-400">
-              45 min Push Day · Chest &amp; Triceps
-            </p>
+        {/* Middle: This Week’s Plan */}
+        <div className="cc-card">
+          <p className="text-sm mb-3 opacity-80">This Week’s Plan</p>
+          <ul className="space-y-3 text-sm">
+            {[
+              ['Monday',    'Push Day – Chest & Triceps',  '45 min'],
+              ['Tuesday',   'Pull Day – Back & Biceps',    '50 min'],
+              ['Wednesday', 'Leg Day – Quads & Glutes',    '60 min'],
+              ['Thursday',  'Cardio & Core',               '30 min'],
+              ['Friday',    'Full Body HIIT',              '40 min'],
+            ].map(([day, what, time]) => (
+              <li key={day} className="flex items-center gap-3">
+                <div className="gf-icon gf-icon--green text-white/90 text-xs w-7 h-7 rounded-md flex items-center justify-center">
+                  {time.replace(' min','')}
+                </div>
+                <div className="flex-1">
+                  <p className="font-medium">{day}</p>
+                  <p className="text-xs opacity-70">{what}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Right: Nutrition Goals */}
+        <div className="cc-card">
+          <p className="text-sm mb-3 opacity-80">Nutrition Goals</p>
+          <div className="bg-black/30 rounded-lg p-4">
+            <p className="text-4xl font-extrabold">2,156</p>
+            <p className="text-xs opacity-70 -mt-1 mb-4">calories remaining</p>
+
+            <div className="grid grid-cols-3 gap-3 text-center">
+              {[
+                ['Protein','120g'],
+                ['Carbs','280g'],
+                ['Fat','75g'],
+              ].map(([k, v]) => (
+                <div key={k} className="cc-card">
+                  <p className="text-xs opacity-70">{k}</p>
+                  <p className="font-bold mt-1">{v}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <button className="gf-cta rounded-xl bg-[var(--gf-btn)] px-5 py-3 font-semibold text-black hover:brightness-105">
-            Start Workout
-          </button>
+          <button className="gf-cta mt-5 w-full">Start Workout</button>
         </div>
       </div>
-    </div>
-  );
-}
-
-/* ---------- Small, local UI helpers ---------- */
-
-function ProgressRow({ label, value, suffix = "%" }) {
-  // value: 0 - 100
-  const display = Math.max(0, Math.min(100, value));
-  return (
-    <div className="mb-4">
-      <div className="mb-2 flex items-center justify-between text-xs text-zinc-400">
-        <span>{label}</span>
-        <span>{display}{suffix}</span>
-      </div>
-      <div className="h-2 w-full rounded-full bg-white/10">
-        <div
-          className="h-2 rounded-full bg-[var(--gf-orange-mid)]"
-          style={{ width: `${display}%` }}
-        />
-      </div>
-    </div>
-  );
-}
-
-function MiniStat({ label, value }) {
-  return (
-    <div className="rounded-xl border border-white/10 bg-black/20 p-4 text-center">
-      <div className="text-2xl font-bold text-white">{value}</div>
-      <div className="mt-1 text-xs text-zinc-400">{label}</div>
-    </div>
-  );
-}
-
-function PlanRow({ day, title, meta, active = false }) {
-  return (
-    <div
-      className={`mt-2 rounded-xl border p-4 ${
-        active
-          ? "border-[var(--gf-orange-mid)]/40 bg-white/5"
-          : "border-white/10 bg-black/20"
-      }`}
-    >
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="text-sm font-semibold text-white">{day}</div>
-          <div className="text-xs text-zinc-400">{title}</div>
-        </div>
-        <div className="text-xs text-zinc-400">{meta}</div>
-      </div>
-    </div>
-  );
-}
-
-function MacroBox({ label, value }) {
-  return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-center">
-      <div className="text-lg font-bold text-white">{value}</div>
-      <div className="mt-1 text-xs text-zinc-400">{label}</div>
-    </div>
+    </section>
   );
 }
