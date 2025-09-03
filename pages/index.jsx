@@ -1,159 +1,181 @@
-// pages/index.jsx
 import Head from "next/head";
-import Link from "next/link";
-import CommandCenter from "../components/CommandCenter"; // <- path is from /pages
+import CommandCenter from "../components/CommandCenter";
+import { Utensils, Dumbbell, Gauge, Users, CalendarDays, ShieldCheck, Crown } from "lucide-react";
 
-// Lucide icons for the feature cards
-import {
-  Utensils,          // Personalized Nutrition
-  Dumbbell,          // Smart Workouts
-  CalendarCheck,     // Weekly Planning
-  Activity,          // Real-time Tracking
-  Users,             // Community Support
-  ShieldCheck        // Expert Guidance
-} from "lucide-react";
-
-// Small, focused card component so we keep markup tidy
-function FeatureCard({ icon: Icon, title, desc, color = "orange" }) {
+function FeatureCard({ title, desc, Icon, color = "orange" }) {
   return (
-    <div className="gf-feature rounded-2xl border border-white/5 bg-black/20 p-5 sm:p-6">
-      <div className={`gf-icon ${color === "green" ? "green" : ""}`}>
-        <Icon size={22} color="#0c0d0f" />
+    <div className="gf-feature">
+      <div className={`gf-icon ${color === "green" ? "gf-icon--green" : ""}`}>
+        <Icon size={22} />
+      </div>
+      <h3 className="font-bold text-white mt-4">{title}</h3>
+      <p className="mt-2 text-sm opacity-80">{desc}</p>
+    </div>
+  );
+}
+
+function PricingCard({ name, price, period, items, featured = false, popular = false }) {
+  return (
+    <div className={`plan-card ${featured ? "plan-card--featured" : ""}`}>
+      {popular && (
+        <span className="badge-popular">
+          <Crown size={16} /> Most Popular
+        </span>
+      )}
+      <div>
+        <p className="text-sm opacity-75">{name}</p>
+        <div className="flex items-end gap-1">
+          <span className="text-4xl font-extrabold">${price}</span>
+          <span className="opacity-70 mb-1 text-sm">/{period}</span>
+        </div>
       </div>
 
-      <h3 className="mt-4 font-bold text-white">{title}</h3>
-      <p className="mt-2 text-sm text-white/70">{desc}</p>
+      <ul className="space-y-2 text-sm">
+        {items.map((t) => (
+          <li key={t} className="flex items-start gap-2">
+            <span className="gf-icon gf-icon--green w-5 h-5 rounded-md text-[10px] flex items-center justify-center">✓</span>
+            <span className="opacity-90">{t}</span>
+          </li>
+        ))}
+      </ul>
+
+      <button className="gf-cta mt-2">{featured ? "Get Premium" : "Start Free Trial"}</button>
     </div>
   );
 }
 
 export default function Home() {
-  const features = [
-    {
-      icon: Utensils,
-      title: "Personalized Nutrition",
-      desc:
-        "Custom meal plans based on your goals, fitness level, and dietary preferences. Track macros effortlessly.",
-      color: "orange",
-    },
-    {
-      icon: Dumbbell,
-      title: "Smart Workouts",
-      desc:
-        "AI-powered workout plans that adapt to your progress—from beginner to elite athletes.",
-      color: "green",
-    },
-    {
-      icon: CalendarCheck,
-      title: "Weekly Planning",
-      desc:
-        "See your complete fitness roadmap. Plan sessions, track progress, and stay consistent week by week.",
-      color: "orange",
-    },
-    {
-      icon: Activity,
-      title: "Real-time Tracking",
-      desc:
-        "Monitor steps, water intake, calories, and vital metrics. Your progress, visualized.",
-      color: "green",
-    },
-    {
-      icon: Users,
-      title: "Community Support",
-      desc:
-        "Join a community that keeps you accountable, motivated, and inspired.",
-      color: "orange",
-    },
-    {
-      icon: ShieldCheck,
-      title: "Expert Guidance",
-      desc:
-        "Decades of insight distilled into every feature. Trusted by thousands.",
-      color: "green",
-    },
-  ];
-
   return (
     <>
       <Head>
-        <title>GrindFit — Train Hard. Think Sharp. Live Unstoppable.</title>
-        <meta
-          name="description"
-          content="A psychology-driven fitness system that upgrades your body, mind, and lifestyle. Built to win."
-        />
+        <title>GrindFit</title>
+        <meta name="description" content="Think Sharp. Live Unstoppable." />
       </Head>
 
-      <main className="relative mx-auto max-w-6xl px-5 sm:px-6 lg:px-8">
-        {/* HERO */}
-        <section
-          id="home"
-          className="relative min-h-[60vh] w-full pt-16 sm:pt-24 md:pt-28"
-        >
-          <h1 className="font-black tracking-tight leading-tight text-[36px] sm:text-[48px] md:text-[60px] lg:text-[76px] text-white">
-            Train Hard.
-            <br />
-            Think Sharp.
-            <br />
-            Live <span className="gf-gradient-text">Unstoppable</span>
-          </h1>
+      {/* NAV (assumes your existing Nav uses <Brand />) */}
 
-          <p className="mt-6 max-w-2xl text-[15px] leading-relaxed text-white/80">
-            A psychology-driven fitness system that upgrades your body, mind, and
-            lifestyle. Built to win.
-          </p>
+      {/* HERO */}
+      <main className="max-w-6xl mx-auto px-5 pt-20 pb-8">
+        <h1 className="text-4xl sm:text-6xl md:text-7xl font-black leading-none">
+          Train Hard.
+          <br />
+          Think Sharp.
+          <br />
+          Live <span className="gf-gradient-text">Unstoppable</span>
+        </h1>
+        <p className="max-w-2xl mt-5 opacity-85">
+          A psychology-driven fitness system that upgrades your body, mind, and lifestyle. Built to win.
+        </p>
+        <div className="mt-6">
+          <button className="gf-cta px-5 py-3 rounded-xl font-semibold">
+            Start Your Transformation
+          </button>
+        </div>
 
-          <div className="mt-8 flex items-center gap-4">
-            <Link
-              href="/#membership"
-              className="gf-cta px-5 py-3 rounded-xl font-semibold text-black bg-[var(--gf-btn)] hover:brightness-105"
-            >
-              Start Your Transformation
-            </Link>
+        {/* Features */}
+        <section id="why" className="mt-16">
+          <h2 className="gf-section-title text-3xl sm:text-4xl">
+            Everything You Need to <span className="gf-gradient-text">Succeed</span>
+          </h2>
 
-            <Link
-              href="/#preview"
-              className="inline-flex items-center rounded-xl px-4 py-2 text-sm font-medium text-white/80 hover:text-white/95 hover:bg-white/5"
-            >
-              Watch Preview
-            </Link>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
+            <FeatureCard
+              title="Personalized Nutrition"
+              desc="Custom meal plans based on your goals, fitness level, and preferences. Track macros effortlessly."
+              Icon={Utensils}
+            />
+            <FeatureCard
+              title="Smart Workouts"
+              desc="Adaptive programs that adjust to your progress — from beginner to elite athlete."
+              Icon={Dumbbell}
+            />
+            <FeatureCard
+              title="Weekly Planning"
+              desc="Plan sessions and see your full roadmap. Stay consistent week by week."
+              Icon={CalendarDays}
+            />
+            <FeatureCard
+              title="Real-time Tracking"
+              desc="Monitor steps, water intake, calories, and vital metrics. Your progress, visualized."
+              Icon={Gauge}
+              color="green"
+            />
+            <FeatureCard
+              title="Community Support"
+              desc="Join a community that keeps you accountable, motivated, and inspired."
+              Icon={Users}
+              color="green"
+            />
+            <FeatureCard
+              title="Expert Guidance"
+              desc="Decades of insight distilled into every feature. Trusted by thousands."
+              Icon={ShieldCheck}
+            />
           </div>
-
-          {/* top-right warm ambient hero bloom */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -top-40 right-0 h-[520px] w-[520px] rounded-full blur-[88px]"
-            style={{
-              background:
-                "radial-gradient(closest-side, rgba(255,122,24,.08), rgba(255,122,24,0) 60%)",
-            }}
-          />
         </section>
 
-        {/* FEATURES */}
-        <section id="why" className="relative mt-20 sm:mt-24 md:mt-28">
-          <h2 className="gf-section-title">Everything You Need to Succeed</h2>
+        {/* Command Center */}
+        <CommandCenter />
 
-          <div className="mt-6 grid gap-4 sm:gap-5 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((f) => (
-              <FeatureCard
-                key={f.title}
-                icon={f.icon}
-                title={f.title}
-                desc={f.desc}
-                color={f.color}
-              />
-            ))}
+        {/* Pricing */}
+        <section id="pricing" className="mt-20">
+          <h2 className="gf-section-title text-3xl sm:text-4xl">
+            Choose Your <span className="gf-gradient-text">Transformation Plan</span>
+          </h2>
+
+          <div className="grid lg:grid-cols-4 gap-6 mt-8">
+            <PricingCard
+              name="Starter"
+              price="19"
+              period="month"
+              items={[
+                "Basic workout plans",
+                "Nutrition tracking",
+                "Daily metrics logging",
+                "Mobile app access",
+                "Community support",
+              ]}
+            />
+            <PricingCard
+              name="Premium"
+              price="39"
+              period="month"
+              featured
+              popular
+              items={[
+                "Everything in Starter",
+                "AI-progressive programming",
+                "Personalized meal planning",
+                "Advanced analytics",
+                "Priority support",
+              ]}
+            />
+            <PricingCard
+              name="Elite"
+              price="59"
+              period="month"
+              items={[
+                "Everything in Premium",
+                "1-on-1 personal coaching",
+                "Custom workout design",
+                "Advanced biometrics",
+                "Nutrition consultations",
+              ]}
+            />
+            <PricingCard
+              name="Champion"
+              price="79"
+              period="month"
+              items={[
+                "All Elite features",
+                "Exclusive live workshops",
+                "Elite community access",
+                "Goal setting sprints",
+                "Priority new features",
+              ]}
+            />
           </div>
         </section>
-
-        {/* COMMAND CENTER */}
-        <section id="preview" className="relative mt-24 sm:mt-28 md:mt-32">
-          <h2 className="gf-section-title">Your Fitness Command Center</h2>
-          <CommandCenter />
-        </section>
-
-        {/* PRICING ANCHOR (content will come later) */}
-        <section id="membership" className="mt-24 sm:mt-28 md:mt-32" />
       </main>
     </>
   );
