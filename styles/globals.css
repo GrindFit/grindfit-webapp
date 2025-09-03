@@ -621,3 +621,131 @@ main > section {
 
 /* Guardrails: if any previous decorative strips exist, hide them */
 .gf-section-strip, .gf-deco-bar { display: none !important; }
+/* === FULL-PAGE SECTIONS — hard guarantee ================================= */
+
+/* Fixed nav height (match your nav): */
+:root { --nav-h: 64px; }
+
+/* Make the page height addressable */
+* { box-sizing: border-box; }
+html, body { min-block-size: 100%; block-size: 100%; }
+main { min-block-size: 100%; }
+
+/* Every section listed here will fill the screen after the fixed nav */
+main > section,
+.gf-screen, .gf-section,
+#hero, .section-hero,
+#features, .section-features,
+#command, .section-command,
+#plans, #pricing, .section-plans, .pricing {
+  /* Full viewport height minus the fixed nav */
+  min-block-size: calc(100vh - var(--nav-h));
+  display: grid;
+  place-items: center;          /* center whole block vertically + horizontally */
+  padding-block: clamp(24px, 6vh, 96px);
+  margin: 0;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;             /* prevent tiny overflows creating extra scroll */
+}
+
+/* Prefer modern viewport units (mobile/desktop browser UI safe) */
+@supports (height: 100dvh) {
+  main > section,
+  .gf-screen, .gf-section,
+  #hero, .section-hero,
+  #features, .section-features,
+  #command, .section-command,
+  #plans, #pricing, .section-plans, .pricing {
+    min-block-size: calc(100dvh - var(--nav-h));
+  }
+}
+
+/* Inner wrapper MUST stretch to full height and widen nicely */
+main > section > *,
+.gf-wrap, .section-inner, .container,
+#hero > *, #features > *, #command > *, #plans > * {
+  inline-size: min(96vw, 1600px);   /* wide and bold */
+  margin-inline: auto;
+  block-size: 100%;                 /* <— this is the key: fill section height */
+  display: grid;
+  align-content: center;            /* center content inside the wrapper */
+  gap: clamp(16px, 2.5vh, 32px);
+}
+
+/* === Size bumps so big sections feel full (no tiny islands) =============== */
+
+/* Features: larger grid/cards so the screen looks filled */
+#features .grid, .section-features .grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(380px, 1fr));
+  gap: clamp(20px, 2.2vw, 32px);
+}
+#features .card, .section-features .card {
+  min-block-size: clamp(140px, 24vh, 220px);
+  padding: clamp(18px, 2.2vh, 28px);
+  font-size: clamp(16px, 1.05vw, 18px);
+}
+
+/* Command Center: panels/bars sized to read big on a full page */
+#command .wrap, .section-command .wrap { block-size: 100%; }
+#command .panels, .section-command .panels {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 0.9fr;
+  gap: clamp(20px, 2.2vw, 32px);
+  align-content: center;
+}
+#command .panel, .section-command .panel {
+  padding: clamp(20px, 2.2vh, 28px);
+  min-block-size: clamp(240px, 42vh, 480px);
+}
+#command .bar, .section-command .bar { block-size: 10px; }
+
+/* Pricing: full, tall cards */
+#plans .cards, .section-plans .cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2.2vw, 32px);
+  align-content: center;
+}
+#plans .card, .section-plans .card {
+  padding: clamp(22px, 2.4vh, 30px);
+  min-block-size: clamp(420px, 70vh, 760px);
+}
+#plans .price { font-size: clamp(2.2rem, 5.2vw, 3.4rem); font-weight: 800; }
+
+/* === Top nav: tabs centered; GRINDFIT ~50% size, orange gradient ========== */
+
+.gf-nav {
+  position: fixed; inset: 0 0 auto 0; block-size: var(--nav-h);
+  z-index: 60;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding-inline: clamp(14px, 2vw, 28px);
+  background: linear-gradient(180deg, rgba(0,0,0,.24), rgba(0,0,0,0));
+  backdrop-filter: blur(6px);
+}
+.gf-brand {
+  justify-self: start;
+  font-weight: 900;
+  font-size: clamp(18px, 1.8vw, 26px); /* ~50% of your earlier size */
+  letter-spacing: .6px;
+  background: linear-gradient(135deg,#ff9b2f,#ff5a00);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.gf-tabs { justify-self: center; display: flex; gap: clamp(16px, 2vw, 28px); }
+.gf-ctas { justify-self: end; display: flex; gap: 12px; }
+
+/* === Buttons: bright lambo orange gradient everywhere ==================== */
+:root{ --gf-orange-1:#ff9b2f; --gf-orange-2:#ff5a00; --gf-green-1:#21c36a; --gf-green-2:#149e4f; }
+.gf-btn--orange, .gf-cta, #plans .cta, #command .cta {
+  background: linear-gradient(135deg,var(--gf-orange-1),var(--gf-orange-2));
+  color:#111; border:0; box-shadow: 0 6px 24px rgba(255,112,16,.25);
+}
+.gf-btn--orange:hover, .gf-cta:hover { filter: brightness(1.06); }
+
+/* Feature icon pills: top row orange, bottom row green (consistency) */
+.section-features .icon.orange { background: linear-gradient(135deg,var(--gf-orange-1),var(--gf-orange-2)); }
+.section-features .icon.green  { background: linear-gradient(135deg,var(--gf-green-1),var(--gf-green-2)); }
+
+/* Kill any tiny decorative squares that can add stray height */
+.nutri-chip.decoration, .nutri-chip .square, .gf-deco, .gf-strip { display:none !important; }
