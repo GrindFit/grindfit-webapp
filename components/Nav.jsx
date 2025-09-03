@@ -1,58 +1,56 @@
 // components/Nav.jsx
-import Link from 'next/link';
-import Brand from './Brand';
+import Link from "next/link";
 
-export default function Nav({ rightSlot }) {
+export default function Nav() {
   return (
-    <header className="sticky top-0 z-50 w-full">
-      <div className="mx-auto max-w-6xl px-4">
-        <nav className="flex h-14 items-center justify-between rounded-b-xl border border-white/10 bg-black/35 backdrop-blur supports-[backdrop-filter]:bg-black/35">
-          {/* Brand (gradient text) */}
-          <Link href="#top" className="flex items-center gap-2 pl-3">
-            <Brand />
+    <header className="fixed top-0 inset-x-0 z-50 border-b border-white/10 backdrop-blur bg-black/30">
+      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        {/* Brand */}
+        <Link href="/" className="inline-flex items-center">
+          <span
+            className="text-2xl font-black tracking-tight bg-clip-text text-transparent select-none"
+            style={{
+              background:
+                "linear-gradient(90deg,#FF7A18 0%,#FF8A21 40%,#FFA24A 100%)",
+            }}
+          >
+            GRINDFIT
+          </span>
+        </Link>
+
+        {/* Tabs */}
+        <div className="hidden md:flex items-center gap-6 text-sm">
+          <Link href="#why" className="text-zinc-300 hover:text-white">
+            Why GrindFit
+          </Link>
+          <Link href="#nutrition" className="text-zinc-300 hover:text-white">
+            Nutrition
+          </Link>
+          <Link href="#recover" className="text-zinc-300 hover:text-white">
+            Reset &amp; Recover
+          </Link>
+          <Link href="#plans" className="text-zinc-300 hover:text-white">
+            Membership
           </Link>
 
-          {/* Desktop links */}
-          <ul className="hidden md:flex items-center gap-6 text-sm font-medium text-zinc-300">
-            <li>
-              <Link href="#why" className="hover:text-white transition-colors">
-                Why
-              </Link>
-            </li>
-            <li>
-              <Link href="#nutrition" className="hover:text-white transition-colors">
-                Nutrition
-              </Link>
-            </li>
-            <li>
-              <Link href="#membership" className="hover:text-white transition-colors">
-                Membership
-              </Link>
-            </li>
-            <li>
-              <Link href="#watch" className="hover:text-white transition-colors">
-                Watch Preview
-              </Link>
-            </li>
-          </ul>
+          {/* Log in */}
+          <Link href="/member" className="text-zinc-300 hover:text-white">
+            Log in
+          </Link>
 
-          {/* Right side CTA (or custom slot) */}
-          <div className="pr-3">
-            {rightSlot ?? (
-              <Link
-                href="#cta"
-                className="inline-flex items-center rounded-md px-3 py-1.5 text-sm font-semibold text-black
-                           bg-gradient-to-r from-[var(--gf-orange-start)] to-[var(--gf-orange-end)]
-                           shadow-[0_8px_30px_rgba(255,122,0,.25)]
-                           hover:shadow-[0_12px_40px_rgba(255,122,0,.35)]
-                           transition-all"
-              >
-                Start Your Transformation
-              </Link>
-            )}
-          </div>
-        </nav>
-      </div>
+          {/* Open App CTA */}
+          <Link
+            href="/member"
+            className="ml-2 inline-flex items-center rounded-xl px-4 py-2 font-semibold text-black shadow ring-1 ring-black/10"
+            style={{
+              background:
+                "linear-gradient(90deg,#FF7A18 0%,#FF8A21 45%,#FFA24A 100%)",
+            }}
+          >
+            Open App
+          </Link>
+        </div>
+      </nav>
     </header>
   );
 }
