@@ -1,219 +1,245 @@
 // pages/index.jsx
-import Head from "next/head";
+import Link from "next/link";
 import CommandCenter from "../components/CommandCenter";
-
-const features = [
-  {
-    title: "Personalized Nutrition",
-    desc:
-      "Meal plans based on your goals, fitness level, and dietary preferences. Track macros effortlessly.",
-  },
-  {
-    title: "Smart Workouts",
-    desc:
-      "Kettle bell programs that push you to win. From beginner to elite athlete.",
-  },
-  {
-    title: "Weekly Planning",
-    desc:
-      "See your complete fitness roadmap. Plan workouts, track progress, and stay motivated week by week.",
-  },
-  {
-    title: "Real-time Tracking",
-    desc:
-      "Monitor steps, water intake and calories. Your progress, visualized beautifully.",
-  },
-  {
-    title: "Community Support",
-    desc:
-      "Join a community that keeps you accountable. Share progress, get motivated, and inspire others.",
-  },
-];
-
-const plans = [
-  {
-    name: "Starter",
-    price: "$19",
-    period: "/month",
-    features: [
-      "Basic workout plans",
-      "Nutrition tracking",
-      "Daily metrics logging",
-      "Mobile app access",
-      "Community support",
-    ],
-    cta: "Start Free Trial",
-  },
-  {
-    name: "Premium",
-    price: "$39",
-    period: "/month",
-    highlight: "MOST POPULAR",
-    features: [
-      "Everything in Starter",
-      "Personalized meal plans",
-      "Advanced workout library",
-      "Progress analytics",
-      "Priority support",
-    ],
-    cta: "Get Premium",
-  },
-  {
-    name: "Elite",
-    price: "$79",
-    period: "/month",
-    features: [
-      "Everything in Premium",
-      "1 on 1 personal coaching",
-      "Custom workout design",
-      "Advanced biometrics",
-      "Priority new features",
-    ],
-    cta: "Go Elite",
-  },
-];
+import {
+  Utensils,
+  Dumbbell,
+  CalendarDays,
+  Activity,
+  Users,
+  Shield,
+} from "lucide-react";
 
 export default function Home() {
   return (
-    <>
-      <Head>
-        <title>GrindFit — Train Hard. Think Sharp. Live Unstoppable.</title>
-        <meta
-          name="description"
-          content="A psychology-driven fitness system that upgrades your body, mind, and lifestyle."
-        />
-      </Head>
+    <main className="min-h-screen relative">
+      {/* ====================== HERO ====================== */}
+      <section className="relative overflow-hidden">
+        {/* subtle top-right orange bloom (already styled in globals) */}
+        <div aria-hidden className="pointer-events-none absolute -top-40 right-[-8rem] hidden md:block">
+          <div
+            className="radial-gradient"
+            style={{
+              width: 480,
+              height: 480,
+              borderRadius: "50%",
+              filter: "blur(70px)",
+            }}
+          />
+        </div>
 
-      <main className="relative min-h-screen overflow-hidden bg-[var(--gf-bg)] text-zinc-200">
-        {/* top-right warm orange bloom */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-48 right-[-18rem] h-[32rem] w-[32rem] rounded-full"
-          style={{
-            background:
-              "radial-gradient(closest-side, rgba(255,129,0,.28), rgba(255,123,0,.12), transparent 60%)",
-            filter: "blur(28px)",
-          }}
-        />
+        <div className="container mx-auto px-4 pt-24 pb-16 md:pt-28 md:pb-24">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight text-zinc-100">
+              Train Hard.
+              <br />
+              Think Sharp.
+              <br />
+              Live{" "}
+              <span className="gf-gradient-text inline-block">
+                Unstoppable
+              </span>
+              .
+            </h1>
 
-        {/* Hero */}
-        <section className="relative z-10 mx-auto max-w-6xl px-6 pt-24 pb-16 md:pt-28">
-          <h1 className="text-balance text-5xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
-            Train Hard.
-            <br />
-            Think Sharp.
-            <br />
-            <span className="gf-gradient-text">Live Unstoppable</span>
-          </h1>
+            <p className="mt-5 text-zinc-300/80 max-w-2xl">
+              A psychology-driven fitness system that upgrades your body, mind,
+              and lifestyle. Built to win.
+            </p>
 
-          <p className="mt-6 max-w-2xl text-lg text-zinc-300/90">
-            A kettle bell driven fitness system that upgrades your body, mind,
-            and lifestyle. Built to win.
-          </p>
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <Link
+                href="#pricing"
+                className="inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold text-zinc-950 shadow-sm transition hover:brightness-110"
+                style={{ background: "var(--gf-btn)" }}
+              >
+                Start Your Transformation
+              </Link>
 
-          <div className="mt-10">
-            <a
-              href="#pricing"
-              className="inline-flex items-center rounded-xl bg-[var(--gf-btn)] px-5 py-3 text-[15px] font-semibold text-zinc-950 shadow-[0_8px_24px_rgba(255,120,24,0.35)] transition-transform hover:scale-[1.02] active:scale-[0.99]"
+              <Link
+                href="#watch"
+                className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium text-zinc-200/90 ring-1 ring-inset ring-white/10 hover:bg-white/5"
+              >
+                Watch Preview
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====================== FEATURES ====================== */}
+      <section id="why" className="container mx-auto px-4 pb-16 md:pb-24">
+        <h2 className="text-xl md:text-2xl font-bold text-zinc-200 mb-6">
+          Everything You Need to{" "}
+          <span className="gf-gradient-text">Succeed</span>
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* 1. Personalized Nutrition */}
+          <div className="gf-feature p-6">
+            <div className="mb-4">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
+                <Utensils className="h-5 w-5 text-zinc-200" />
+              </span>
+            </div>
+            <h3 className="text-zinc-100 font-semibold">Personalized Nutrition</h3>
+            <p className="mt-2 text-sm text-zinc-400">
+              Custom meal plans based on your goals, fitness level, and dietary
+              preferences. Track macros effortlessly.
+            </p>
+          </div>
+
+          {/* 2. Smart Workouts */}
+          <div className="gf-feature p-6">
+            <div className="mb-4">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
+                <Dumbbell className="h-5 w-5 text-zinc-200" />
+              </span>
+            </div>
+            <h3 className="text-zinc-100 font-semibold">Smart Workouts</h3>
+            <p className="mt-2 text-sm text-zinc-400">
+              Adaptive programs that adjust to your progress — from beginner to
+              elite athlete.
+            </p>
+          </div>
+
+          {/* 3. Weekly Planning */}
+          <div className="gf-feature p-6">
+            <div className="mb-4">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
+                <CalendarDays className="h-5 w-5 text-zinc-200" />
+              </span>
+            </div>
+            <h3 className="text-zinc-100 font-semibold">Weekly Planning</h3>
+            <p className="mt-2 text-sm text-zinc-400">
+              See your complete fitness roadmap. Stay consistent week by week.
+            </p>
+          </div>
+
+          {/* 4. Real-time Tracking */}
+          <div className="gf-feature p-6">
+            <div className="mb-4">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
+                <Activity className="h-5 w-5 text-zinc-200" />
+              </span>
+            </div>
+            <h3 className="text-zinc-100 font-semibold">Real-time Tracking</h3>
+            <p className="mt-2 text-sm text-zinc-400">
+              Monitor steps, water intake, calories, and all vital metrics. Your
+              progress, visualized beautifully.
+            </p>
+          </div>
+
+          {/* 5. Community Support */}
+          <div className="gf-feature p-6">
+            <div className="mb-4">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
+                <Users className="h-5 w-5 text-zinc-200" />
+              </span>
+            </div>
+            <h3 className="text-zinc-100 font-semibold">Community Support</h3>
+            <p className="mt-2 text-sm text-zinc-400">
+              Join a community that keeps you accountable. Share progress, get
+              motivated, achieve together.
+            </p>
+          </div>
+
+          {/* 6. Expert Guidance */}
+          <div className="gf-feature p-6">
+            <div className="mb-4">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
+                <Shield className="h-5 w-5 text-zinc-200" />
+              </span>
+            </div>
+            <h3 className="text-zinc-100 font-semibold">Expert Guidance</h3>
+            <p className="mt-2 text-sm text-zinc-400">
+              25 years of industry expertise distilled into every feature.
+              Trusted by millions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ====================== COMMAND CENTER (dashboard teaser) ====================== */}
+      <section id="watch" className="container mx-auto px-4 pb-16 md:pb-24">
+        <h2 className="sr-only">Dashboard preview</h2>
+        <CommandCenter />
+      </section>
+
+      {/* ====================== PRICING ====================== */}
+      <section id="pricing" className="container mx-auto px-4 pb-24">
+        <h2 className="text-xl md:text-2xl font-bold text-zinc-200 mb-6">
+          Choose Your <span className="gf-gradient-text">Transformation</span> Plan
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Starter */}
+          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6">
+            <div className="text-sm text-zinc-400 mb-2">Starter</div>
+            <div className="text-3xl font-extrabold text-zinc-100">$19</div>
+            <div className="text-xs text-zinc-500 mb-4">/month</div>
+            <ul className="space-y-2 text-sm text-zinc-300/90">
+              <li>Basic workout plans</li>
+              <li>Nutrition tracking</li>
+              <li>Daily metrics logging</li>
+              <li>Mobile app access</li>
+              <li>Community support</li>
+            </ul>
+            <Link
+              href="#"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-2 font-semibold text-zinc-950 shadow-sm transition hover:brightness-110"
+              style={{ background: "var(--gf-btn)" }}
             >
-              Start Your Transformation
-            </a>
-          </div>
-        </section>
-
-        {/* Why / FEATURES */}
-        <section id="why" className="relative z-10 mx-auto max-w-6xl px-6 pb-8">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
-              Everything You Need to Succeed!
-            </h2>
-            <p className="mt-1 text-sm text-zinc-400">
-              Nutrition, Smart Training, and Real-Time Progress — All In One Place.
-            </p>
+              Start Free Trial
+            </Link>
           </div>
 
-          {/* 6 feature cards */}
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {features.map((f) => (
-              <div
-                key={f.title}
-                className="group rounded-2xl border border-white/5 bg-zinc-900/40 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-[0_0_0_1px_rgba(255,123,0,0.1),0_18px_38px_-10px_rgba(255,120,24,0.18)]"
-              >
-                <div className="mb-3 h-8 w-8 rounded-lg bg-gradient-to-b from-[var(--gf-orange-start)] to-[var(--gf-orange-end)] opacity-90" />
-                <h3 className="text-[15px] font-semibold">{f.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                  {f.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* --------------- Command Center (own section) --------------- */}
-        <section aria-labelledby="command-center" className="relative z-10 mx-auto max-w-6xl px-6 py-8">
-          {/* The Command Center component you already have */}
-          <CommandCenter />
-        </section>
-
-        {/* Pricing */}
-        <section id="pricing" className="relative z-10 mx-auto max-w-6xl px-6 py-10">
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
-              Choose Your <span className="gf-gradient-text">Transformation</span> Plan
-            </h2>
-            <p className="mt-1 text-sm text-zinc-400">
-              Start your 14-day free trial. Cancel anytime.
-            </p>
+          {/* Premium */}
+          <div className="rounded-2xl bg-white/5 ring-2 ring-[var(--gf-orange-mid)] p-6 relative">
+            <div className="absolute -top-3 right-3 text-[10px] font-semibold px-2 py-1 rounded-md bg-white/10 ring-1 ring-white/15 text-zinc-200">
+              MOST POPULAR
+            </div>
+            <div className="text-sm text-zinc-400 mb-2">Premium</div>
+            <div className="text-3xl font-extrabold text-zinc-100">$39</div>
+            <div className="text-xs text-zinc-500 mb-4">/month</div>
+            <ul className="space-y-2 text-sm text-zinc-300/90">
+              <li>Everything in Starter</li>
+              <li>Personalized meal plans</li>
+              <li>Advanced workout library</li>
+              <li>Progress analytics</li>
+              <li>Priority support</li>
+            </ul>
+            <Link
+              href="#"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-2 font-semibold text-zinc-950 shadow-sm transition hover:brightness-110"
+              style={{ background: "var(--gf-btn)" }}
+            >
+              Get Premium
+            </Link>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-3">
-            {plans.map((plan) => (
-              <div
-                key={plan.name}
-                className="relative rounded-2xl border border-white/5 bg-zinc-900/40 p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
-              >
-                {plan.highlight && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-zinc-800 px-3 py-1 text-[11px] font-semibold tracking-wide text-zinc-200 shadow">
-                    {plan.highlight}
-                  </div>
-                )}
-
-                <div className="mb-4">
-                  <div className="text-sm font-semibold text-zinc-400">
-                    {plan.name}
-                  </div>
-                  <div className="mt-2 flex items-end gap-1">
-                    <div className="text-4xl font-extrabold text-zinc-100">
-                      {plan.price}
-                    </div>
-                    <div className="pb-1 text-sm text-zinc-400">{plan.period}</div>
-                  </div>
-                </div>
-
-                <ul className="mb-6 space-y-2 text-sm text-zinc-300/90">
-                  {plan.features.map((feat) => (
-                    <li key={feat} className="flex items-start gap-2">
-                      <span className="mt-[6px] inline-block h-[6px] w-[6px] rounded-full bg-[var(--gf-orange-mid)]/90" />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href="#"
-                  className="inline-flex w-full items-center justify-center rounded-xl bg-[var(--gf-btn)] px-4 py-2.5 text-[15px] font-semibold text-zinc-950 shadow-[0_10px_28px_rgba(255,120,24,0.32)] transition-transform hover:scale-[1.02] active:scale-[0.99]"
-                >
-                  {plan.cta}
-                </a>
-              </div>
-            ))}
+          {/* Elite */}
+          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6">
+            <div className="text-sm text-zinc-400 mb-2">Elite</div>
+            <div className="text-3xl font-extrabold text-zinc-100">$79</div>
+            <div className="text-xs text-zinc-500 mb-4">/month</div>
+            <ul className="space-y-2 text-sm text-zinc-300/90">
+              <li>Everything in Premium</li>
+              <li>1-on-1 personal coaching</li>
+              <li>Custom workout design</li>
+              <li>Nutrition consultations</li>
+              <li>Elite community access</li>
+            </ul>
+            <Link
+              href="#"
+              className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-2 font-semibold text-zinc-950 shadow-sm transition hover:brightness-110"
+              style={{ background: "var(--gf-btn)" }}
+            >
+              Go Elite
+            </Link>
           </div>
-        </section>
-
-        <footer className="mx-auto max-w-6xl px-6 py-10 text-center text-xs text-zinc-500">
-          © {new Date().getFullYear()} GrindFit
-        </footer>
-      </main>
-    </>
+        </div>
+      </section>
+    </main>
   );
 }
