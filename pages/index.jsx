@@ -1,134 +1,106 @@
 // pages/index.jsx
-import Head from "next/head";
-import { Dumbbell, Utensils, LineChart, Users, CalendarCheck, BookOpen } from "lucide-react";
-import CommandCenter from "../components/CommandCenter";
-import Plans from "../components/Plans";
+import Link from "next/link";
 
-// tiny helper for icon chips
-function IconChip({ children, color = "orange" }) {
-  const isGreen = color === "green";
-  const chip =
-    isGreen
-      ? "from-emerald-400 to-emerald-500"
-      : "from-[#FF7A18] to-[#FFA24A]";
+// IMPORTANT: these imports include the file extensions and correct case
+import CommandCenter from "../components/CommandCenter.jsx";
+import Plans from "../components/Plans.jsx";
 
-  return (
-    <div className="absolute -top-3 -left-3 h-9 w-9 rounded-xl bg-gradient-to-br shadow-[0_10px_30px_rgba(0,0,0,0.35)] blur-[0px] grid place-items-center">
-      <div className={`h-9 w-9 rounded-xl bg-gradient-to-br ${chip} grid place-items-center`} />
-      <div className="absolute inset-0 grid place-items-center text-black">
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function FeatureCard({ title, desc, Icon, color = "orange" }) {
-  return (
-    <div className="relative rounded-2xl border border-white/5 bg-black/30 p-6 backdrop-blur-sm transition hover:-translate-y-0.5 hover:shadow-[0_15px_50px_rgba(0,0,0,0.35)]">
-      <IconChip color={color}>
-        <Icon size={18} />
-      </IconChip>
-      <h3 className="font-semibold text-white mt-2">{title}</h3>
-      <p className="mt-1 text-[13px] leading-5 text-white/70">{desc}</p>
-    </div>
-  );
-}
+const features = [
+  {
+    title: "Personalized Nutrition",
+    copy:
+      "Custom meal plans based on your goals, fitness level and dietary preferences. Track macros effortlessly.",
+    color: "green",
+  },
+  {
+    title: "Smart Workouts",
+    copy:
+      "Adaptive programs that adjust to your progress—from beginner to elite athletes.",
+    color: "green",
+  },
+  {
+    title: "Real-time Tracking",
+    copy:
+      "Monitor steps, water intake, calories, and vital metrics. Your progress, visualized.",
+    color: "green",
+  },
+  {
+    title: "Community Support",
+    copy:
+      "Join a community that keeps you accountable, motivated, and inspired.",
+    color: "green",
+  },
+  {
+    title: "Weekly Planning",
+    copy:
+      "See your complete roadmap, plan sessions, track progress, and stay consistent week by week.",
+    color: "green",
+  },
+  {
+    title: "Expert Guidance",
+    copy:
+      "Decades of insight distilled into every feature. Trusted by thousands.",
+    color: "green", // keep bottom-right card green for consistency
+  },
+];
 
 export default function Home() {
-  const features = [
-    {
-      title: "Personalized Nutrition",
-      desc: "Custom meal plans tuned to your goals with effortless macro tracking.",
-      Icon: Utensils,
-      color: "orange",
-    },
-    {
-      title: "Smart Workouts",
-      desc: "Adaptive programs that grow with you—from beginner to elite.",
-      Icon: Dumbbell,
-      color: "orange",
-    },
-    {
-      title: "Real-time Tracking",
-      desc: "Steps, water, calories and vitals visualized beautifully.",
-      Icon: LineChart,
-      color: "green",
-    },
-    {
-      title: "Community Support",
-      desc: "Train with accountability, motivation and inspiration.",
-      Icon: Users,
-      color: "green",
-    },
-    {
-      title: "Weekly Planning",
-      desc: "Plan sessions, track progress, stay consistent week by week.",
-      Icon: CalendarCheck,
-      color: "green",
-    },
-    {
-      title: "Expert Guidance",
-      desc: "Decades of insight distilled into every feature. Trusted by thousands.",
-      Icon: BookOpen,
-      color: "green", // ← bottom-right is green (consistency)
-    },
-  ];
-
   return (
-    <>
-      <Head>
-        <title>GrindFit — Train Hard. Think Sharp. Live Unstoppable.</title>
-      </Head>
-
+    <main className="min-h-screen">
       {/* HERO */}
-      <section className="relative overflow-hidden">
-        {/* subtle ambient canvas already exists from your globals; we keep it dark */}
-        <div className="mx-auto w-full max-w-6xl px-6 pt-20 sm:pt-24 md:pt-28">
-          <h1 className="text-4xl sm:text-5xl md:text-[56px] leading-[1.05] font-black tracking-tight text-white">
+      <section className="relative pt-28 pb-16">
+        <div className="mx-auto max-w-6xl px-5">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black leading-tight tracking-tight text-white">
             Train Hard.
             <br />
             Think Sharp.
             <br />
             Live{" "}
-            <span className="bg-gradient-to-r from-[#FF7A18] to-[#FFA24A] bg-clip-text text-transparent">
-              Unstoppable
-            </span>
+            <span className="gf-gradient-text">Unstoppable</span>
           </h1>
 
-          <p className="mt-5 max-w-2xl text-white/75">
+          <p className="mt-6 max-w-2xl text-base sm:text-lg text-white/80">
             A psychology-driven fitness system that upgrades your body, mind, and lifestyle.
             Built to win.
           </p>
 
-          <button
-            className="mt-7 inline-flex items-center rounded-xl px-6 py-3 font-semibold text-black
-                       bg-gradient-to-r from-[#FF7A18] to-[#FFA24A]
-                       shadow-[0_10px_40px_rgba(255,122,24,0.25)]
-                       hover:brightness-105 transition"
-          >
-            Start Your Transformation
-          </button>
+          <div className="mt-8">
+            <Link
+              href="#plans"
+              className="gf-cta inline-flex items-center rounded-xl px-5 py-3 font-semibold text-black bg-[var(--gf-btn)] hover:brightness-105"
+            >
+              Start Your Transformation
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* FEATURES */}
-      <section className="mx-auto w-full max-w-6xl px-6 pt-14 md:pt-18">
-        <h2 className="mb-6 text-[28px] sm:text-[32px] md:text-[36px] font-extrabold tracking-tight text-white">
-          Everything You Need to Succeed
-        </h2>
+      <section className="mx-auto mb-8 max-w-6xl px-5">
+        <h2 className="gf-section-title">Everything You Need to Succeed</h2>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((f, i) => (
-            <FeatureCard key={i} {...f} />
+        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map(({ title, copy, color }, i) => (
+            <div key={i} className="gf-feature">
+              {/* small gradient chip behind the icon */}
+              <span className={`gf-icon ${color === "green" ? "green" : ""}`} />
+              <h3 className="font-bold text-white mt-4">{title}</h3>
+              <p className="mt-2 text-white/80">{copy}</p>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* COMMAND CENTER — full, bold section */}
+      {/* COMMAND CENTER */}
       <CommandCenter />
 
       {/* PRICING */}
-      <Plans />
-    </>
+      <section id="plans" className="mx-auto max-w-6xl px-5 pb-20">
+        <h2 className="gf-section-title">Choose Your <span className="gf-gradient-text">Transformation</span> Plan</h2>
+        <div className="mt-6">
+          <Plans />
+        </div>
+      </section>
+    </main>
   );
 }
