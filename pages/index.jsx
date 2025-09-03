@@ -1,236 +1,222 @@
-// pages/index.jsx
+import Head from "next/head";
 import Link from "next/link";
 import CommandCenter from "../components/CommandCenter";
-import {
-  Utensils,
-  Dumbbell,
-  CalendarDays,
-  Activity,
-  Users,
-  Shield,
-} from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative">
-      {/* ====================== HERO ====================== */}
-      <section className="relative overflow-hidden">
-        {/* subtle top-right orange bloom */}
-        <div aria-hidden className="pointer-events-none absolute -top-40 right-[-8rem] hidden md:block">
+    <>
+      <Head>
+        <title>GrindFit — Train Hard. Think Sharp.</title>
+        <meta
+          name="description"
+          content="A psychology-driven fitness system that upgrades your body, mind, and lifestyle. Built to win."
+        />
+      </Head>
+
+      <main className="min-h-screen text-zinc-200">
+        {/* HERO */}
+        <section className="relative overflow-hidden pt-28 pb-20">
+          {/* top-right warm orange bloom (subtle) */}
           <div
-            className="radial-gradient"
+            aria-hidden
+            className="pointer-events-none absolute -right-24 -top-24 h-[520px] w-[520px] rounded-full blur-3xl"
             style={{
-              width: 480,
-              height: 480,
-              borderRadius: "50%",
-              filter: "blur(70px)",
+              background:
+                "radial-gradient(60% 60% at 30% 30%, rgba(255,122,26,.22), rgba(255,255,255,0) 70%)",
             }}
           />
-        </div>
+          {/* bottom-left ambient */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -left-32 bottom-0 h-[560px] w-[560px] rounded-full blur-3xl opacity-70"
+            style={{
+              background:
+                "radial-gradient(60% 60% at 50% 70%, rgba(255,122,26,.10), rgba(255,255,255,0) 70%)",
+            }}
+          />
 
-        <div className="container mx-auto px-4 pt-24 pb-16 md:pt-28 md:pb-24">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-6xl font-extrabold leading-tight tracking-tight text-zinc-100">
+          <div className="mx-auto max-w-6xl px-4">
+            <h1 className="text-5xl font-extrabold leading-tight md:text-7xl">
               Train Hard.
               <br />
               Think Sharp.
               <br />
-              Live <span className="gf-gradient-text inline-block">Unstoppable</span>.
+              Live{" "}
+              <span className="gf-gradient-text">Unstoppable</span>
             </h1>
 
-            <p className="mt-5 text-zinc-300/80 max-w-2xl">
-              A psychology-driven fitness system that upgrades your body, mind, and lifestyle. Built to win.
+            <p className="mt-6 max-w-2xl text-zinc-400">
+              A psychology-driven fitness system that upgrades your body, mind,
+              and lifestyle. Built to win.
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center gap-3">
+            <div className="mt-10 flex flex-wrap items-center gap-4">
               <Link
-                href="#pricing"
-                className="inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold text-zinc-950 shadow-sm transition hover:brightness-110"
-                style={{ background: "var(--gf-btn)" }}
+                href="#membership"
+                className="gf-cta inline-flex items-center gap-2 rounded-2xl bg-[var(--gf-btn)] px-6 py-3 font-semibold text-black hover:brightness-105"
               >
                 Start Your Transformation
               </Link>
 
               <Link
-                href="#watch"
-                className="inline-flex items-center justify-center rounded-xl px-4 py-2 text-sm font-medium text-zinc-200/90 ring-1 ring-inset ring-white/10 hover:bg-white/5"
+                href="#preview"
+                className="inline-flex items-center gap-2 rounded-2xl border border-white/10 px-6 py-3 text-zinc-200 hover:bg-white/5"
               >
                 Watch Preview
               </Link>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ====================== FEATURES ====================== */}
-      <section id="why" className="container mx-auto px-4 pb-16 md:pb-24">
-        <h2 className="gf-section-title mb-6">
-          Everything You Need to <span className="gf-gradient-text">Succeed</span>
-        </h2>
+        {/* WHY / FEATURES */}
+        <section id="why" className="scroll-mt-[96px] py-14">
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="gf-section-title">Everything You Need to Succeed</h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* 1. Personalized Nutrition */}
-          <div className="gf-feature p-6">
-            <div className="mb-4">
-              <span className="gf-icon">
-                <Utensils />
-              </span>
+            <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {/* 1 */}
+              <div className="gf-feature">
+                <div className="gf-icon">★</div>
+                <h3 className="text-lg font-semibold text-white">
+                  Personalized Nutrition
+                </h3>
+                <p className="mt-2 text-sm text-zinc-400">
+                  Custom meal plans based on your goals, fitness level, and dietary
+                  preferences. Track macros effortlessly.
+                </p>
+              </div>
+
+              {/* 2 */}
+              <div className="gf-feature">
+                <div className="gf-icon">★</div>
+                <h3 className="text-lg font-semibold text-white">Smart Workouts</h3>
+                <p className="mt-2 text-sm text-zinc-400">
+                  AI-powered workout plans that adapt to your progress—from
+                  beginner to elite athlete.
+                </p>
+              </div>
+
+              {/* 3 */}
+              <div className="gf-feature">
+                <div className="gf-icon">★</div>
+                <h3 className="text-lg font-semibold text-white">Weekly Planning</h3>
+                <p className="mt-2 text-sm text-zinc-400">
+                  See your complete roadmap. Plan sessions, track progress, and
+                  stay consistent week by week.
+                </p>
+              </div>
+
+              {/* 4 */}
+              <div className="gf-feature">
+                <div className="gf-icon">★</div>
+                <h3 className="text-lg font-semibold text-white">
+                  Real-time Tracking
+                </h3>
+                <p className="mt-2 text-sm text-zinc-400">
+                  Monitor steps, water intake, calories, and all vital metrics.
+                  Your progress, visualized.
+                </p>
+              </div>
+
+              {/* 5 */}
+              <div className="gf-feature">
+                <div className="gf-icon">★</div>
+                <h3 className="text-lg font-semibold text-white">
+                  Community Support
+                </h3>
+                <p className="mt-2 text-sm text-zinc-400">
+                  Join a community that keeps you accountable, motivated, and
+                  inspired.
+                </p>
+              </div>
+
+              {/* 6 */}
+              <div className="gf-feature">
+                <div className="gf-icon">★</div>
+                <h3 className="text-lg font-semibold text-white">Expert Guidance</h3>
+                <p className="mt-2 text-sm text-zinc-400">
+                  Decades of insight distilled into every feature. Trusted by
+                  thousands.
+                </p>
+              </div>
             </div>
-            <h3 className="text-zinc-100 font-semibold">Personalized Nutrition</h3>
-            <p className="mt-2 text-sm text-zinc-400">
-              Custom meal plans based on your goals, fitness level, and dietary preferences. Track macros effortlessly.
-            </p>
           </div>
+        </section>
 
-          {/* 2. Smart Workouts */}
-          <div className="gf-feature p-6">
-            <div className="mb-4">
-              <span className="gf-icon">
-                <Dumbbell />
-              </span>
+        {/* COMMAND CENTER */}
+        <section id="preview" className="scroll-mt-[96px] py-14">
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="gf-section-title">Your Fitness Command Center</h2>
+            <CommandCenter />
+          </div>
+        </section>
+
+        {/* PRICING */}
+        <section id="membership" className="scroll-mt-[96px] py-14">
+          <div className="mx-auto max-w-6xl px-4">
+            <h2 className="gf-section-title">Choose Your Transformation Plan</h2>
+
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              {/* Starter */}
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                <p className="mb-2 text-sm text-zinc-400">Starter</p>
+                <p className="mb-6 text-3xl font-bold text-white">
+                  $19<span className="text-sm text-zinc-400">/month</span>
+                </p>
+                <ul className="space-y-2 text-sm text-zinc-300">
+                  <li>Basic workout plans</li>
+                  <li>Nutrition tracking</li>
+                  <li>Daily metrics logging</li>
+                  <li>Mobile app access</li>
+                  <li>Community support</li>
+                </ul>
+                <button className="gf-cta mt-6 w-full rounded-xl bg-[var(--gf-btn)] px-5 py-3 font-semibold text-black hover:brightness-105">
+                  Start Free Trial
+                </button>
+              </div>
+
+              {/* Premium (most popular) */}
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6 ring-1 ring-[var(--gf-orange-mid)]/40">
+                <div className="mb-2 inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-zinc-200">
+                  MOST POPULAR
+                </div>
+                <p className="mb-2 text-sm text-zinc-400">Premium</p>
+                <p className="mb-6 text-3xl font-bold text-white">
+                  $39<span className="text-sm text-zinc-400">/month</span>
+                </p>
+                <ul className="space-y-2 text-sm text-zinc-300">
+                  <li>Everything in Starter</li>
+                  <li>Personalized meal plans</li>
+                  <li>Advanced workout design</li>
+                  <li>Progress analytics</li>
+                  <li>Priority support</li>
+                </ul>
+                <button className="gf-cta mt-6 w-full rounded-xl bg-[var(--gf-btn)] px-5 py-3 font-semibold text-black hover:brightness-105">
+                  Get Premium
+                </button>
+              </div>
+
+              {/* Elite */}
+              <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                <p className="mb-2 text-sm text-zinc-400">Elite</p>
+                <p className="mb-6 text-3xl font-bold text-white">
+                  $79<span className="text-sm text-zinc-400">/month</span>
+                </p>
+                <ul className="space-y-2 text-sm text-zinc-300">
+                  <li>Everything in Premium</li>
+                  <li>1 on 1 personal coaching</li>
+                  <li>Custom workout design</li>
+                  <li>Advanced biometrics</li>
+                  <li>Priority new features</li>
+                </ul>
+                <button className="gf-cta mt-6 w-full rounded-xl bg-[var(--gf-btn)] px-5 py-3 font-semibold text-black hover:brightness-105">
+                  Go Elite
+                </button>
+              </div>
             </div>
-            <h3 className="text-zinc-100 font-semibold">Smart Workouts</h3>
-            <p className="mt-2 text-sm text-zinc-400">
-              Adaptive programs that adapt to your progress — from beginner to elite athlete.
-            </p>
           </div>
-
-          {/* 3. Weekly Planning */}
-          <div className="gf-feature p-6">
-            <div className="mb-4">
-              <span className="gf-icon">
-                <CalendarDays />
-              </span>
-            </div>
-            <h3 className="text-zinc-100 font-semibold">Weekly Planning</h3>
-            <p className="mt-2 text-sm text-zinc-400">
-              See your complete fitness roadmap. Stay consistent week by week.
-            </p>
-          </div>
-
-          {/* 4. Real-time Tracking */}
-          <div className="gf-feature p-6">
-            <div className="mb-4">
-              <span className="gf-icon">
-                <Activity />
-              </span>
-            </div>
-            <h3 className="text-zinc-100 font-semibold">Real-time Tracking</h3>
-            <p className="mt-2 text-sm text-zinc-400">
-              Monitor steps, water intake, calories, and all vital metrics. Your progress, visualized beautifully.
-            </p>
-          </div>
-
-          {/* 5. Community Support */}
-          <div className="gf-feature p-6">
-            <div className="mb-4">
-              <span className="gf-icon">
-                <Users />
-              </span>
-            </div>
-            <h3 className="text-zinc-100 font-semibold">Community Support</h3>
-            <p className="mt-2 text-sm text-zinc-400">
-              Join a community that keeps you accountable. Share progress, get motivated, achieve together.
-            </p>
-          </div>
-
-          {/* 6. Expert Guidance */}
-          <div className="gf-feature p-6">
-            <div className="mb-4">
-              <span className="gf-icon">
-                <Shield />
-              </span>
-            </div>
-            <h3 className="text-zinc-100 font-semibold">Expert Guidance</h3>
-            <p className="mt-2 text-sm text-zinc-400">
-              25 years of industry expertise distilled into every feature. Trusted by millions.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ====================== COMMAND CENTER ====================== */}
-      <section id="watch" className="container mx-auto px-4 pb-16 md:pb-24">
-        <h2 className="gf-section-title mb-6">
-          Your Fitness <span className="gf-gradient-text">Command Center</span>
-        </h2>
-        <CommandCenter />
-      </section>
-
-      {/* ====================== PRICING ====================== */}
-      <section id="pricing" className="container mx-auto px-4 pb-24">
-        <h2 className="gf-section-title mb-6">
-          Choose Your <span className="gf-gradient-text">Transformation</span> Plan
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Starter */}
-          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6">
-            <div className="text-sm text-zinc-400 mb-2">Starter</div>
-            <div className="text-3xl font-extrabold text-zinc-100">$19</div>
-            <div className="text-xs text-zinc-500 mb-4">/month</div>
-            <ul className="space-y-2 text-sm text-zinc-300/90">
-              <li>Basic workout plans</li>
-              <li>Nutrition tracking</li>
-              <li>Daily metrics logging</li>
-              <li>Mobile app access</li>
-              <li>Community support</li>
-            </ul>
-            <Link
-              href="#"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-2 font-semibold text-zinc-950 shadow-sm transition hover:brightness-110"
-              style={{ background: "var(--gf-btn)" }}
-            >
-              Start Free Trial
-            </Link>
-          </div>
-
-          {/* Premium */}
-          <div className="rounded-2xl bg-white/5 ring-2 ring-[var(--gf-orange-mid)] p-6 relative">
-            <div className="absolute -top-3 right-3 text-[10px] font-semibold px-2 py-1 rounded-md bg-white/10 ring-1 ring-white/15 text-zinc-200">
-              MOST POPULAR
-            </div>
-            <div className="text-sm text-zinc-400 mb-2">Premium</div>
-            <div className="text-3xl font-extrabold text-zinc-100">$39</div>
-            <div className="text-xs text-zinc-500 mb-4">/month</div>
-            <ul className="space-y-2 text-sm text-zinc-300/90">
-              <li>Everything in Starter</li>
-              <li>Personalized meal plans</li>
-              <li>Advanced workout library</li>
-              <li>Progress analytics</li>
-              <li>Priority support</li>
-            </ul>
-            <Link
-              href="#"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-2 font-semibold text-zinc-950 shadow-sm transition hover:brightness-110"
-              style={{ background: "var(--gf-btn)" }}
-            >
-              Get Premium
-            </Link>
-          </div>
-
-          {/* Elite */}
-          <div className="rounded-2xl bg-white/5 ring-1 ring-white/10 p-6">
-            <div className="text-sm text-zinc-400 mb-2">Elite</div>
-            <div className="text-3xl font-extrabold text-zinc-100">$79</div>
-            <div className="text-xs text-zinc-500 mb-4">/month</div>
-            <ul className="space-y-2 text-sm text-zinc-300/90">
-              <li>Everything in Premium</li>
-              <li>1-on-1 personal coaching</li>
-              <li>Custom workout design</li>
-              <li>Nutrition consultations</li>
-              <li>Elite community access</li>
-            </ul>
-            <Link
-              href="#"
-              className="mt-6 inline-flex w-full items-center justify-center rounded-xl px-4 py-2 font-semibold text-zinc-950 shadow-sm transition hover:brightness-110"
-              style={{ background: "var(--gf-btn)" }}
-            >
-              Go Elite
-            </Link>
-          </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </>
   );
 }
