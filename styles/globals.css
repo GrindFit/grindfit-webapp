@@ -301,3 +301,17 @@ body {
   --gf-orange-mid:#ff8d32;
   --gf-orange-end:#ffa24a;
 }
+/* --- Layout polish for this step --- */
+main { scroll-snap-type: y mandatory; }
+section { scroll-snap-align: start; }
+
+/* Stronger brand + smaller Open App nav CTA if the site-wide nav exists */
+nav a[href="/app"] { font-size: 13px; padding: 8px 14px; }
+nav .gf-brand { font-weight: 900; letter-spacing: -0.02em; }
+
+/* Icon/text gradient utilities already exist; these just ensure brightness */
+.gf-cta { transition: filter .15s ease, transform .15s ease; }
+.gf-cta:hover { filter: brightness(1.05); }
+
+/* Guard against any stray decorative strips you might have had before */
+.gf-section-strip, .gf-deco-bar { display: none !important; }
