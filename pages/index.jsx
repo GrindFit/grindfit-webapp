@@ -15,7 +15,7 @@ export default function Home() {
     <main className="min-h-screen relative">
       {/* ====================== HERO ====================== */}
       <section className="relative overflow-hidden">
-        {/* subtle top-right orange bloom (already styled in globals) */}
+        {/* subtle top-right orange bloom */}
         <div aria-hidden className="pointer-events-none absolute -top-40 right-[-8rem] hidden md:block">
           <div
             className="radial-gradient"
@@ -35,16 +35,11 @@ export default function Home() {
               <br />
               Think Sharp.
               <br />
-              Live{" "}
-              <span className="gf-gradient-text inline-block">
-                Unstoppable
-              </span>
-              .
+              Live <span className="gf-gradient-text inline-block">Unstoppable</span>.
             </h1>
 
             <p className="mt-5 text-zinc-300/80 max-w-2xl">
-              A psychology-driven fitness system that upgrades your body, mind,
-              and lifestyle. Built to win.
+              A psychology-driven fitness system that upgrades your body, mind, and lifestyle. Built to win.
             </p>
 
             <div className="mt-10 flex flex-wrap items-center gap-3">
@@ -69,45 +64,42 @@ export default function Home() {
 
       {/* ====================== FEATURES ====================== */}
       <section id="why" className="container mx-auto px-4 pb-16 md:pb-24">
-        <h2 className="text-xl md:text-2xl font-bold text-zinc-200 mb-6">
-          Everything You Need to{" "}
-          <span className="gf-gradient-text">Succeed</span>
+        <h2 className="gf-section-title mb-6">
+          Everything You Need to <span className="gf-gradient-text">Succeed</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* 1. Personalized Nutrition */}
           <div className="gf-feature p-6">
             <div className="mb-4">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
-                <Utensils className="h-5 w-5 text-zinc-200" />
+              <span className="gf-icon">
+                <Utensils />
               </span>
             </div>
             <h3 className="text-zinc-100 font-semibold">Personalized Nutrition</h3>
             <p className="mt-2 text-sm text-zinc-400">
-              Custom meal plans based on your goals, fitness level, and dietary
-              preferences. Track macros effortlessly.
+              Custom meal plans based on your goals, fitness level, and dietary preferences. Track macros effortlessly.
             </p>
           </div>
 
           {/* 2. Smart Workouts */}
           <div className="gf-feature p-6">
             <div className="mb-4">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
-                <Dumbbell className="h-5 w-5 text-zinc-200" />
+              <span className="gf-icon">
+                <Dumbbell />
               </span>
             </div>
             <h3 className="text-zinc-100 font-semibold">Smart Workouts</h3>
             <p className="mt-2 text-sm text-zinc-400">
-              Adaptive programs that adjust to your progress — from beginner to
-              elite athlete.
+              Adaptive programs that adapt to your progress — from beginner to elite athlete.
             </p>
           </div>
 
           {/* 3. Weekly Planning */}
           <div className="gf-feature p-6">
             <div className="mb-4">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
-                <CalendarDays className="h-5 w-5 text-zinc-200" />
+              <span className="gf-icon">
+                <CalendarDays />
               </span>
             </div>
             <h3 className="text-zinc-100 font-semibold">Weekly Planning</h3>
@@ -119,56 +111,55 @@ export default function Home() {
           {/* 4. Real-time Tracking */}
           <div className="gf-feature p-6">
             <div className="mb-4">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
-                <Activity className="h-5 w-5 text-zinc-200" />
+              <span className="gf-icon">
+                <Activity />
               </span>
             </div>
             <h3 className="text-zinc-100 font-semibold">Real-time Tracking</h3>
             <p className="mt-2 text-sm text-zinc-400">
-              Monitor steps, water intake, calories, and all vital metrics. Your
-              progress, visualized beautifully.
+              Monitor steps, water intake, calories, and all vital metrics. Your progress, visualized beautifully.
             </p>
           </div>
 
           {/* 5. Community Support */}
           <div className="gf-feature p-6">
             <div className="mb-4">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
-                <Users className="h-5 w-5 text-zinc-200" />
+              <span className="gf-icon">
+                <Users />
               </span>
             </div>
             <h3 className="text-zinc-100 font-semibold">Community Support</h3>
             <p className="mt-2 text-sm text-zinc-400">
-              Join a community that keeps you accountable. Share progress, get
-              motivated, achieve together.
+              Join a community that keeps you accountable. Share progress, get motivated, achieve together.
             </p>
           </div>
 
           {/* 6. Expert Guidance */}
           <div className="gf-feature p-6">
             <div className="mb-4">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-white/5">
-                <Shield className="h-5 w-5 text-zinc-200" />
+              <span className="gf-icon">
+                <Shield />
               </span>
             </div>
             <h3 className="text-zinc-100 font-semibold">Expert Guidance</h3>
             <p className="mt-2 text-sm text-zinc-400">
-              25 years of industry expertise distilled into every feature.
-              Trusted by millions.
+              25 years of industry expertise distilled into every feature. Trusted by millions.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ====================== COMMAND CENTER (dashboard teaser) ====================== */}
+      {/* ====================== COMMAND CENTER ====================== */}
       <section id="watch" className="container mx-auto px-4 pb-16 md:pb-24">
-        <h2 className="sr-only">Dashboard preview</h2>
+        <h2 className="gf-section-title mb-6">
+          Your Fitness <span className="gf-gradient-text">Command Center</span>
+        </h2>
         <CommandCenter />
       </section>
 
       {/* ====================== PRICING ====================== */}
       <section id="pricing" className="container mx-auto px-4 pb-24">
-        <h2 className="text-xl md:text-2xl font-bold text-zinc-200 mb-6">
+        <h2 className="gf-section-title mb-6">
           Choose Your <span className="gf-gradient-text">Transformation</span> Plan
         </h2>
 
