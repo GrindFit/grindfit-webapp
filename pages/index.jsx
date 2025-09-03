@@ -1,106 +1,162 @@
 // pages/index.jsx
-import Link from "next/link";
-
-// IMPORTANT: these imports include the file extensions and correct case
+import Head from "next/head";
+import { Activity, Salad, Brain, Dumbbell, CalendarCheck2, UsersRound } from "lucide-react";
+import Nav from "../components/Nav.jsx";
 import CommandCenter from "../components/CommandCenter.jsx";
 import Plans from "../components/Plans.jsx";
 
-const features = [
-  {
-    title: "Personalized Nutrition",
-    copy:
-      "Custom meal plans based on your goals, fitness level and dietary preferences. Track macros effortlessly.",
-    color: "green",
-  },
-  {
-    title: "Smart Workouts",
-    copy:
-      "Adaptive programs that adjust to your progress—from beginner to elite athletes.",
-    color: "green",
-  },
-  {
-    title: "Real-time Tracking",
-    copy:
-      "Monitor steps, water intake, calories, and vital metrics. Your progress, visualized.",
-    color: "green",
-  },
-  {
-    title: "Community Support",
-    copy:
-      "Join a community that keeps you accountable, motivated, and inspired.",
-    color: "green",
-  },
-  {
-    title: "Weekly Planning",
-    copy:
-      "See your complete roadmap, plan sessions, track progress, and stay consistent week by week.",
-    color: "green",
-  },
-  {
-    title: "Expert Guidance",
-    copy:
-      "Decades of insight distilled into every feature. Trusted by thousands.",
-    color: "green", // keep bottom-right card green for consistency
-  },
-];
+function IconChip({ children, color = "orange" }) {
+  const grad =
+    color === "green"
+      ? "linear-gradient(90deg,#22c55e 0%,#10b981 50%,#059669 100%)"
+      : "linear-gradient(90deg,#FF7A18 0%,#FF8A21 45%,#FFA24A 100%)";
+  return (
+    <span
+      className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-black shadow"
+      style={{ background: grad }}
+    >
+      {children}
+    </span>
+  );
+}
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      {/* HERO */}
-      <section className="relative pt-28 pb-16">
-        <div className="mx-auto max-w-6xl px-5">
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black leading-tight tracking-tight text-white">
-            Train Hard.
-            <br />
-            Think Sharp.
-            <br />
-            Live{" "}
-            <span className="gf-gradient-text">Unstoppable</span>
-          </h1>
+    <>
+      <Head>
+        <title>GRINDFIT</title>
+        <meta name="description" content="Train Hard. Think Sharp. Live Unstoppable." />
+      </Head>
 
-          <p className="mt-6 max-w-2xl text-base sm:text-lg text-white/80">
-            A psychology-driven fitness system that upgrades your body, mind, and lifestyle.
-            Built to win.
-          </p>
+      <Nav />
 
-          <div className="mt-8">
-            <Link
-              href="#plans"
-              className="gf-cta inline-flex items-center rounded-xl px-5 py-3 font-semibold text-black bg-[var(--gf-btn)] hover:brightness-105"
-            >
-              Start Your Transformation
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* hero */}
+      <main className="relative">
+        {/* ambient background */}
+        <div
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            background:
+              "radial-gradient(1200px 600px at 50% -10%, rgba(255,122,24,0.25), transparent 60%), radial-gradient(900px 400px at 90% -20%, rgba(255,162,74,0.15), transparent 60%)",
+          }}
+        />
 
-      {/* FEATURES */}
-      <section className="mx-auto mb-8 max-w-6xl px-5">
-        <h2 className="gf-section-title">Everything You Need to Succeed</h2>
+        {/* Hero */}
+        <section className="pt-28 sm:pt-32">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <h1 className="text-white font-black leading-tight text-4xl sm:text-5xl md:text-6xl">
+              Train Hard.
+              <br />
+              Think Sharp.
+              <br />
+              Live{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  background:
+                    "linear-gradient(90deg,#FF7A18 0%,#FF8A21 45%,#FFA24A 100%)",
+                }}
+              >
+                Unstoppable
+              </span>
+            </h1>
 
-        <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map(({ title, copy, color }, i) => (
-            <div key={i} className="gf-feature">
-              {/* small gradient chip behind the icon */}
-              <span className={`gf-icon ${color === "green" ? "green" : ""}`} />
-              <h3 className="font-bold text-white mt-4">{title}</h3>
-              <p className="mt-2 text-white/80">{copy}</p>
+            <p className="mt-4 max-w-2xl text-zinc-300">
+              A psychology-driven fitness system that upgrades your body, mind, and lifestyle.
+              Built to win.
+            </p>
+
+            <div className="mt-6">
+              <a
+                href="#plans"
+                className="inline-flex items-center rounded-xl px-5 py-3 font-semibold text-black shadow ring-1 ring-black/10"
+                style={{
+                  background:
+                    "linear-gradient(90deg,#FF7A18 0%,#FF8A21 45%,#FFA24A 100%)",
+                }}
+              >
+                Start Your Transformation
+              </a>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* COMMAND CENTER */}
-      <CommandCenter />
+        {/* FEATURES */}
+        <section id="why" className="mt-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-center text-2xl sm:text-3xl font-extrabold text-white mb-8">
+              Everything You Need to Succeed
+            </h2>
 
-      {/* PRICING */}
-      <section id="plans" className="mx-auto max-w-6xl px-5 pb-20">
-        <h2 className="gf-section-title">Choose Your <span className="gf-gradient-text">Transformation</span> Plan</h2>
-        <div className="mt-6">
-          <Plans />
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Personalized Nutrition",
+                  body:
+                    "Custom meal plans based on your goals, fitness level, and dietary preferences. Track macros effortlessly.",
+                  icon: <Salad className="w-4 h-4" />,
+                },
+                {
+                  title: "Smart Workouts",
+                  body:
+                    "Adaptive programs that adjust to your progress—from beginner to elite athlete.",
+                  icon: <Dumbbell className="w-4 h-4" />,
+                },
+                {
+                  title: "Real-time Tracking",
+                  body:
+                    "Monitor steps, water intake, calories, and vital metrics. Your progress, visualized.",
+                  icon: <Activity className="w-4 h-4" />,
+                },
+                {
+                  title: "Community Support",
+                  body:
+                    "Join a community that keeps you accountable, motivated, and inspired.",
+                  icon: <UsersRound className="w-4 h-4" />,
+                },
+                {
+                  title: "Weekly Planning",
+                  body:
+                    "See your complete roadmap. Plan sessions, track progress, and stay consistent week by week.",
+                  icon: <CalendarCheck2 className="w-4 h-4" />,
+                },
+                {
+                  title: "Expert Guidance",
+                  body:
+                    "Decades of insight distilled into every feature. Trusted by thousands.",
+                  icon: <Brain className="w-4 h-4" />,
+                  color: "green", // <- bottom-right is green now
+                },
+              ].map(({ title, body, icon, color }, i) => (
+                <div
+                  key={i}
+                  className="rounded-2xl bg-zinc-950/70 ring-1 ring-white/5 p-5 hover:shadow-[0_0_0_1px_rgba(255,255,255,0.06)] transition-shadow"
+                >
+                  <div className="flex items-start gap-3">
+                    <IconChip color={color}>{icon}</IconChip>
+                    <div>
+                      <h3 className="font-semibold text-white">{title}</h3>
+                      <p className="mt-1 text-sm text-zinc-300">{body}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* COMMAND CENTER */}
+        <div className="mt-16">
+          <CommandCenter />
         </div>
-      </section>
-    </main>
+
+        {/* PLANS (single, centered) */}
+        <section id="plans" className="mt-20 pb-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Plans />
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
