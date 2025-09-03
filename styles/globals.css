@@ -380,3 +380,117 @@ nav .gf-brand { font-weight: 900; letter-spacing: -0.02em; }
 
 /* Remove any stray decorative strips you might have had before */
 .gf-section-strip, .gf-deco-bar { display: none !important; }
+/* === Brand tokens (bright & punchy) === */
+:root{
+  /* Orange gradient — lambo bright */
+  --gf-orange-start:#ff7a18;
+  --gf-orange-mid:#fd8d32;
+  --gf-orange-end:#ffb24a;
+
+  /* Green gradient — vivid & modern */
+  --gf-green-start:#22c55e;
+  --gf-green-mid:#10b981;
+  --gf-green-end:#16a34a;
+
+  /* Canvas ink/base */
+  --gf-ink:#0c0d0f;
+}
+
+/* Basic page canvas ambience */
+html,body,#__next{height:100%;}
+body{background:#0b0d0f;color:#e5e7eb;scroll-behavior:smooth;}
+.gf-canvas-ambient{
+  position:absolute;inset:-20vh 0 0 0;pointer-events:none;z-index:-1;
+  background:
+    radial-gradient(1200px 700px at 90% 0%, rgba(255,125,25,.08), transparent 60%),
+    radial-gradient(1000px 500px at 10% -10%, rgba(255,185,85,.06), transparent 60%);
+}
+
+/* Snap sections */
+.snap-y{scroll-snap-type:y mandatory;}
+.gf-section{min-height:100vh;scroll-snap-align:start;display:flex;align-items:center;}
+
+/* Gradient text helpers */
+.gf-gradient-text{
+  background:linear-gradient(90deg,var(--gf-orange-start),var(--gf-orange-mid),var(--gf-orange-end));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.gf-num--orange{background:linear-gradient(90deg,var(--gf-orange-start),var(--gf-orange-end));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.gf-num--green{background:linear-gradient(90deg,var(--gf-green-start),var(--gf-green-end));-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+/* Big hero brand (match Unstoppable scale) */
+.gf-brand-hero{
+  font-weight:900;letter-spacing:-0.02em;
+  font-size: clamp(40px, 9vw, 82px);
+  line-height: .95;
+  background:linear-gradient(90deg,var(--gf-orange-start),var(--gf-orange-end));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+/* CTA */
+.gf-cta{
+  display:inline-block;padding:.7rem 1.1rem;border-radius:999px;
+  font-weight:800;color:#0a0a0a;background:
+    linear-gradient(90deg,var(--gf-orange-start),var(--gf-orange-mid) 55%,var(--gf-orange-end));
+  box-shadow:0 10px 22px rgba(255,135,40,.14);
+  transition:filter .15s ease, transform .15s ease;
+}
+.gf-cta:hover{filter:brightness(1.05);transform:translateY(-1px);}
+
+/* Cards */
+.gf-card{
+  background:rgba(17,19,22,.7);border:1px solid rgba(255,255,255,.06);
+  border-radius:16px;padding:18px 18px 20px 18px;
+}
+.gf-icon{width:20px;height:20px;color:#0b0d0f;}
+.gf-chip{
+  width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
+  box-shadow:0 8px 18px rgba(0,0,0,.3);
+}
+.gf-chip--orange{background:linear-gradient(135deg,var(--gf-orange-start),var(--gf-orange-end));}
+.gf-chip--green{background:linear-gradient(135deg,var(--gf-green-start),var(--gf-green-end));}
+
+/* Command center panels */
+.gf-panel{
+  background:rgba(17,19,22,.7);border:1px solid rgba(255,255,255,.06);
+  border-radius:16px;padding:18px;
+}
+
+/* Progress bars */
+.gf-bar--orange{background:linear-gradient(90deg,var(--gf-orange-start),var(--gf-orange-end));}
+.gf-bar--green{background:linear-gradient(90deg,var(--gf-green-start),var(--gf-green-end));}
+
+/* Mini stats */
+.gf-mini{
+  min-width:56px;height:56px;border-radius:14px;
+  display:grid;place-items:center;
+  font-weight:900;font-size:20px;color:#0a0a0a;
+}
+.gf-mini--orange{background:linear-gradient(135deg,var(--gf-orange-start),var(--gf-orange-end));}
+.gf-mini--green{background:linear-gradient(135deg,var(--gf-green-start),var(--gf-green-end));}
+
+/* Plan rows chips */
+.gf-dot{width:14px;height:14px;border-radius:999px;background:#1f2937;}
+.gf-dot--orange{background:linear-gradient(135deg,var(--gf-orange-start),var(--gf-orange-end));}
+.gf-play{
+  width:26px;height:26px;border-radius:999px;
+  display:grid;place-items:center;color:#04170d;
+  background:linear-gradient(135deg,var(--gf-green-start),var(--gf-green-end));
+  box-shadow:0 6px 14px rgba(16,185,129,.25);
+}
+
+/* Pricing */
+.gf-price{
+  position:relative;background:rgba(17,19,22,.7);border:1px solid rgba(255,255,255,.06);
+  border-radius:18px;padding:22px 18px;
+}
+.gf-price--pop{outline:2px solid rgba(255,140,45,.35);box-shadow:0 20px 50px rgba(255,130,25,.08);}
+.gf-popular{
+  position:absolute;left:50%;top:-16px;transform:translateX(-50%);
+  display:inline-flex;gap:6px;align-items:center;
+  background:linear-gradient(90deg,var(--gf-orange-start),var(--gf-orange-end));
+  color:#0a0a0a;font-weight:900;font-size:12px;padding:6px 12px;border-radius:999px;
+}
+
+/* Guard against any stray decorative strips you might have had before */
+.gf-section-strip, .gf-deco-bar { display:none !important; }
