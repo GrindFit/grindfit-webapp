@@ -1,232 +1,299 @@
 // pages/index.jsx
-import Head from "next/head";
+import React from "react";
 import CommandCenter from "../components/CommandCenter.jsx";
+import {
+  Utensils,
+  Dumbbell,
+  BarChart3,
+  Users,
+  CalendarCheck2,
+  GraduationCap,
+} from "lucide-react";
 
 export default function Home() {
+  const features = [
+    {
+      title: "Personalized Nutrition",
+      copy:
+        "Custom meal plans based on your goals, fitness level, and dietary preferences. Track macros effortlessly.",
+      icon: Utensils,
+      tone: "orange",
+    },
+    {
+      title: "Smart Workouts",
+      copy:
+        "AI-progressive programs that adapt to your progress—from beginner to elite athlete.",
+      icon: Dumbbell,
+      tone: "orange",
+    },
+    {
+      title: "Real-time Tracking",
+      copy:
+        "Monitor steps, water intake, calories, and all vital metrics. Your progress, visualized.",
+      icon: BarChart3,
+      tone: "orange",
+    },
+    {
+      title: "Community Support",
+      copy:
+        "Join a community that keeps you accountable, motivated, and inspired.",
+      icon: Users,
+      tone: "green",
+    },
+    {
+      title: "Weekly Planning",
+      copy:
+        "See your complete roadmap. Plan sessions, track progress, and stay consistent week by week.",
+      icon: CalendarCheck2,
+      tone: "green",
+    },
+    {
+      title: "Expert Guidance",
+      copy:
+        "Decades of insight distilled into every feature. Trusted by thousands.",
+      icon: GraduationCap,
+      tone: "green",
+    },
+  ];
+
   return (
-    <>
-      <Head>
-        <title>GRINDFIT — Train Hard. Think Sharp. Live Unstoppable.</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+    <main className="gf-snap h-screen overflow-y-auto bg-[#0b0f12] text-[#DDE1E6]">
+      {/* ————— HERO (full page) ————— */}
+      <section className="gf-section snap-start relative min-h-[100svh] flex flex-col">
+        {/* top nav */}
+        <header className="w-full">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-6">
+            <nav className="flex items-center gap-8 text-sm text-[#9BA3AF]">
+              <span className="gf-brand font-black tracking-tight text-xl text-white">
+                GRINDFIT
+              </span>
+              <a href="#why" className="hover:text-white">Why Grindfit</a>
+              <a href="#nutrition" className="hover:text-white">Nutrition</a>
+              <a href="#reset" className="hover:text-white">Reset & Recover</a>
+              <a href="#membership" className="hover:text-white">Membership</a>
+            </nav>
 
-      {/* Scroll-snap container: each section is a full page */}
-      <main className="h-screen w-full overflow-y-auto snap-y snap-mandatory">
-
-        {/* ===== HERO (full page) ===== */}
-        <section className="snap-start min-h-screen flex items-center">
-          <div className="mx-auto w-full max-w-6xl px-6 md:px-8">
-            {/* Top bar (brand + simple nav). If you already have a site-wide Nav, this row will just sit quietly. */}
-            <div className="flex items-center justify-between pt-6">
-              <div className="text-xl sm:text-2xl font-black tracking-tight">
-                <span className="gf-gradient-text">GRINDFIT</span>
-              </div>
-
-              <nav className="hidden md:flex items-center gap-6 text-sm text-zinc-300">
-                <a className="hover:text-white/90" href="#why">Why GrindFit</a>
-                <a className="hover:text-white/90" href="#nutrition">Nutrition</a>
-                <a className="hover:text-white/90" href="#reset">Reset &amp; Recover</a>
-                <a className="hover:text-white/90" href="#membership">Membership</a>
-                <div className="flex items-center gap-2">
-                  <a href="/login" className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 transition">Log in</a>
-                  <a href="/app" className="px-4 py-2 rounded-xl bg-[var(--gf-btn)] hover:brightness-105 text-black font-semibold text-[13px] shadow-[0_8px_20px_rgba(255,122,26,.25)]">
-                    Open App
-                  </a>
-                </div>
-              </nav>
+            <div className="flex items-center gap-3">
+              <a
+                href="/login"
+                className="rounded-lg px-3 py-2 text-sm text-[#9BA3AF] hover:text-white"
+              >
+                Log in
+              </a>
+              <a
+                href="/app"
+                className="gf-cta rounded-xl px-4 py-2 text-sm font-semibold text-black"
+                aria-label="Open App"
+              >
+                Open App
+              </a>
             </div>
+          </div>
+        </header>
 
-            {/* Left-aligned headline/CTA */}
-            <div className="mt-16 md:mt-24 max-w-3xl">
-              <h1 className="font-black leading-tight text-white text-[42px] sm:text-[56px] md:text-[68px]">
-                Train Hard.
-                <br />
-                Think Sharp.
-                <br />
-                Live <span className="gf-gradient-text">Unstoppable</span>
-              </h1>
+        {/* hero body (left-aligned; room for background video on right/behind) */}
+        <div className="relative mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 items-center gap-12 px-6 lg:grid-cols-2">
+          {/* video placeholder (you can replace with your <video> later) */}
+          <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(1200px_800px_at_80%_0%,rgba(255,122,24,0.08),transparent_60%),radial-gradient(1000px_600px_at_0%_100%,rgba(0,255,153,0.06),transparent_55%)]" />
+          <div className="max-w-2xl">
+            <h1 className="font-black leading-[1.05] text-5xl sm:text-6xl lg:text-7xl">
+              <span className="block">Train Hard.</span>
+              <span className="block">Think Sharp.</span>
+              <span className="block">
+                Live{" "}
+                <span className="gf-gradient-text">Unstoppable</span>
+              </span>
+            </h1>
+            <p className="mt-5 max-w-xl text-base text-[#9BA3AF]">
+              A psychology-driven fitness system that upgrades your body, mind,
+              and lifestyle. Built to win.
+            </p>
+            <div className="mt-8">
+              <a
+                href="#plans"
+                className="gf-cta rounded-xl px-5 py-3 text-sm font-semibold text-black"
+              >
+                Start Your Transformation
+              </a>
+            </div>
+          </div>
 
-              <p className="mt-5 text-zinc-300 max-w-xl">
-                A psychology-driven fitness system that upgrades your body, mind, and lifestyle. Built to win.
-              </p>
+          {/* keep right column free/empty for your future background video */}
+          <div className="hidden lg:block" />
+        </div>
+      </section>
 
-              <div className="mt-8">
-                <a
-                  href="#features"
-                  className="gf-cta px-6 py-3 rounded-xl font-semibold text-black bg-[var(--gf-btn)] hover:brightness-105 shadow-[0_8px_20px_rgba(255,122,26,.25)]"
+      {/* ————— FEATURES (full page) ————— */}
+      <section
+        id="why"
+        className="gf-section snap-start relative min-h-[100svh] py-16"
+      >
+        <div className="mx-auto max-w-7xl px-6">
+          <h2 className="text-center text-3xl font-black sm:text-4xl">
+            Everything You Need to{" "}
+            <span className="gf-gradient-text">Succeed</span>
+          </h2>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {features.map(({ title, copy, icon: Icon, tone }) => (
+              <article
+                key={title}
+                className="gf-card group relative rounded-2xl p-6"
+              >
+                <div
+                  className={`gf-icon ${
+                    tone === "orange" ? "gf-icon--orange" : "gf-icon--green"
+                  }`}
+                  aria-hidden="true"
                 >
-                  Start Your Transformation
-                </a>
-              </div>
-            </div>
+                  <Icon size={22} />
+                </div>
+                <h3 className="mt-4 font-bold text-white">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#9BA3AF]">{copy}</p>
+              </article>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ===== FEATURES (full page) ===== */}
-        <section id="features" className="snap-start min-h-screen flex items-center">
-          <div className="mx-auto w-full max-w-6xl px-6 md:px-8">
-            <h2 className="text-center font-black text-white text-[30px] sm:text-[36px] md:text-[42px]">
-              Everything You Need to <span className="gf-gradient-text">Succeed</span>
-            </h2>
+      {/* ————— COMMAND CENTER (full page) ————— */}
+      <section
+        id="command"
+        className="gf-section snap-start relative min-h-[100svh] py-16"
+      >
+        <div className="mx-auto max-w-7xl px-6">
+          <h2 className="text-center text-3xl font-black sm:text-4xl">
+            Your Fitness{" "}
+            <span className="gf-gradient-text">Command Center</span>
+          </h2>
+          <CommandCenter />
+        </div>
+      </section>
 
-            {/* 6 feature cards – real icons, bigger + glow */}
-            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <Feature
-                color="orange"
-                title="Personalized Nutrition"
-                copy="Custom meal plans based on your goals, fitness level, and dietary preferences. Track macros effortlessly."
-                icon="apple"
-              />
-              <Feature
-                color="orange"
-                title="Smart Workouts"
-                copy="Adaptive programs that adjust to your progress—from beginner to elite athlete."
-                icon="dumbbell"
-              />
-              <Feature
-                color="orange"
-                title="Real-time Tracking"
-                copy="Monitor steps, water intake, calories, and all vital metrics. Your progress, visualized."
-                icon="activity"
-              />
-              <Feature
-                color="green"
-                title="Community Support"
-                copy="Join a community that keeps you accountable, motivated, and inspired."
-                icon="users"
-              />
-              <Feature
-                color="green"
-                title="Weekly Planning"
-                copy="See your complete roadmap, plan sessions, track progress, and stay consistent week by week."
-                icon="calendar"
-              />
-              <Feature
-                color="green"
-                title="Expert Guidance"
-                copy="Decades of insight distilled into every feature. Trusted by thousands."
-                icon="target"
-              />
-            </div>
-          </div>
-        </section>
+      {/* ————— PLANS (full page) ————— */}
+      <section
+        id="plans"
+        className="gf-section snap-start relative min-h-[100svh] py-16"
+      >
+        <div className="mx-auto max-w-7xl px-6">
+          <h2 className="text-center text-3xl font-black sm:text-4xl">
+            Choose Your <span className="gf-gradient-text">Transformation</span>{" "}
+            Plan
+          </h2>
 
-        {/* ===== COMMAND CENTER (full page) ===== */}
-        <section className="snap-start min-h-screen flex items-center">
-          <div className="mx-auto w-full max-w-6xl px-6 md:px-8">
-            <CommandCenter />
-          </div>
-        </section>
-
-        {/* ===== PRICING (full page) ===== */}
-        <section id="membership" className="snap-start min-h-screen flex items-center">
-          <div className="mx-auto w-full max-w-6xl px-6 md:px-8">
-            <h2 className="text-center font-black text-white text-[30px] sm:text-[36px] md:text-[42px]">
-              Choose Your <span className="gf-gradient-text">Transformation Plan</span>
-            </h2>
-
-            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              <PlanCard period="1 MONTH" price="$19" cta="Start Free Trial" features={[
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {/* Starter */}
+            <PlanCard
+              title="Starter"
+              price="$19"
+              period="/month"
+              cta="Start Free Trial"
+              features={[
                 "Basic workout plans",
                 "Nutrition tracking",
                 "Daily metrics logging",
                 "Mobile app access",
-                "Community support"
-              ]} />
-              <PlanCard period="3 MONTHS" price="$39" tag="Most Popular" accent="orange" cta="Start Free Trial" features={[
-                "Everything in 1 Month",
+                "Community support",
+              ]}
+            />
+
+            {/* Premium (featured) */}
+            <PlanCard
+              featured
+              title="Premium"
+              price="$39"
+              period="/month"
+              badge="Most Popular"
+              cta="Get Premium"
+              features={[
+                "Everything in Starter",
                 "AI-progressive programming",
                 "Personalized meal planning",
                 "Advanced analytics",
-                "Priority support"
-              ]} />
-              <PlanCard period="6 MONTHS" price="$59" cta="Start Free Trial" features={[
-                "Everything in 3 Months",
-                "1-on-1 personal coaching",
-                "Custom workout design",
-                "Advanced biometrics",
-                "Nutrition consultations"
-              ]} />
-              <PlanCard period="12 MONTHS" price="$79" cta="Start Free Trial" features={[
+                "Priority support",
+              ]}
+            />
+
+            {/* Elite */}
+            <PlanCard
+              title="Elite"
+              price="$79"
+              period="/month"
+              cta="Go Elite"
+              features={[
                 "All Elite features",
                 "Exclusive live workshops",
                 "Elite community access",
                 "Goal setting sprints",
-                "Priority new features"
-              ]} />
-            </div>
+                "Priority new features",
+              ]}
+            />
           </div>
-        </section>
-
-      </main>
-    </>
+        </div>
+      </section>
+    </main>
   );
 }
 
-/* ---------- Helpers ---------- */
+/* ——— Helpers ——— */
 
-function Feature({ color = "orange", title, copy, icon }) {
-  const chip =
-    color === "green"
-      ? "from-[var(--gf-green-start)] via-[var(--gf-green-mid)] to-[var(--gf-green-end)] shadow-[0_12px_30px_rgba(46,213,115,.18)]"
-      : "from-[var(--gf-orange-start)] via-[var(--gf-orange-mid)] to-[var(--gf-orange-end)] shadow-[0_12px_30px_rgba(255,122,26,.22)]";
-
+function PlanCard({ featured = false, badge, title, price, period, features, cta }) {
   return (
-    <div className="relative rounded-2xl bg-white/[0.03] p-5 border border-white/5 hover:bg-white/[0.045] transition">
-      <div className={`w-12 h-12 rounded-xl grid place-items-center text-white bg-gradient-to-br ${chip} mb-4`}>
-        <SvgIcon name={icon} className="w-6 h-6" />
+    <article
+      className={`relative rounded-2xl border border-white/5 bg-[#0e1216]/80 p-6 shadow-2xl ring-1 ring-black/5 backdrop-blur-sm ${
+        featured ? "scale-[1.02] ring-2 ring-orange-500/30" : ""
+      }`}
+    >
+      {featured && (
+        <div className="absolute -top-3 left-1/2 z-10 -translate-x-1/2">
+          <div className="gf-badge flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold text-black">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="text-black/70"
+              aria-hidden="true"
+            >
+              <path d="M12 2l3 6 6 .9-4.5 4.3 1.1 6.5L12 17.8 6.4 19.7 7.5 13.2 3 8.9 9 8z" />
+            </svg>
+            {badge ?? "Most Popular"}
+          </div>
+        </div>
+      )}
+
+      <div className="mt-2 text-center">
+        <h3 className="text-xl font-bold text-white">{title}</h3>
+        <div className="mt-3 flex items-end justify-center gap-1">
+          <span className="text-4xl font-extrabold text-white">{price}</span>
+          <span className="pb-1 text-sm text-[#9BA3AF]">{period}</span>
+        </div>
+        <button className="gf-cta mt-5 w-full rounded-xl px-4 py-2 text-sm font-semibold text-black">
+          {cta}
+        </button>
       </div>
 
-      <h3 className="font-bold text-white">{title}</h3>
-      <p className="mt-1 text-sm text-zinc-300">{copy}</p>
-    </div>
-  );
-}
-
-function PlanCard({ period, price, tag, accent = "green", cta, features }) {
-  const glow =
-    accent === "orange"
-      ? "shadow-[0_18px_40px_rgba(255,122,26,.15)]"
-      : "shadow-[0_18px_40px_rgba(46,213,115,.12)]";
-
-  return (
-    <div className={`rounded-2xl bg-white/[0.03] p-6 border border-white/5 ${glow}`}>
-      <div className="flex items-center justify-between">
-        <span className="text-xs tracking-wide text-zinc-400">{period}</span>
-        {tag && (
-          <span className="px-2 py-0.5 rounded-md text-[11px] font-semibold text-black bg-gradient-to-br from-[var(--gf-orange-start)] via-[var(--gf-orange-mid)] to-[var(--gf-orange-end)]">
-            {tag}
-          </span>
-        )}
-      </div>
-      <div className="mt-4 text-4xl font-black text-white">{price}<span className="text-sm font-semibold text-zinc-400 align-super">/month</span></div>
-
-      <ul className="mt-5 space-y-2 text-sm text-zinc-300">
-        {features.map((f, i) => (
-          <li key={i} className="flex items-start gap-2">
-            {/* small circle ticks */}
-            <span className={`mt-1 inline-block w-2.5 h-2.5 rounded-full ${accent === "orange" ? "bg-[var(--gf-orange-mid)]" : "bg-[var(--gf-green-mid)]"}`} />
-            <span>{f}</span>
+      <ul className="mt-6 space-y-3 text-sm">
+        {features.map((f) => (
+          <li key={f} className="flex items-start gap-3 text-[#C7CDD6]">
+            <span className="mt-[2px] inline-flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
+              <svg
+                viewBox="0 0 24 24"
+                width="12"
+                height="12"
+                className="text-white"
+                aria-hidden="true"
+              >
+                <path
+                  fill="currentColor"
+                  d="M20.285 6.709a1 1 0 010 1.414l-9.193 9.193a1 1 0 01-1.414 0l-5.364-5.364a1 1 0 111.414-1.414l4.657 4.657 8.486-8.486a1 1 0 011.414 0z"
+                />
+              </svg>
+            </span>
+            {f}
           </li>
         ))}
       </ul>
-
-      <button className="mt-6 w-full rounded-xl px-4 py-2 text-black font-semibold bg-[var(--gf-btn)] hover:brightness-105">
-        {cta}
-      </button>
-    </div>
+    </article>
   );
-}
-
-// Minimal inline icons (no new deps)
-function SvgIcon({ name, className }) {
-  switch (name) {
-    case "apple":      return (<svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.75"><path d="M16 13c-1.333.667-2.667.667-4 0M12 5c.8-2.5 3-3 4-3-.2 1.4-1.2 3-4 3Zm6.5 6.5c0 5-3 8.5-6.5 8.5S5.5 16.5 5.5 11 8.5 3 12 3s6.5 3.5 6.5 8.5Z"/></svg>);
-    case "dumbbell":  return (<svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.75"><path d="M6 10v4M18 10v4M3 10v4m18-4v4M8 12h8"/></svg>);
-    case "activity":  return (<svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.75"><path d="M3 12h4l2-6 4 12 2-6h4"/></svg>);
-    case "users":     return (<svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.75"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>);
-    case "calendar":  return (<svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.75"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>);
-    case "target":    return (<svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.75"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M22 12h-2M4 12H2M12 2v2M12 20v2"/></svg>);
-    default:          return null;
-  }
 }
