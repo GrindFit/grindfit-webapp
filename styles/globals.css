@@ -163,3 +163,31 @@ body::after {
   opacity: .9;
   filter: blur(24px);
 }
+/* --- Loveable polish: section titles + icon chips --- */
+.gf-section-title{
+  font-weight: 900;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  /* 22px → 32px across breakpoints */
+  font-size: clamp(1.375rem, 1.05rem + 1.2vw, 2rem);
+  color: #e5e7eb; /* zinc-200 */
+}
+
+/* Orange gradient icon chip behind each feature icon */
+.gf-icon{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--gf-orange-start) 0%, var(--gf-orange-mid) 100%);
+  box-shadow:
+    0 14px 40px rgba(255,106,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.06);
+}
+.gf-icon svg{
+  width: 20px;
+  height: 20px;
+  stroke: #ffffff;
+}
