@@ -1,104 +1,134 @@
 // components/CommandCenter.jsx
+import { CheckCircle, Flame } from "lucide-react";
+
 export default function CommandCenter() {
+  // fake example values; wire these to real data whenever you want
+  const steps = { current: 6700, goal: 10000 };
+  const water = { current: 2, goal: 4, unit: "L" };
+  const calories = { current: 1950, goal: 2500 };
+
+  const week = [
+    { day: "Monday", title: "Push Day · Chest & Triceps", done: true },
+    { day: "Tuesday", title: "Pull Day · Back & Biceps", next: true },
+    { day: "Wednesday", title: "Leg Day · Quads & Glutes" },
+    { day: "Thursday", title: "Cardio & Core" },
+    { day: "Friday", title: "Full Body HIIT" },
+  ];
+
   return (
-    <section id="dashboard" className="mt-20">
-      <h2 className="gf-section-title text-3xl sm:text-4xl">
-        Your Fitness <span className="gf-gradient-text">Command Center</span>
-      </h2>
+    <section className="relative py-16 sm:py-18 md:py-22">
+      <div className="mx-auto w-full max-w-6xl px-6">
+        <h2 className="text-[28px] sm:text-[32px] md:text-[36px] font-extrabold tracking-tight text-white">
+          Your Fitness <span className="bg-gradient-to-r from-[#FF7A18] to-[#FFA24A] bg-clip-text text-transparent">Command Center</span>
+        </h2>
 
-      <div className="grid md:grid-cols-3 gap-6 mt-8">
-        {/* Left: Today’s Progress */}
-        <div className="cc-card">
-          <p className="text-sm mb-3 opacity-80">Today’s Progress</p>
-          <div className="space-y-4">
-            <div>
-              <div className="flex justify-between text-xs opacity-70 mb-1">
-                <span>Steps</span><span>85%</span>
-              </div>
-              <div className="w-full bg-black/30 rounded-full h-2 overflow-hidden">
-                <div className="cc-bar cc-bar--orange h-2 w-[85%]" />
-              </div>
+        <div className="mt-8 grid gap-6 lg:grid-cols-3">
+          {/* LEFT – stats as NUMBERS */}
+          <div className="rounded-2xl border border-white/5 bg-black/30 p-6 backdrop-blur-sm">
+            <h3 className="text-sm font-semibold text-white/80 mb-4">Today’s Progress</h3>
+
+            <div className="space-y-4">
+              <Stat label="Steps" value={`${steps.current.toLocaleString()} / ${steps.goal.toLocaleString()}`} />
+              <Stat label="Water Intake" value={`${water.current}${water.unit} / ${water.goal}${water.unit}`} />
+              <Stat label="Calories" value={`${calories.current.toLocaleString()} / ${calories.goal.toLocaleString()}`} />
             </div>
 
-            <div>
-              <div className="flex justify-between text-xs opacity-70 mb-1">
-                <span>Water Intake</span><span>73%</span>
-              </div>
-              <div className="w-full bg-black/30 rounded-full h-2 overflow-hidden">
-                <div className="cc-bar cc-bar--green h-2 w-[73%]" />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex justify-between text-xs opacity-70 mb-1">
-                <span>Calories</span><span>66%</span>
-              </div>
-              <div className="w-full bg-black/30 rounded-full h-2 overflow-hidden">
-                <div className="cc-bar cc-bar--orange h-2 w-[66%]" />
-              </div>
+            <div className="mt-6 grid grid-cols-2 gap-4">
+              <MiniStat label="Workouts" value="45" />
+              <MiniStat label="lbs lost" value="-12" negative />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 mt-5">
-            <div className="cc-card">
-              <p className="text-xs opacity-70">Workouts</p>
-              <p className="text-2xl font-bold mt-1">45</p>
-            </div>
-            <div className="cc-card">
-              <p className="text-xs opacity-70">lbs Lost</p>
-              <p className="text-2xl font-bold mt-1">-12</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Middle: This Week’s Plan */}
-        <div className="cc-card">
-          <p className="text-sm mb-3 opacity-80">This Week’s Plan</p>
-          <ul className="space-y-3 text-sm">
-            {[
-              ['Monday',    'Push Day – Chest & Triceps',  '45 min'],
-              ['Tuesday',   'Pull Day – Back & Biceps',    '50 min'],
-              ['Wednesday', 'Leg Day – Quads & Glutes',    '60 min'],
-              ['Thursday',  'Cardio & Core',               '30 min'],
-              ['Friday',    'Full Body HIIT',              '40 min'],
-            ].map(([day, what, time]) => (
-              <li key={day} className="flex items-center gap-3">
-                <div className="gf-icon gf-icon--green text-white/90 text-xs w-7 h-7 rounded-md flex items-center justify-center">
-                  {time.replace(' min','')}
-                </div>
-                <div className="flex-1">
-                  <p className="font-medium">{day}</p>
-                  <p className="text-xs opacity-70">{what}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Right: Nutrition Goals */}
-        <div className="cc-card">
-          <p className="text-sm mb-3 opacity-80">Nutrition Goals</p>
-          <div className="bg-black/30 rounded-lg p-4">
-            <p className="text-4xl font-extrabold">2,156</p>
-            <p className="text-xs opacity-70 -mt-1 mb-4">calories remaining</p>
-
-            <div className="grid grid-cols-3 gap-3 text-center">
-              {[
-                ['Protein','120g'],
-                ['Carbs','280g'],
-                ['Fat','75g'],
-              ].map(([k, v]) => (
-                <div key={k} className="cc-card">
-                  <p className="text-xs opacity-70">{k}</p>
-                  <p className="font-bold mt-1">{v}</p>
+          {/* MIDDLE – week plan (orange complete, green next) */}
+          <div className="rounded-2xl border border-white/5 bg-black/30 p-6 backdrop-blur-sm">
+            <h3 className="text-sm font-semibold text-white/80 mb-4">This Week’s Plan</h3>
+            <div className="space-y-3">
+              {week.map((w, i) => (
+                <div
+                  key={i}
+                  className={`rounded-xl border p-4 text-sm transition
+                    ${w.done ? "border-amber-500/30 bg-amber-500/5" : w.next ? "border-emerald-500/30 bg-emerald-500/5" : "border-white/10 bg-white/0"}
+                  `}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="font-semibold text-white/90">{w.day}</div>
+                    {w.done && (
+                      <span className="inline-flex items-center gap-1 rounded-md bg-gradient-to-r from-[#FF7A18] to-[#FFA24A] px-2 py-0.5 text-[11px] font-semibold text-black">
+                        <Flame size={14} /> Done
+                      </span>
+                    )}
+                    {w.next && (
+                      <span className="inline-flex items-center gap-1 rounded-md bg-emerald-500 px-2 py-0.5 text-[11px] font-semibold text-black">
+                        Next
+                      </span>
+                    )}
+                  </div>
+                  <div className="mt-1 text-white/70">{w.title}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          <button className="gf-cta mt-5 w-full">Start Workout</button>
+          {/* RIGHT – nutrition with O/G/O badges */}
+          <div className="rounded-2xl border border-white/5 bg-black/30 p-6 backdrop-blur-sm">
+            <h3 className="text-sm font-semibold text-white/80 mb-4">Nutrition Goals</h3>
+
+            <div className="rounded-xl border border-white/10 bg-white/0 p-5">
+              <div className="text-3xl font-black text-white">2,156</div>
+              <div className="text-xs uppercase tracking-wide text-white/60">calories remaining</div>
+
+              <div className="mt-5 grid grid-cols-3 gap-3 text-center">
+                <Macro label="Protein" value="120g" color="orange" />
+                <Macro label="Carbs" value="280g" color="green" />
+                <Macro label="Fat" value="75g" color="orange" />
+              </div>
+            </div>
+
+            <button
+              className="mt-5 w-full rounded-xl px-4 py-3 text-sm font-semibold text-black
+                         bg-gradient-to-r from-[#FF7A18] to-[#FFA24A] hover:brightness-105 transition"
+            >
+              Start Workout
+            </button>
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function Stat({ label, value }) {
+  return (
+    <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/0 px-4 py-3">
+      <span className="text-xs font-semibold uppercase tracking-wide text-white/60">{label}</span>
+      <span className="text-[15px] font-semibold text-white">{value}</span>
+    </div>
+  );
+}
+
+function MiniStat({ label, value, negative = false }) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/0 p-4 text-center">
+      <div className={`mx-auto grid h-10 w-10 place-items-center rounded-full ${negative ? "bg-rose-500/15 text-rose-300" : "bg-emerald-500/15 text-emerald-300"}`}>
+        {negative ? "–" : "+"}
+      </div>
+      <div className="mt-2 text-xl font-extrabold text-white">{value}</div>
+      <div className="text-xs text-white/60">{label}</div>
+    </div>
+  );
+}
+
+function Macro({ label, value, color = "orange" }) {
+  const pill =
+    color === "green"
+      ? "from-emerald-400 to-emerald-500"
+      : "from-[#FF7A18] to-[#FFA24A]";
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/0 p-3">
+      <div className={`mx-auto w-fit rounded-md bg-gradient-to-r ${pill} px-2 py-0.5 text-[11px] font-bold text-black`}>
+        {value}
+      </div>
+      <div className="mt-1 text-[12px] uppercase tracking-wide text-white/60">{label}</div>
+    </div>
   );
 }
