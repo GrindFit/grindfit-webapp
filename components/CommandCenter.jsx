@@ -1,128 +1,162 @@
 // components/CommandCenter.jsx
+import React from "react";
+
 export default function CommandCenter() {
   return (
-    <div id="dashboard" className="w-full">
-      <h2 className="text-center font-black text-white text-[28px] sm:text-[34px] md:text-[40px]">
-        Your Fitness <span className="gf-gradient-text">Command Center</span>
-      </h2>
+    <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_1fr_0.9fr]">
+      {/* Progress */}
+      <div className="gf-card rounded-2xl p-6">
+        <h3 className="font-semibold text-white/90">Today’s Progress</h3>
 
-      <div className="mt-10 grid gap-6 lg:grid-cols-3">
-        {/* LEFT: Progress */}
-        <div className="rounded-2xl bg-white/[0.03] p-6 border border-white/5">
-          <h3 className="text-sm font-semibold text-zinc-300">Today’s Progress</h3>
-
-          <MetricBar label="Steps" value="6,700 / 10,000" color="orange" />
-          <MetricBar label="Water" value="2 L / 4 L" color="green" />
-          <MetricBar label="Calories" value="1,950 / 2,500" color="orange" />
-          <MetricBar label="Weight" value="72 kg" color="slate" />
-
-          <div className="mt-5 flex items-center gap-4">
-            <CircleStat label="Workouts" value="45" color="green" />
-            <CircleStat label="Weight Δ" value="-12 kg" color="orange" />
-          </div>
+        <div className="mt-5 space-y-4">
+          <Bar label="Steps" value={6700} max={10000} tone="orange" />
+          <Bar label="Water" value={2} max={4} tone="green" unit="L" />
+          <Bar label="Calories" value={1950} max={2500} tone="orange" />
+          {/* weight bar explicitly green as requested */}
+          <Bar label="Weight" value={72} max={80} tone="green" unit="kg" />
         </div>
 
-        {/* CENTER: This Week's Plan */}
-        <div className="rounded-2xl bg-white/[0.03] p-6 border border-white/5">
-          <h3 className="text-sm font-semibold text-zinc-300">This Week’s Plan</h3>
-          <PlanRow day="Monday"    task="Push Day — Chest & Triceps"  status="done" />
-          <PlanRow day="Tuesday"   task="Pull Day — Back & Biceps"   status="next" />
-          <PlanRow day="Wednesday" task="Leg Day — Quads & Glutes"   />
-          <PlanRow day="Thursday"  task="Cardio & Core"              />
-          <PlanRow day="Friday"    task="Full Body HIIT"             />
-        </div>
-
-        {/* RIGHT: Nutrition */}
-        <div className="rounded-2xl bg-white/[0.03] p-6 border border-white/5">
-          <h3 className="text-sm font-semibold text-zinc-300">Nutrition Goals</h3>
-          <div className="mt-5 rounded-2xl bg-black/30 p-6 border border-white/5">
-            <div className="text-3xl font-extrabold text-white text-center">2,156</div>
-            <div className="text-[11px] text-zinc-400 text-center mt-1 tracking-wide">CALORIES REMAINING</div>
-
-            <div className="mt-5 grid grid-cols-3 gap-3">
-              <Macro label="Protein" value="120g" />
-              <Macro label="Carbs" value="280g" highlight="green" />
-              <Macro label="Fat" value="75g" />
-            </div>
-
-            <button className="mt-6 w-full rounded-xl px-4 py-2 text-black font-semibold bg-[var(--gf-btn)] hover:brightness-105">
-              Start Workout
-            </button>
-          </div>
+        <div className="mt-6 grid grid-cols-2 gap-4">
+          <MiniStat label="Workouts" value="45" tone="orange" />
+          <MiniStat label="kg lost" value="-12" tone="green" />
         </div>
       </div>
+
+      {/* Week plan */}
+      <div className="gf-card rounded-2xl p-6">
+        <h3 className="font-semibold text-white/90">This Week’s Plan</h3>
+        <ul className="mt-4 space-y-3">
+          {[
+            ["Monday", "Push Day — Chest & Triceps", "done"],
+            ["Tuesday", "Pull Day — Back & Biceps", "next"],
+            ["Wednesday", "Leg Day — Quads & Glutes", "todo"],
+            ["Thursday", "Cardio & Core", "todo"],
+            ["Friday", "Full Body HIIT", "todo"],
+          ].map(([day, label, state]) => (
+            <li
+              key={day}
+              className="flex items-center justify-between rounded-xl bg-white/3 px-4 py-3 ring-1 ring-black/5"
+            >
+              <div>
+                <p className="text-sm font-semibold text-white">{day}</p>
+                <p className="text-xs text-[#9BA3AF]">{label}</p>
+              </div>
+
+              {/* badge on the right: orange check for completed, black/white play for next, subtle dot for todo */}
+              {state === "done" ? (
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--gf-orange-start),var(--gf-orange-end))] shadow-[0_0_0_2px_#0b0f12]">
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="14"
+                    height="14"
+                    className="text-black"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M20.285 6.709a1 1 0 010 1.414l-9.193 9.193a1 1 0 01-1.414 0l-5.364-5.364a1 1 0 111.414-1.414l4.657 4.657 8.486-8.486a1 1 0 011.414 0z"
+                    />
+                  </svg>
+                </span>
+              ) : state === "next" ? (
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black">
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="12"
+                    height="12"
+                    className="text-white"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M8 5v14l11-7z"
+                    />
+                  </svg>
+                </span>
+              ) : (
+                <span className="inline-block h-2.5 w-2.5 rounded-full bg-white/20" />
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Nutrition */}
+      <div className="gf-card rounded-2xl p-6">
+        <h3 className="font-semibold text-white/90">Nutrition Goals</h3>
+
+        <div className="mt-5 rounded-2xl bg-black/30 p-5 text-center ring-1 ring-black/10">
+          <p className="text-sm text-[#9BA3AF]">CALORIES REMAINING</p>
+          <p className="mt-1 text-4xl font-extrabold text-white">2,156</p>
+        </div>
+
+        <div className="mt-5 grid grid-cols-3 gap-3">
+          <Macro label="Protein" value="120g" tone="orange" />
+          <Macro label="Carbs" value="280g" tone="green" />
+          <Macro label="Fat" value="75g" tone="orange" />
+        </div>
+
+        <button className="gf-cta mt-6 w-full rounded-xl px-4 py-2 text-sm font-semibold text-black">
+          Start Workout
+        </button>
+      </div>
     </div>
   );
 }
 
-/* ---------- Subcomponents ---------- */
+/* ——— subcomponents ——— */
 
-function MetricBar({ label, value, color }) {
-  const bar =
-    color === "green"
-      ? "bg-gradient-to-r from-[var(--gf-green-start)] via-[var(--gf-green-mid)] to-[var(--gf-green-end)]"
-      : color === "orange"
-      ? "bg-gradient-to-r from-[var(--gf-orange-start)] via-[var(--gf-orange-mid)] to-[var(--gf-orange-end)]"
-      : "bg-white/15";
-
+function Bar({ label, value, max, tone, unit }) {
+  const pct = Math.max(0, Math.min(100, (value / max) * 100));
+  const grad =
+    tone === "green"
+      ? "bg-[linear-gradient(90deg,var(--gf-green-start),var(--gf-green-end))]"
+      : "bg-[linear-gradient(90deg,var(--gf-orange-start),var(--gf-orange-end))]";
   return (
-    <div className="mt-4">
-      <div className="flex items-center justify-between">
-        <span className="text-[13px] text-zinc-300">{label}</span>
-        <span className="text-[13px] font-medium text-zinc-200">{value}</span>
+    <div>
+      <div className="flex items-baseline justify-between text-xs">
+        <span className="text-white/90">{label}</span>
+        <span className="text-[#9BA3AF]">
+          {value}
+          {unit ? ` ${unit}` : ""} / {max}
+          {unit ? ` ${unit}` : ""}
+        </span>
       </div>
-      <div className="mt-2 h-2 w-full rounded-full bg-white/8 overflow-hidden">
-        <div className={`h-full w-[66%] ${bar}`}></div>
+      <div className="mt-2 h-2.5 w-full rounded-full bg-white/10">
+        <div
+          className={`h-2.5 rounded-full ${grad}`}
+          style={{ width: `${pct}%` }}
+        />
       </div>
     </div>
   );
 }
 
-function CircleStat({ label, value, color = "green" }) {
-  const ring =
-    color === "orange"
-      ? "bg-gradient-to-br from-[var(--gf-orange-start)] via-[var(--gf-orange-mid)] to-[var(--gf-orange-end)]"
-      : "bg-gradient-to-br from-[var(--gf-green-start)] via-[var(--gf-green-mid)] to-[var(--gf-green-end)]";
-
+function MiniStat({ label, value, tone }) {
+  const grad =
+    tone === "green"
+      ? "bg-[linear-gradient(135deg,var(--gf-green-start),var(--gf-green-end))]"
+      : "bg-[linear-gradient(135deg,var(--gf-orange-start),var(--gf-orange-end))]";
   return (
-    <div className="flex items-center gap-3">
-      <div className={`w-14 h-14 rounded-full grid place-items-center text-black font-extrabold ${ring} shadow-[0_12px_30px_rgba(0,0,0,.25)]`}>
-        {value}
-      </div>
-      <div className="text-xs text-zinc-400">{label}</div>
+    <div className="flex items-center justify-center gap-3 rounded-2xl bg-black/30 p-4 ring-1 ring-black/10">
+      <span className={`inline-flex h-9 w-9 items-center justify-center rounded-full ${grad} text-black font-bold`}>
+        {typeof value === "string" ? value : String(value)}
+      </span>
+      <span className="text-sm text-[#9BA3AF]">{label}</span>
     </div>
   );
 }
 
-function PlanRow({ day, task, status }) {
-  const base = "flex items-center justify-between rounded-xl px-4 py-3 border border-white/5";
-  const doneBg  = "bg-[rgba(255,122,26,.12)]";   // translucent orange
-  const nextBg  = "bg-[rgba(46,213,115,.12)]";   // translucent green
-
+function Macro({ label, value, tone }) {
+  const grad =
+    tone === "green"
+      ? "bg-[linear-gradient(135deg,var(--gf-green-start),var(--gf-green-end))]"
+      : "bg-[linear-gradient(135deg,var(--gf-orange-start),var(--gf-orange-end))]";
   return (
-    <div className={`mt-3 ${base} ${status === "done" ? doneBg : status === "next" ? nextBg : "bg-white/[0.03]"}`}>
-      <div>
-        <div className="text-[13px] text-zinc-400">{day}</div>
-        <div className="text-sm font-medium text-zinc-100">{task}</div>
-      </div>
-
-      <div className="ml-4">
-        {status === "done" && (
-          <span title="Completed" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[var(--gf-orange-mid)] text-black font-bold">✓</span>
-        )}
-        {status === "next" && (
-          <span title="Next up" className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[var(--gf-green-mid)] text-black font-bold">▶</span>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function Macro({ label, value, highlight }) {
-  return (
-    <div className="rounded-xl bg-white/[0.035] border border-white/5 p-3 text-center">
-      <div className={`text-sm font-semibold ${highlight === "green" ? "text-[var(--gf-green-mid)]" : "text-[var(--gf-orange-mid)]"}`}>{label}</div>
-      <div className="mt-1 font-bold text-white">{value}</div>
+    <div className="rounded-xl bg-black/30 p-3 text-center ring-1 ring-black/10">
+      <div className={`mx-auto mb-2 h-7 w-7 rounded-md ${grad}`} />
+      <div className="text-xs text-[#9BA3AF]">{label}</div>
+      <div className="text-sm font-semibold text-white">{value}</div>
     </div>
   );
 }
