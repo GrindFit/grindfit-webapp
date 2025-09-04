@@ -1,231 +1,242 @@
 // pages/index.jsx
 import React from "react";
-import {
-  Utensils,
-  Activity,
-  BarChart3,
-  Users,
-  CalendarClock,
-  Zap,
-  Play,
-} from "lucide-react";
-
-const FEATS = [
-  { title: "Personalized Nutrition", copy: "Custom meal plans based on your goals, fitness level, and preferences. Track macros effortlessly.", Icon: Utensils },
-  { title: "Smart Workouts", copy: "Adaptive programs that adjust to your progress—from beginner to elite.", Icon: Activity },
-  { title: "Weekly Planning", copy: "See your complete roadmap, plan sessions, track progress, and stay consistent.", Icon: CalendarClock },
-  { title: "Real-time Tracking", copy: "Monitor steps, water intake, calories, and all vital metrics. Your progress, visualized.", Icon: BarChart3 },
-  { title: "Community Support", copy: "Join a community that keeps you accountable, motivated, and inspired.", Icon: Users },
-  { title: "Expert Guidance", copy: "Decades of insight distilled into every feature. Trusted by thousands.", Icon: Zap },
-];
 
 export default function Home() {
   return (
     <main>
-      {/* Top nav: brand left, tabs right */}
-      <header className="gf-topnav">
-        <div className="gf-inner">
-          <div className="gf-brand">GRINDFIT</div>
-          <nav className="gf-tabs">
-            <a href="#why" className="gf-tab">Why Grindfit</a>
-            <a href="#nutrition" className="gf-tab">Nutrition</a>
-            <a href="#reset" className="gf-tab">Reset & Recover</a>
-            <a href="#membership" className="gf-tab">Membership</a>
-            <a href="/login" className="gf-login">Log in</a>
-            <a href="/app" className="gf-cta">Open App</a>
-          </nav>
-        </div>
-      </header>
-
-      {/* SECTION 1 – Hero */}
-      <section className="gf-section gf-hero">
-        <div className="gf-inner">
+      {/* ===== Hero ===== */}
+      <section className="gf-hero">
+        <div className="gf-wrap">
           <h1 className="gf-hero-title">
-            Train Hard.<br />
-            Think Sharp.<br />
-            Live <span className="gf-orange-grad-text">Unstoppable</span>
+            <span>Train Hard.</span>
+            <span>Think Sharp.</span>
+            <span>Live <strong className="gf-grad-orange">Unstoppable</strong></span>
           </h1>
+
           <p className="gf-hero-sub">
-            A psychology-driven fitness system that upgrades your body, mind, and lifestyle.
-            Built to win.
+            A psychology-driven fitness system that upgrades your body, mind, and lifestyle. Built to win.
           </p>
-          <a href="#plans" className="gf-cta gf-hero-cta">Start Your Transformation</a>
+
+          <a className="gf-cta" href="#plans">Start Your Transformation</a>
         </div>
       </section>
 
-      {/* SECTION 2 – Features (6 cards, exact sizes) */}
-      <section id="why" className="gf-section">
-        <div className="gf-inner">
-          <h2 className="gf-center-title">
-            Everything You Need to <span className="gf-orange-grad-text">Succeed</span>
+      {/* ===== Features (6 boxes) ===== */}
+      <section className="gf-features" id="features">
+        <div className="gf-wrap">
+          <h2 className="gf-section-title">
+            Everything You Need to <strong className="gf-grad-orange">Succeed</strong>
           </h2>
 
-          <ul className="gf-feat-grid">
-            {FEATS.map(({ title, copy, Icon }, i) => (
-              <li key={title} className="gf-feat-card">
-                <div className="gf-feature-icon">
-                  <Icon />
-                </div>
-                <div>
-                  <h4>{title}</h4>
-                  <p>{copy}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+          {/* 2 x 3 grid – icons already sized/colored per your spec */}
+          <div className="gf-feat-grid">
+            {/* top row – orange gradient icons */}
+            <article className="gf-feat-card">
+              <div className="gf-feat-icon gf-ico-orange" aria-hidden />
+              <h3>Personalized Nutrition</h3>
+              <p>Custom meal plans based on your goals. Track macros effortlessly.</p>
+            </article>
+
+            <article className="gf-feat-card">
+              <div className="gf-feat-icon gf-ico-orange" aria-hidden />
+              <h3>Smart Workouts</h3>
+              <p>Adaptive programs that adjust to your progress—from beginner to elite.</p>
+            </article>
+
+            <article className="gf-feat-card">
+              <div className="gf-feat-icon gf-ico-orange" aria-hidden />
+              <h3>Weekly Planning</h3>
+              <p>See your roadmap. Plan sessions and stay consistent week by week.</p>
+            </article>
+
+            {/* bottom row – green gradient icons */}
+            <article className="gf-feat-card">
+              <div className="gf-feat-icon gf-ico-green" aria-hidden />
+              <h3>Real-time Tracking</h3>
+              <p>Monitor steps, water intake, calories and vital metrics beautifully.</p>
+            </article>
+
+            <article className="gf-feat-card">
+              <div className="gf-feat-icon gf-ico-green" aria-hidden />
+              <h3>Community Support</h3>
+              <p>Join a community that keeps you accountable, motivated, and inspired.</p>
+            </article>
+
+            <article className="gf-feat-card">
+              <div className="gf-feat-icon gf-ico-green" aria-hidden />
+              <h3>Expert Guidance</h3>
+              <p>Decades of insight distilled into every feature. Trusted by thousands.</p>
+            </article>
+          </div>
         </div>
       </section>
 
-      {/* SECTION 3 – Command Center (with new Nutrition box) */}
-      <section id="command-center" className="gf-section">
-        <div className="gf-inner">
-          <div className="gf-section-lead">
-            <h2>
-              Your Fitness <span className="gf-orange-grad-text">Command Center</span>
-            </h2>
-            <p>
-              Experience the dashboard that will guide you to your goals.
-              Track everything that matters in one beautiful interface.
-            </p>
-          </div>
+      {/* ===== Command Center (restored, clean) ===== */}
+      <section className="gf-cc" id="command">
+        <div className="gf-wrap">
+          <header className="gf-cc-head">
+            <h2>Your Fitness <span className="gf-grad-orange">Command Center</span></h2>
+            <p>Experience the dashboard that will guide you to your goals. Track everything that matters in one beautiful interface.</p>
+          </header>
 
           <div className="gf-cc-grid">
-            {/* Progress card */}
-            <div className="gf-card">
+            {/* Left: Today's Progress */}
+            <div className="gf-cc-card">
               <h3>Today’s Progress</h3>
-              <div className="gf-metrics">
-                <div className="gf-metric">
-                  <span>Steps</span>
-                  <div className="gf-bar gf-bar-orange" style={{ ["--val"]: "67%" }} />
-                  <span className="gf-num">6,700 / 10,000</span>
-                </div>
-                <div className="gf-metric">
-                  <span>Water</span>
-                  <div className="gf-bar gf-bar-green" style={{ ["--val"]: "50%" }} />
-                  <span className="gf-num">2 L / 4 L</span>
-                </div>
-                <div className="gf-metric">
-                  <span>Calories</span>
-                  <div className="gf-bar gf-bar-orange" style={{ ["--val"]: "78%" }} />
-                  <span className="gf-num">1,950 / 2,500</span>
-                </div>
-                <div className="gf-metric">
-                  <span>Weight</span>
-                  <div className="gf-bar gf-bar-green" style={{ ["--val"]: "100%" }} />
-                  <span className="gf-num">72 kg</span>
-                </div>
+
+              <div className="gf-bar">
+                <label>Steps</label>
+                <div className="gf-bar-track"><span style={{width:"67%"}}/></div>
+                <div className="gf-bar-num">6,700 / 10,000</div>
               </div>
 
-              <div className="gf-pills">
-                <div className="gf-pill gf-pill-orange">
-                  <Activity size={16} />
-                  <span>45</span>
-                  <small>Workouts</small>
-                </div>
-                <div className="gf-pill gf-pill-green">
-                  <BarChart3 size={16} />
-                  <span>-12</span>
-                  <small>kg lost</small>
-                </div>
+              <div className="gf-bar">
+                <label>Water</label>
+                <div className="gf-bar-track gf-green"><span style={{width:"50%"}}/></div>
+                <div className="gf-bar-num">2 L / 4 L</div>
+              </div>
+
+              <div className="gf-bar">
+                <label>Calories</label>
+                <div className="gf-bar-track"><span style={{width:"78%"}}/></div>
+                <div className="gf-bar-num">1,950 / 2,500</div>
+              </div>
+
+              <div className="gf-bar">
+                <label>Weight</label>
+                <div className="gf-bar-track gf-green"><span style={{width:"100%"}}/></div>
+                <div className="gf-bar-num">72 kg</div>
+              </div>
+
+              <div className="gf-stats-row">
+                <div className="gf-stat-badge gf-grad-orange">45<span>Workouts</span></div>
+                <div className="gf-stat-badge gf-grad-green">-12<span>kg lost</span></div>
               </div>
             </div>
 
-            {/* Week plan */}
-            <div className="gf-card">
+            {/* Middle: This Week's Plan (green check circles) */}
+            <div className="gf-cc-card">
               <h3>This Week’s Plan</h3>
-              <ul className="gf-week">
-                <li><strong>Monday</strong><span>Push Day — Chest & Triceps</span></li>
-                <li><strong>Tuesday</strong><span>Pull Day — Back & Biceps</span></li>
-                <li><strong>Wednesday</strong><span>Leg Day — Quads & Glutes</span></li>
-                <li><strong>Thursday</strong><span>Cardio & Core</span></li>
-                <li><strong>Friday</strong><span>Full Body HIIT</span></li>
+              <ul className="gf-list">
+                {[
+                  ["Monday","Push Day — Chest & Triceps"],
+                  ["Tuesday","Pull Day — Back & Biceps"],
+                  ["Wednesday","Leg Day — Quads & Glutes"],
+                  ["Thursday","Cardio & Core"],
+                  ["Friday","Full Body HIIT"],
+                ].map(([day,work],i)=>(
+                  <li key={i}>
+                    <span className="gf-day">{day}</span>
+                    <span className="gf-work">{work}</span>
+                    <span className="gf-check" aria-hidden>
+                      {/* green circle with check (white) */}
+                      <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                        <circle cx="10" cy="10" r="9" fill="url(#g)"/>
+                        <path d="M6 10.3l2.3 2.3L14 7.8" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                        <defs>
+                          <linearGradient id="g" x1="0" y1="0" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#16a34a"/><stop offset="1" stopColor="#22c55e"/>
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    </span>
+                  </li>
+                ))}
               </ul>
             </div>
 
-            {/* Nutrition (macros inside big box, button under) */}
-            <div className="gf-card">
+            {/* Right: Nutrition Goals (macros + button under) */}
+            <div className="gf-cc-card">
               <h3>Nutrition Goals</h3>
-              <div className="gf-calorie-box">
-                <div className="gf-cal-number">2,156</div>
-                <div className="gf-macros">
-                  <div className="gf-macro">
-                    <span className="gf-micro">Protein</span>
-                    <strong>120g</strong>
-                  </div>
-                  <div className="gf-macro">
-                    <span className="gf-micro">Carbs</span>
-                    <strong>280g</strong>
-                  </div>
-                  <div className="gf-macro">
-                    <span className="gf-micro">Fat</span>
-                    <strong>75g</strong>
-                  </div>
+
+              <div className="gf-macros">
+                <div className="gf-macro">
+                  <strong>120g</strong>
+                  <span>Protein</span>
+                </div>
+                <div className="gf-macro">
+                  <strong>280g</strong>
+                  <span>Carbs</span>
+                </div>
+                <div className="gf-macro">
+                  <strong>75g</strong>
+                  <span>Fat</span>
                 </div>
               </div>
-              <button className="gf-cta-wide">
-                <Play size={16} />
-                Start Workout
-              </button>
+
+              <button className="gf-cta gf-cta-block" type="button">Start Workout</button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 4 – Plans */}
-      <section id="plans" className="gf-section">
-        <div className="gf-inner">
-          <h2 className="gf-center-title">
-            Choose Your <span className="gf-orange-grad-text">Transformation Plan</span>
-          </h2>
+      {/* ===== Pricing ===== */}
+      <section className="gf-plans" id="plans">
+        <div className="gf-wrap">
+          <h2 className="gf-section-title">Choose Your <strong className="gf-grad-orange">Transformation Plan</strong></h2>
 
           <div className="gf-plans-grid">
+            {/* Starter */}
             <article className="gf-plan">
-              <div className="gf-plan-head">
-                <div className="gf-plan-icon" />
-                <h3>Starter</h3>
-                <div className="gf-price">$19 <span>/month</span></div>
-              </div>
-              <ul className="gf-plan-list">
-                <li><span className="gf-check" /> Basic workout plans</li>
-                <li><span className="gf-check" /> Nutrition tracking</li>
-                <li><span className="gf-check" /> Daily metrics logging</li>
-                <li><span className="gf-check" /> Mobile app access</li>
-                <li><span className="gf-check" /> Community support</li>
+              <div className="gf-plan-icon gf-ico-orange" aria-hidden />
+              <h3>Starter</h3>
+              <div className="gf-price"><span>$19</span><small>/month</small></div>
+              <ul className="gf-bullets">
+                {[
+                  "Basic workout plans",
+                  "Nutrition tracking",
+                  "Daily metrics logging",
+                  "Mobile app access",
+                  "Community support",
+                ].map((t,i)=>(
+                  <li key={i}><span className="gf-bullet-check" aria-hidden />{t}</li>
+                ))}
               </ul>
-              <a href="/start" className="gf-cta-wide">Start Free Trial</a>
+              <a href="#" className="gf-cta gf-cta-block">Start Free Trial</a>
             </article>
 
-            <article className="gf-plan gf-plan-pop">
-              <div className="gf-plan-head">
-                <div className="gf-pop-badge">Most Popular</div>
-                <div className="gf-plan-icon" />
-                <h3>Premium</h3>
-                <div className="gf-price">$39 <span>/month</span></div>
+            {/* Premium – only crown here */}
+            <article className="gf-plan gf-popular">
+              <div className="gf-pop-tag">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path d="M5 17h14l-1-8-4 3-3-5-3 5-4-3-1 8z" stroke="currentColor" strokeWidth="2" />
+                </svg>
+                Most Popular
               </div>
-              <ul className="gf-plan-list">
-                <li><span className="gf-check" /> Everything in Starter</li>
-                <li><span className="gf-check" /> AI-progressive programming</li>
-                <li><span className="gf-check" /> Personalized meal planning</li>
-                <li><span className="gf-check" /> Advanced analytics</li>
-                <li><span className="gf-check" /> Priority support</li>
+              <div className="gf-plan-icon gf-ico-orange" aria-hidden />
+              <h3>Premium</h3>
+              <div className="gf-price"><span>$39</span><small>/month</small></div>
+              <ul className="gf-bullets">
+                {[
+                  "Everything in Starter",
+                  "AI-progressive programming",
+                  "Personalized meal planning",
+                  "Advanced analytics",
+                  "Priority support",
+                ].map((t,i)=>(
+                  <li key={i}><span className="gf-bullet-check" aria-hidden />{t}</li>
+                ))}
               </ul>
-              <a href="/start" className="gf-cta-wide">Start Free Trial</a>
+              <a href="#" className="gf-cta gf-cta-block">Start Free Trial</a>
             </article>
 
+            {/* Elite */}
             <article className="gf-plan">
-              <div className="gf-plan-head">
-                <div className="gf-plan-icon" />
-                <h3>Elite</h3>
-                <div className="gf-price">$79 <span>/month</span></div>
-              </div>
-              <ul className="gf-plan-list">
-                <li><span className="gf-check" /> All Elite features</li>
-                <li><span className="gf-check" /> 1 on 1 personal coaching</li>
-                <li><span className="gf-check" /> Custom workout design</li>
-                <li><span className="gf-check" /> Elite community access</li>
-                <li><span className="gf-check" /> Priority new features</li>
+              <div className="gf-plan-icon gf-ico-orange" aria-hidden />
+              <h3>Elite</h3>
+              <div className="gf-price"><span>$79</span><small>/month</small></div>
+              <ul className="gf-bullets">
+                {[
+                  "All Elite features",
+                  "1 on 1 personal coaching",
+                  "Custom workout design",
+                  "Elite community access",
+                  "Priority new features",
+                ].map((t,i)=>(
+                  <li key={i}><span className="gf-bullet-check" aria-hidden />{t}</li>
+                ))}
               </ul>
-              <a href="/start" className="gf-cta-wide">Start Free Trial</a>
+              <a href="#" className="gf-cta gf-cta-block">Start Free Trial</a>
             </article>
           </div>
         </div>
