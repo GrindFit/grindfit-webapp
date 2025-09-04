@@ -1177,3 +1177,144 @@ main { scroll-snap-type: y mandatory; }
   .gf-cc-grid{ grid-template-columns: 1fr; }
   .gf-plans-grid{ grid-template-columns: 1fr; }
 }
+/* === Exact sizing for the 6 feature cards === */
+/* 12cm ≈ 454px, 7cm ≈ 264px, icon 1.8cm ≈ 68px */
+.gf-feat-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:28px; }
+@media (max-width: 1200px){ .gf-feat-grid { grid-template-columns: 1fr; } }
+
+.gf-feat-card{
+  width: 454px;            /* ~12cm */
+  height: 264px;           /* ~7cm  */
+  max-width: 100%;
+  margin-inline: auto;
+  padding: 22px 26px;
+  border-radius: 18px;
+  background: #0e1318;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset, 0 10px 30px rgba(0,0,0,.35);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 14px;
+}
+
+.gf-feature-icon{
+  width: 68px;                /* ~1.8cm */
+  height: 68px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color:#fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+}
+.gf-feature-icon svg{ width: 36px; height: 36px; }
+
+/* Top 3 icons = orange gradient. Bottom 3 = green gradient */
+.gf-feat-grid > li:nth-child(-n + 3) .gf-feature-icon{
+  background: linear-gradient(135deg,#ffb04a,#ff6a1f);
+}
+.gf-feat-grid > li:nth-child(n + 4) .gf-feature-icon{
+  background: linear-gradient(135deg,#27df86,#10b873);
+}
+
+/* Make feature headings & copy breathe at the new scale */
+.gf-feat-card h4{ font-size: 1.1rem; margin: 0; }
+.gf-feat-card p{ opacity:.85; line-height:1.45; margin:0; }
+
+/* === Command Center section framing === */
+.gf-section { padding: 72px 0; }
+.gf-section-lead{ max-width: 880px; margin: 0 auto 28px; text-align: center; }
+.gf-section-lead h2{ font-size: clamp(28px, 4vw, 42px); margin: 0 0 10px; }
+.gf-section-lead p{ opacity:.9; }
+
+.gf-orange-grad-text{
+  background: linear-gradient(135deg,#ffb04a,#ff6a1f);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+/* CC grid layout (3 cards) */
+.gf-cc-grid{
+  display:grid; gap: 24px;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+}
+@media (max-width: 1100px){ .gf-cc-grid{ grid-template-columns: 1fr; } }
+
+.gf-card{
+  background: #0e1318;
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset, 0 10px 30px rgba(0,0,0,.35);
+  padding: 22px 22px 24px;
+}
+.gf-card h3{ margin: 0 0 12px; }
+
+/* Progress bars */
+.gf-metrics{ display:grid; gap:10px; }
+.gf-metric{ display:grid; grid-template-columns: 90px 1fr auto; align-items:center; gap:10px; }
+.gf-metric > span:first-child{ opacity:.8; }
+.gf-num{ opacity:.8; font-variant-numeric: tabular-nums; }
+.gf-bar{
+  --val: 60%;
+  height: 8px; border-radius: 999px; background: rgba(255,255,255,.08); position:relative; overflow:hidden;
+}
+.gf-bar::after{
+  content:""; position:absolute; inset:0; width:var(--val);
+  background: linear-gradient(135deg,#ffb04a,#ff6a1f);
+  border-radius:999px;
+}
+.gf-bar-green::after{ background: linear-gradient(135deg,#27df86,#10b873); }
+
+/* Pills */
+.gf-pills{ display:flex; gap:12px; margin-top:14px; }
+.gf-pill{
+  display:grid; grid-template-columns: 16px auto; align-items:center; gap:8px;
+  background:#0b1014; padding:10px 12px; border-radius:12px; font-weight:600;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+}
+.gf-pill small{ opacity:.8; font-weight:500; }
+.gf-pill-orange{ box-shadow: inset 0 0 0 1px rgba(255,165,0,.35); }
+.gf-pill-green { box-shadow: inset 0 0 0 1px rgba(16,184,115,.35); }
+
+/* Nutrition big box with macros INSIDE */
+.gf-calorie-box{
+  background: #0b1014;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+}
+.gf-cal-number{
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  margin-bottom: 10px;
+}
+.gf-macros{
+  display:grid; grid-template-columns: repeat(3,1fr); gap:10px;
+}
+.gf-macro{
+  background:#0e1318; border-radius:12px; padding:10px 12px; text-align:center;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+}
+.gf-micro{ opacity:.85; display:block; font-size:.85rem; margin-bottom:2px; }
+
+.gf-cta-wide{
+  margin-top: 14px; width: 100%;
+  display:inline-grid; grid-auto-flow: column; justify-content:center; align-items:center; gap:8px;
+  padding: 12px 14px; border-radius: 999px; border:0; color:#0b0f12; font-weight:700;
+  background: linear-gradient(135deg,#ffb04a,#ff6a1f);
+}
+
+/* === Plans: green circles with a white check === */
+.gf-plan-list{ list-style:none; padding:0; margin:0; display:grid; gap:10px; }
+.gf-plan-list li{ display:flex; align-items:flex-start; gap:10px; }
+.gf-check{
+  width:18px; height:18px; border-radius:50%;
+  background: linear-gradient(135deg,#27df86,#10b873);
+  display:inline-grid; place-items:center; flex:0 0 18px; margin-top:2px;
+}
+.gf-check::after{
+  content:"";
+  width:12px; height:12px;
+  background:#fff;
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M9.5 16.2 5.8 12.5l1.4-1.4 2.3 2.3 6.3-6.3 1.4 1.4z"/></svg>') no-repeat center / contain;
+          mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M9.5 16.2 5.8 12.5l1.4-1.4 2.3 2.3 6.3-6.3 1.4 1.4z"/></svg>') no-repeat center / contain;
+}
+
+/* Small helper for orange gradient text used above */
