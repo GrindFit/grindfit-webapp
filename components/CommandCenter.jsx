@@ -1,117 +1,104 @@
 // components/CommandCenter.jsx
-import { CheckCircle2, PlayCircle } from "lucide-react";
+import { Activity, CalendarClock, Scale, Play } from "lucide-react";
 
 export default function CommandCenter() {
   return (
-    <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1.05fr_1fr_0.9fr]">
-      {/* Today's Progress */}
-      <div className="gf-panel">
-        <div className="text-sm font-semibold text-neutral-200">Today’s Progress</div>
+    <section id="command-center" className="gf-section">
+      <div className="gf-section-lead">
+        <h2>
+          Your Fitness <span className="gf-orange-grad-text">Command Center</span>
+        </h2>
+        <p>
+          Experience the dashboard that will guide you to your goals. Track
+          everything that matters in one beautiful interface.
+        </p>
+      </div>
 
-        <Bar label="Steps" value={67} sub="6,700 / 10,000" color="orange" />
-        <Bar label="Water" value={50} sub="2 L / 4 L" color="green" />
-        <Bar label="Calories" value={78} sub="1,950 / 2,500" color="orange" />
-        {/* weight bar specifically green per request */}
-        <Bar label="Weight" value={72} sub="72 kg" color="green" />
+      <div className="gf-cc-grid">
+        {/* Progress */}
+        <div className="gf-card">
+          <h3>Today’s Progress</h3>
+          <div className="gf-metrics">
+            <div className="gf-metric">
+              <span>Steps</span>
+              <div className="gf-bar gf-bar-orange" style={{ "--val": "67%" }} />
+              <span className="gf-num">6,700 / 10,000</span>
+            </div>
 
-        <div className="mt-5 grid grid-cols-2 gap-3">
-          <MiniStat label="Workouts" value="45" tone="orange" />
-          <MiniStat label="kg lost" value="-12" tone="green" />
+            <div className="gf-metric">
+              <span>Water</span>
+              <div className="gf-bar gf-bar-green" style={{ "--val": "50%" }} />
+              <span className="gf-num">2 L / 4 L</span>
+            </div>
+
+            <div className="gf-metric">
+              <span>Calories</span>
+              <div className="gf-bar gf-bar-orange" style={{ "--val": "78%" }} />
+              <span className="gf-num">1,950 / 2,500</span>
+            </div>
+
+            <div className="gf-metric">
+              <span>Weight</span>
+              <div className="gf-bar gf-bar-green" style={{ "--val": "100%" }} />
+              <span className="gf-num">72 kg</span>
+            </div>
+          </div>
+
+          <div className="gf-pills">
+            <div className="gf-pill gf-pill-orange">
+              <Activity size={16} />
+              <span>45</span>
+              <small>Workouts</small>
+            </div>
+            <div className="gf-pill gf-pill-green">
+              <Scale size={16} />
+              <span>-12</span>
+              <small>kg lost</small>
+            </div>
+          </div>
+        </div>
+
+        {/* Week plan */}
+        <div className="gf-card">
+          <h3>This Week’s Plan</h3>
+          <ul className="gf-week">
+            <li><strong>Monday</strong><span>Push Day — Chest & Triceps</span></li>
+            <li><strong>Tuesday</strong><span>Pull Day — Back & Biceps</span></li>
+            <li><strong>Wednesday</strong><span>Leg Day — Quads & Glutes</span></li>
+            <li><strong>Thursday</strong><span>Cardio & Core</span></li>
+            <li><strong>Friday</strong><span>Full Body HIIT</span></li>
+          </ul>
+        </div>
+
+        {/* Nutrition */}
+        <div className="gf-card">
+          <h3>Nutrition Goals</h3>
+
+          {/* Big number with macros INSIDE this box */}
+          <div className="gf-calorie-box">
+            <div className="gf-cal-number">2,156</div>
+            <div className="gf-macros">
+              <div className="gf-macro">
+                <span className="gf-micro">Protein</span>
+                <strong>120g</strong>
+              </div>
+              <div className="gf-macro">
+                <span className="gf-micro">Carbs</span>
+                <strong>280g</strong>
+              </div>
+              <div className="gf-macro">
+                <span className="gf-micro">Fat</span>
+                <strong>75g</strong>
+              </div>
+            </div>
+          </div>
+
+          <button className="gf-cta-wide">
+            <Play size={16} />
+            Start Workout
+          </button>
         </div>
       </div>
-
-      {/* This Week's Plan */}
-      <div className="gf-panel">
-        <div className="text-sm font-semibold text-neutral-200">This Week’s Plan</div>
-
-        <PlanRow day="Monday"   title="Push Day — Chest & Triceps"  status="done" />
-        <PlanRow day="Tuesday"  title="Pull Day — Back & Biceps"   status="next" />
-        <PlanRow day="Wednesday" title="Leg Day — Quads & Glutes"  />
-        <PlanRow day="Thursday" title="Cardio & Core" />
-        <PlanRow day="Friday"   title="Full Body HIIT" />
-      </div>
-
-      {/* Nutrition Goals */}
-      <div className="gf-panel">
-        <div className="text-sm font-semibold text-neutral-200">Nutrition Goals</div>
-
-        <div className="mt-4 rounded-lg bg-neutral-900/50 p-5 text-center">
-          <div className="text-xs text-neutral-400">CALORIES REMAINING</div>
-          <div className="mt-1 text-3xl font-black text-white">2,156</div>
-        </div>
-
-        {/* gradient numbers (no squares above) */}
-        <div className="mt-4 grid grid-cols-3 gap-3">
-          <div className="rounded-lg bg-neutral-900/40 p-3 text-center">
-            <div className="text-xs text-neutral-400">Protein</div>
-            <div className="gf-num--orange text-2xl font-extrabold">120g</div>
-          </div>
-          <div className="rounded-lg bg-neutral-900/40 p-3 text-center">
-            <div className="text-xs text-neutral-400">Carbs</div>
-            <div className="gf-num--green text-2xl font-extrabold">280g</div>
-          </div>
-          <div className="rounded-lg bg-neutral-900/40 p-3 text-center">
-            <div className="text-xs text-neutral-400">Fat</div>
-            <div className="gf-num--orange text-2xl font-extrabold">75g</div>
-          </div>
-        </div>
-
-        <button className="mt-5 w-full gf-cta">Start Workout</button>
-      </div>
-    </div>
-  );
-}
-
-/* ---------- small bits ---------- */
-
-function Bar({ label, value, sub, color }) {
-  return (
-    <div className="mt-4">
-      <div className="flex items-center justify-between text-xs text-neutral-400">
-        <span>{label}</span>
-        <span>{sub}</span>
-      </div>
-      <div className="mt-2 h-2 w-full rounded-full bg-neutral-800">
-        <div
-          className={`h-2 rounded-full ${color === "green" ? "gf-bar--green" : "gf-bar--orange"}`}
-          style={{ width: `${Math.max(0, Math.min(100, value))}%` }}
-        />
-      </div>
-    </div>
-  );
-}
-
-function MiniStat({ label, value, tone = "orange" }) {
-  return (
-    <div className="flex items-center justify-center gap-3 rounded-xl bg-neutral-900/50 p-4">
-      <div className={`gf-mini ${tone === "green" ? "gf-mini--green" : "gf-mini--orange"}`}>
-        {value}
-      </div>
-      <div className="text-sm font-semibold text-white">{label}</div>
-    </div>
-  );
-}
-
-function PlanRow({ day, title, status }) {
-  const chip =
-    status === "done" ? (
-      <div className="gf-dot gf-dot--orange" aria-label="completed" />
-    ) : status === "next" ? (
-      <div className="gf-play">
-        {/* explicitly green play for Tuesday */}
-        <PlayCircle size={16} />
-      </div>
-    ) : (
-      <div className="gf-dot" />
-    );
-
-  return (
-    <div className="mt-3 flex items-center justify-between rounded-lg bg-neutral-900/40 p-3">
-      <div>
-        <div className="text-xs text-neutral-400">{day}</div>
-        <div className="text-sm font-medium text-neutral-100">{title}</div>
-      </div>
-      {chip}
-    </div>
+    </section>
   );
 }
