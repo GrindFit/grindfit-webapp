@@ -61,8 +61,7 @@ export default function Home() {
                 Everything You Need to <span className="gf-orange">Succeed</span>
               </h2>
               <p className="gf-sub">
-                Built from 25 years of industry experience, our platform gives you the tools that have
-                helped millions transform their lives.
+                GRINDFIT gives you the tools that will transform your life. 
               </p>
             </header>
 
@@ -74,7 +73,7 @@ export default function Home() {
                 </div>
                 <h3 className="gf-card-title">Personalized Nutrition</h3>
                 <p className="gf-card-body">
-                  Custom meal plans based on your goals, fitness level, and dietary preferences. Track macros effortlessly.
+                Meal plans based on your goals and fitness level. 
                 </p>
               </article>
 
@@ -85,7 +84,7 @@ export default function Home() {
                 </div>
                 <h3 className="gf-card-title">Smart Workouts</h3>
                 <p className="gf-card-body">
-                  AI-progressive programs that adapt to your progress — from beginner to elite athlete.
+                 Kettle bell progressive programs that adapt to your progress — from beginner to elite athlete.
                 </p>
               </article>
 
@@ -107,7 +106,7 @@ export default function Home() {
                 </div>
                 <h3 className="gf-card-title">Real-time Tracking</h3>
                 <p className="gf-card-body">
-                  Monitor steps, water intake, calories, and all vital metrics. Your progress, visualized beautifully.
+                  Monitor steps, water intake, calories, and your progress, visualized beautifully.
                 </p>
               </article>
 
@@ -129,7 +128,7 @@ export default function Home() {
                 </div>
                 <h3 className="gf-card-title">Expert Guidance</h3>
                 <p className="gf-card-body">
-                  Decades of insight distilled into every feature. Trusted by thousands worldwide.
+                  Decades of insight distilled into every feature.
                 </p>
               </article>
             </div>
@@ -141,3 +140,150 @@ export default function Home() {
     </>
   );
 }
+// …keep everything above unchanged
+
+        {/* ====== COMMAND CENTER ====== */}
+        <section className="gf-section gf-cc" id="command" aria-label="Your Fitness Command Center">
+          <div className="gf-inner">
+            <header className="gf-sechead">
+              <h2 className="gf-h2">
+                Your Fitness <span className="gf-orange">Command Center</span>
+              </h2>
+            </header>
+
+            <div className="gf-cc-grid">
+              {/* Progress */}
+              <article className="gf-cc-panel">
+                <h3 className="gf-cc-h3">Today's Progress</h3>
+
+                <div className="gf-cc-metric">
+                  <div className="gf-cc-row">
+                    <span>Steps</span>
+                    <span className="gf-cc-num">6,700 / 10,000</span>
+                  </div>
+                  <div className="gf-cc-bar"><span style={{width:"67%"}} className="o"></span></div>
+                </div>
+
+                <div className="gf-cc-metric">
+                  <div className="gf-cc-row">
+                    <span>Water</span>
+                    <span className="gf-cc-num">2 L / 4 L</span>
+                  </div>
+                  <div className="gf-cc-bar"><span style={{width:"50%"}} className="g"></span></div>
+                </div>
+
+                <div className="gf-cc-metric">
+                  <div className="gf-cc-row">
+                    <span>Calories</span>
+                    <span className="gf-cc-num">1,950 / 2,500</span>
+                  </div>
+                  <div className="gf-cc-bar"><span style={{width:"78%"}} className="o"></span></div>
+                </div>
+
+                <div className="gf-cc-chips">
+                  <span className="gf-chip g">45<br/><small>Workouts</small></span>
+                  <span className="gf-chip o">-12<br/><small>kg lost</small></span>
+                </div>
+              </article>
+
+              {/* Week plan */}
+              <article className="gf-cc-panel">
+                <h3 className="gf-cc-h3">This Week's Plan</h3>
+
+                <div className="gf-cc-list">
+                  <div className="gf-cc-item">
+                    <div><strong>Monday</strong><span className="gf-cc-sub">Push Day — Chest &amp; Triceps</span></div>
+                    <span className="gf-badge o">✓</span>
+                  </div>
+                  <div className="gf-cc-item">
+                    <div><strong>Tuesday</strong><span className="gf-cc-sub">Pull Day — Back &amp; Biceps</span></div>
+                    <span className="gf-badge g">▶</span>
+                  </div>
+                  <div className="gf-cc-item">
+                    <div><strong>Wednesday</strong><span className="gf-cc-sub">Leg Day — Quads &amp; Glutes</span></div>
+                  </div>
+                  <div className="gf-cc-item">
+                    <div><strong>Thursday</strong><span className="gf-cc-sub">Cardio &amp; Core</span></div>
+                  </div>
+                  <div className="gf-cc-item">
+                    <div><strong>Friday</strong><span className="gf-cc-sub">Full Body HIIT</span></div>
+                  </div>
+                </div>
+              </article>
+
+              {/* Nutrition */}
+              <article className="gf-cc-panel">
+                <h3 className="gf-cc-h3">Nutrition Goals</h3>
+
+                <div className="gf-cc-cal">
+                  <div className="gf-cc-cal-label">CALORIES REMAINING</div>
+                  <div className="gf-cc-cal-num">2,156</div>
+                </div>
+
+                <div className="gf-cc-macros">
+                  <span className="gf-macro o"><b>120g</b><small>Protein</small></span>
+                  <span className="gf-macro g"><b>280g</b><small>Carbs</small></span>
+                  <span className="gf-macro o"><b>75g</b><small>Fat</small></span>
+                </div>
+
+                <a href="/app" className="gf-cta gf-cc-cta">Start Workout</a>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {/* ====== PRICING ====== */}
+        <section className="gf-section gf-plans" id="plans" aria-label="Choose Your Transformation Plan">
+          <div className="gf-inner">
+            <header className="gf-sechead">
+              <h2 className="gf-h2">Choose Your <span className="gf-orange">Transformation Plan</span></h2>
+            </header>
+
+            <div className="gf-plan-grid">
+              {/* Starter */}
+              <article className="gf-plan">
+                <h3 className="gf-plan-name">Starter</h3>
+                <div className="gf-price"><span className="gf-dollar">$</span>19<span className="gf-per">/month</span></div>
+                <ul className="gf-feats">
+                  <li>Basic workout plans</li>
+                  <li>Nutrition tracking</li>
+                  <li>Daily metrics logging</li>
+                  <li>Mobile app access</li>
+                  <li>Community support</li>
+                </ul>
+                <a href="/app" className="gf-cta gf-plan-cta">Start Free Trial</a>
+              </article>
+
+              {/* Premium (Most Popular) */}
+              <article className="gf-plan gf-plan-pop">
+                <div className="gf-pop"><span className="gf-crown">👑</span> Most Popular</div>
+                <h3 className="gf-plan-name">Premium</h3>
+                <div className="gf-price"><span className="gf-dollar">$</span>39<span className="gf-per">/month</span></div>
+                <ul className="gf-feats">
+                  <li>Everything in Starter</li>
+                  <li>AI-progressive programming</li>
+                  <li>Personalized meal planning</li>
+                  <li>Advanced analytics</li>
+                  <li>Priority support</li>
+                </ul>
+                <a href="/app" className="gf-cta gf-plan-cta">Start Free Trial</a>
+              </article>
+
+              {/* Elite */}
+              <article className="gf-plan">
+                <h3 className="gf-plan-name">Elite</h3>
+                <div className="gf-price"><span className="gf-dollar">$</span>79<span className="gf-per">/month</span></div>
+                <ul className="gf-feats">
+                  <li>All Elite features</li>
+                  <li>Exclusive live workshops</li>
+                  <li>Elite community access</li>
+                  <li>Goal setting sprints</li>
+                  <li>Priority new features</li>
+                </ul>
+                <a href="/app" className="gf-cta gf-plan-cta">Start Free Trial</a>
+              </article>
+            </div>
+          </div>
+        </section>
+
+// …keep anything below unchanged
